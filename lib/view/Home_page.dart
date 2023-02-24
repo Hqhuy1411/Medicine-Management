@@ -68,10 +68,15 @@ class _HomePageState extends State<HomePage> {
         return DataRow(
           cells: Utils.modelBuilder(cells, (index, cell) {
             return DataCell(Text('$cell'), showEditIcon: true, onTap: () async {
-              final nameEdit = await openDialog(medicine);
-              List<Medicine> list = medicines
-                  .map((e) => e == medicine ? e.copy(name: nameEdit) : e)
-                  .toList();
+              final nameEdit = await openDialog(medicine, index);
+              print(index);
+              // List<Medicine> list = medicines
+              //     .map((e) => e == medicine
+              //         ? e.copy(usage: e.usage.copy(mor: int.parse(nameEdit)))
+              //         : e)
+              //     .toList();
+              List<Medicine> list =
+                  checkEdit(medicines, index, nameEdit, medicine);
               setState(() {
                 medicines.clear();
                 for (var element in list) {
@@ -83,10 +88,77 @@ class _HomePageState extends State<HomePage> {
           }),
         );
       }).toList();
+  List<Medicine> checkEdit(
+      List<Medicine> list, int index, String nameEdit, Medicine medicine) {
+    switch (index) {
+      case 0:
+        list = list
+            .map((e) => e == medicine ? e.copy(name: nameEdit) : e)
+            .toList();
+        break;
+      case 1:
+        list = list
+            .map((e) => e == medicine ? e.copy(description: nameEdit) : e)
+            .toList();
+        break;
+      case 2:
+        list = list
+            .map((e) =>
+                e == medicine ? e.copy(quantity: int.parse(nameEdit)) : e)
+            .toList();
+        break;
+      case 3:
+        list = list
+            .map((e) => e == medicine
+                ? e.copy(usage: e.usage.copy(mor: int.parse(nameEdit)))
+                : e)
+            .toList();
+        break;
+      case 4:
+        list = list
+            .map((e) => e == medicine
+                ? e.copy(usage: e.usage.copy(noon: int.parse(nameEdit)))
+                : e)
+            .toList();
+        break;
+      case 5:
+        list = list
+            .map((e) => e == medicine
+                ? e.copy(usage: e.usage.copy(even: int.parse(nameEdit)))
+                : e)
+            .toList();
+        break;
+      default:
+    }
+    return list;
+  }
 
-  Future openDialog(Medicine medicine) {
-    TextEditingController controller2 =
-        TextEditingController(text: medicine.name);
+  Future openDialog(Medicine medicine, int index) {
+    var controller2;
+    switch (index) {
+      case 0:
+        controller2 = TextEditingController(text: medicine.name);
+        break;
+      case 1:
+        controller2 = TextEditingController(text: medicine.description);
+        break;
+      case 2:
+        controller2 = TextEditingController(text: medicine.quantity.toString());
+        break;
+      case 3:
+        controller2 =
+            TextEditingController(text: medicine.usage.mor.toString());
+        break;
+      case 4:
+        controller2 =
+            TextEditingController(text: medicine.usage.noon.toString());
+        break;
+      case 5:
+        controller2 =
+            TextEditingController(text: medicine.usage.even.toString());
+        break;
+      default:
+    }
     return showDialog(
         context: context,
         // ignore: prefer_const_constructors
@@ -95,7 +167,7 @@ class _HomePageState extends State<HomePage> {
               content: TextField(
                 controller: controller2,
                 decoration: const InputDecoration(
-                    hintText: 'You name', border: OutlineInputBorder()),
+                    hintText: 'You Edit', border: OutlineInputBorder()),
               ),
               actions: [
                 ElevatedButton(

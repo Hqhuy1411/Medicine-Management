@@ -31,6 +31,12 @@ class Usage {
     };
   }
 
+  Usage copy({int? mor, int? noon, int? even}) => Usage(
+        mor: mor ?? this.mor,
+        noon: noon ?? this.noon,
+        even: even ?? this.even,
+      );
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
