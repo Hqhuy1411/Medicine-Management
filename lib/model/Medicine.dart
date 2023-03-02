@@ -20,6 +20,7 @@ class Medicine {
 
   factory Medicine.fromJson(Map<String, dynamic> parsedJson) {
     var data1 = Map<String, dynamic>.from(parsedJson['usage'] as Map);
+//print('usage' '$data1');
     return Medicine(
         quantity: parsedJson['quantity'] ?? 0,
         description: parsedJson['description'] ?? '',

@@ -1,3 +1,4 @@
+import 'package:app/model/Device.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/model/Users.dart';
 import 'package:app/view/text_dialog_widget.dart';
@@ -26,13 +27,30 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var info = ModalRoute.of(context)!.settings.arguments as Users;
     return Scaffold(
-      body: ScrollableWidget(child: buildDataTable(info)),
-      floatingActionButton: FloatingActionButton(
-          onPressed: (() {
-            _displayTextInputDialog(context, info);
+      appBar: AppBar(title: const Text("ListView.builder")),
+      body: ListView.builder(
+          itemCount: info.devices.length,
+          itemBuilder: (BuildContext context, int index) {
+            final item = info.devices[index];
+            return ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, BoxPage.routeName,
+                      arguments: item);
+                },
+                leading: const Icon(Icons.list),
+                trailing: const Text(
+                  "GFG",
+                  style: TextStyle(color: Colors.green, fontSize: 15),
+                ),
+                title: Text("Ten Thiet bi :" + item.name));
           }),
-          child: const Icon(Icons.add)),
     );
+    //   floatingActionButton: FloatingActionButton(
+    //       onPressed: (() {
+    //         _displayTextInputDialog(context, info);
+    //       }),
+    //       child: const Icon(Icons.add)),
+    // );
   }
 
   Widget buildDataTable(Users users) {
@@ -40,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
     return DataTable(
       columns: getColumns(columns),
-      rows: getRows(users.medicines, users.uid),
+      rows: getRows(users.devices, users.uid),
     );
   }
 
@@ -60,9 +78,9 @@ class _HomePageState extends State<HomePage> {
           medicine.name,
           medicine.description,
           medicine.quantity,
-          medicine.usage.mor,
-          medicine.usage.noon,
-          medicine.usage.even
+          medicine.usage.mor.quantity,
+          medicine.usage.noon.quantity,
+          medicine.usage.even.quantity
         ];
 
         return DataRow(
@@ -82,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 for (var element in list) {
                   medicines.add(element);
                 }
-                _firAuth.UpdateMedicine(medicines, uid);
+                // _firAuth.UpdateMedicine(medicines, uid);
               });
             });
           }),
@@ -107,27 +125,27 @@ class _HomePageState extends State<HomePage> {
                 e == medicine ? e.copy(quantity: int.parse(nameEdit)) : e)
             .toList();
         break;
-      case 3:
-        list = list
-            .map((e) => e == medicine
-                ? e.copy(usage: e.usage.copy(mor: int.parse(nameEdit)))
-                : e)
-            .toList();
-        break;
-      case 4:
-        list = list
-            .map((e) => e == medicine
-                ? e.copy(usage: e.usage.copy(noon: int.parse(nameEdit)))
-                : e)
-            .toList();
-        break;
-      case 5:
-        list = list
-            .map((e) => e == medicine
-                ? e.copy(usage: e.usage.copy(even: int.parse(nameEdit)))
-                : e)
-            .toList();
-        break;
+      // case 3:
+      //   list = list
+      //       .map((e) => e == medicine
+      //           ? e.copy(usage: e.usage.copy(mor: int.parse(nameEdit)))
+      //           : e)
+      //       .toList();
+      //   break;
+      // case 4:
+      //   list = list
+      //       .map((e) => e == medicine
+      //           ? e.copy(usage: e.usage.copy(noon: int.parse(nameEdit)))
+      //           : e)
+      //       .toList();
+      //   break;
+      // case 5:
+      //   list = list
+      //       .map((e) => e == medicine
+      //           ? e.copy(usage: e.usage.copy(even: int.parse(nameEdit)))
+      //           : e)
+      //       .toList();
+      //   break;
       default:
     }
     return list;
@@ -228,22 +246,42 @@ class _HomePageState extends State<HomePage> {
               ElevatedButton(
                 child: Text('OK'),
                 onPressed: () {
-                  setState(() {
-                    medicine = Medicine(
-                        name: nameMedicine.text,
-                        quantity: int.parse(quantityMedicine.text),
-                        description: descripMedicine.text,
-                        usage: Usage());
-                    _firAuth.AddMedicine(medicine, info.uid);
-                    info.medicines.add(medicine);
-                    Navigator.pop(context);
-                  });
-                  nameMedicine.text = '';
-                  quantityMedicine.text = '';
+                  // setState(() {
+                  //   medicine = Medicine(
+                  //       name: nameMedicine.text,
+                  //       quantity: int.parse(quantityMedicine.text),
+                  //       description: descripMedicine.text,
+                  //       usage: Usage());
+                  //   _firAuth.AddMedicine(medicine, info.uid);
+                  //   info.medicines.add(medicine);
+                  //   Navigator.pop(context);
+                  // });
+                  // nameMedicine.text = '';
+                  // quantityMedicine.text = '';
                 },
               ),
             ],
           );
         });
+  }
+}
+
+class BoxPage extends StatelessWidget {
+  static String routeName = '/Box';
+  const BoxPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final info = ModalRoute.of(context)!.settings.arguments as Device;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail Screen'),
+      ),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text(info.name), Text(info.patient.fullname)],
+      )),
+    );
   }
 }

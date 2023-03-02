@@ -1,35 +1,37 @@
-import 'package:app/model/Medicine.dart';
+import 'package:app/model/Device.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Users {
   int phone;
   String uid;
   String name;
-  var medicines;
-  //Medicine medicines;
-  Users({this.uid = '', this.phone = 0, this.name = '', this.medicines});
+  var devices;
+  //Medicine devices;
+  Users({this.uid = '', this.phone = 0, this.name = '', this.devices});
   String Info() {
-    String result = medicines.map((val) => val.Info()).join(',');
-    return 'name : $name' ' phone : $phone' ' Medicines : [ $result ]';
+    String result = devices.map((val) => val.Info()).join(',');
+    return 'name : $name' ' phone : $phone' ' devices : [ $result ]';
   }
 
   factory Users.fromJson(Map<String, dynamic> parsedJson) {
-    List<Medicine> list = [];
-    parsedJson['medicines']?.forEach((val) {
+    List<Device> list = [];
+    parsedJson['devices']?.forEach((val) {
       var data1 = Map<String, dynamic>.from(val as Map);
-      list.add(Medicine.fromJson(data1));
+      list.add(Device.fromJson(data1));
     });
+    list.forEach((element) => print(element.Info()));
+
     return Users(
         phone: parsedJson['phone'] ?? '',
         name: parsedJson['name'] ?? '',
-        medicines: list);
+        devices: list);
   }
 
   Map<String, dynamic> toJson() {
     return {
       'phone': phone,
       'name': name,
-      'medicines': (medicines ?? []).map((e) => e.toJson()).toList()
+      'devices': (devices ?? []).map((e) => e.toJson()).toList()
     };
   }
 }

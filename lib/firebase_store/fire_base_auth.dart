@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:app/model/Device.dart';
 import 'package:app/model/Medicine.dart';
 import 'package:app/model/Users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -85,13 +86,12 @@ class FirAuth {
     });
   }
 
-  void AddMedicine(Medicine medicine, String userId) async {
+  void AddMedicine(Device device, String userId) async {
     var order = await getInfoUser(userId);
-    order.medicines.add(medicine);
+    order.devices.add(device);
     var ref = FirebaseDatabase.instance.ref().child("users");
-    ref.child(userId).update({
-      "medicines": order.medicines.map((e) => e.toJson()).toList()
-    }).then((vl) {
+    ref.child(userId).update(
+        {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
       print("on value: SUCCESSED");
     }).catchError((err) {
       print("err: " + err.toString());
@@ -100,24 +100,38 @@ class FirAuth {
     });
   }
 
-  void UpdateMedicine(List<Medicine> medicines, String userId) async {
-    var order = await getInfoUser(userId);
-    order.medicines = medicines;
-    var ref = FirebaseDatabase.instance.ref().child("users");
-    ref.child(userId).update({
-      "medicines": order.medicines.map((e) => e.toJson()).toList()
-    }).then((vl) {
-      print("on value: SUCCESSED");
-    }).catchError((err) {
-      print("err: " + err.toString());
-    }).whenComplete(() {
-      print("completed");
-    });
-  }
+  // void UpdateMedicine(List<Medicine> medicines, String userId) async {
+  //   var order = await getInfoUser(userId);
+  //   order.medicines = medicines;
+  //   var ref = FirebaseDatabase.instance.ref().child("users");
+  //   ref.child(userId).update({
+  //     "medicines": order.medicines.map((e) => e.toJson()).toList()
+  //   }).then((vl) {
+  //     print("on value: SUCCESSED");
+  //   }).catchError((err) {
+  //     print("err: " + err.toString());
+  //   }).whenComplete(() {
+  //     print("completed");
+  //   });
+  // }
 
   Future<bool> checkEmailExists(String email) async {
     List<String> methods =
         await _fireBaseAuth.fetchSignInMethodsForEmail(email);
     return methods.length > 0;
+  }
+
+  Future deleteData() async {
+    try {
+      await FirebaseDatabase.instance
+          .ref()
+          .child("users")
+          .child("8IXddhgOE7PVc96mE7Q1jMkVqqA3")
+          .child("medicines")
+          .child("0")
+          .remove();
+    } catch (e) {
+      return false;
+    }
   }
 }

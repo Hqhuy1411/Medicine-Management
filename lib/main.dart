@@ -1,5 +1,9 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:app/model/Box.dart';
+import 'package:app/model/Device.dart';
 import 'package:app/model/Medicine.dart';
+import 'package:app/model/Patient.dart';
+import 'package:app/model/TimeSlot.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/model/Users.dart';
 import 'package:app/view/Home_page.dart';
@@ -7,6 +11,7 @@ import 'package:app/view/Register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'firebase_options.dart';
 import 'firebase_store/fire_base_auth.dart';
@@ -27,7 +32,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {HomePage.routeName: (context) => const HomePage()},
+      routes: {
+        HomePage.routeName: (context) => const HomePage(),
+        BoxPage.routeName: ((context) => const BoxPage())
+      },
       title: _title,
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
@@ -50,15 +58,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  List<Medicine> list = [
-    Medicine(
-        name: "Thuoc sot",
-        description: "Dau dau",
-        quantity: 56,
-        usage: Usage(mor: 2, noon: 2, even: 2)),
-    Medicine(
-        name: "Thuoc xo", description: "Dau bung", quantity: 21, usage: Usage())
-  ];
+  // List<Medicine> list = [
+  //   Medicine(
+  //       name: "Thuoc sot",
+  //       description: "Dau dau",
+  //       quantity: 56,
+  //       usage: Usage(mor: 2, noon: 2, even: 2)),
+  //   Medicine(
+  //       name: "Thuoc xo", description: "Dau bung", quantity: 21, usage: Usage())
+  // ];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -132,6 +140,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 // order.medicines.add(Medicine(
                 //     name: "Thuoc lac", description: "phe", quantity: 41));
                 // print(order.Info());
+
+                // _firAuth.deleteData();
+
+                // var millis = 1677690817000;
+                // var dt = DateTime.fromMillisecondsSinceEpoch(millis);
+                // print(DateFormat.jm().format(dt));
+                var od =
+                    await _firAuth.getInfoUser("8IXddhgOE7PVc96mE7Q1jMkVqqA3");
+                print(od.name);
               },
               child: const Text(
                 'Forgot Password',
@@ -189,18 +206,32 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   onPressed: () {
                     //signup screen
                     // TEST update
-                    // Usage usage = Usage(noon: 1, even: 1);
-                    // Medicine medicine = Medicine(
-                    //     name: "Thuoc ke",
-                    //     description: "phe",
-                    //     quantity: 12,
-                    //     usage: usage);
-                    // _firAuth.AddMedicine(
-                    //     medicine, "8IXddhgOE7PVc96mE7Q1jMkVqqA3");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterPage()));
+                    DateTime time = DateTime.now();
+                    Usage usage = Usage(
+                        mor: TimeSlot(time: time, quantity: 1),
+                        noon: TimeSlot(time: time, quantity: 1),
+                        even: TimeSlot(time: time, quantity: 1));
+                    Medicine medicine = Medicine(
+                        name: "Thuoc ke",
+                        description: "phe",
+                        quantity: 12,
+                        usage: usage);
+                    List<Medicine> listMe = [medicine, medicine];
+                    Box box = Box(name: "Box1", medicines: listMe);
+                    Box box2 = Box(name: "Box2", medicines: listMe);
+                    List<Box> listBo = [box, box2];
+                    Device device = Device(
+                        name: "Thiet bi so 1",
+                        patient: Patient(id: "012dx", fullname: "Nguyen Van B"),
+                        boxs: [box]);
+                    print(device.toJson().toString());
+
+                    _firAuth.AddMedicine(
+                        device, "8IXddhgOE7PVc96mE7Q1jMkVqqA3");
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const RegisterPage()));
                   },
                 )
               ],
