@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TimeSlot {
-  DateTime time;
+  var time;
   int quantity;
 
-  TimeSlot({required this.time, this.quantity = 0});
+  TimeSlot({this.time = DateTime.now, this.quantity = 0});
 
   String Info() {
     return '{Quantity : $quantity' +
-        DateFormat.jm().format(DateTime.now()).toString() +
+        DateFormat.jm().format(time).toString() +
         '}';
   }
 

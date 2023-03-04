@@ -19,4 +19,16 @@ class Patient {
       'fullname': fullname,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Patient &&
+          runtimeType == other.runtimeType &&
+          fullname == other.fullname &&
+          id == other.id;
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
 }

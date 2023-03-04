@@ -34,4 +34,17 @@ class Device {
       'boxs': (boxs ?? []).map((e) => e.toJson()).toList()
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Device &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          patient == other.patient &&
+          boxs == other.boxs;
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
 }

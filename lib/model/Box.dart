@@ -26,4 +26,20 @@ class Box {
       'medicines': (medicines ?? []).map((e) => e.toJson()).toList()
     };
   }
+
+  Medicine getMedicine() {
+    return medicines[0];
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Box &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          medicines == other.medicines;
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
 }

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:app/model/Box.dart';
 import 'package:app/model/Device.dart';
 import 'package:app/model/Medicine.dart';
 import 'package:app/model/Users.dart';
@@ -100,6 +101,27 @@ class FirAuth {
     });
   }
 
+  void AddMedicine2(
+      Medicine medicine, String device, String box, String userId) async {
+    var order = await getInfoUser(userId);
+    order.devices.forEach((e1) => {
+          if (e1.name == device)
+            {
+              e1.boxs.forEach((e2) => {
+                    if (e2.name == box) {e2.medicines.add(medicine)}
+                  })
+            }
+        });
+    var ref = FirebaseDatabase.instance.ref().child("users");
+    ref.child(userId).update(
+        {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
+      print("on value: SUCCESSED");
+    }).catchError((err) {
+      print("err: " + err.toString());
+    }).whenComplete(() {
+      print("completed");
+    });
+  }
   // void UpdateMedicine(List<Medicine> medicines, String userId) async {
   //   var order = await getInfoUser(userId);
   //   order.medicines = medicines;

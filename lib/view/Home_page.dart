@@ -1,6 +1,7 @@
 import 'package:app/model/Device.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/model/Users.dart';
+import 'package:app/view/Device_Page.dart';
 import 'package:app/view/text_dialog_widget.dart';
 import 'package:flutter/material.dart';
 import '../firebase_store/fire_base_auth.dart';
@@ -27,30 +28,46 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var info = ModalRoute.of(context)!.settings.arguments as Users;
     return Scaffold(
-      appBar: AppBar(title: const Text("ListView.builder")),
-      body: ListView.builder(
-          itemCount: info.devices.length,
-          itemBuilder: (BuildContext context, int index) {
-            final item = info.devices[index];
-            return ListTile(
-                onTap: () {
-                  Navigator.pushNamed(context, BoxPage.routeName,
-                      arguments: item);
-                },
-                leading: const Icon(Icons.list),
-                trailing: const Text(
-                  "GFG",
-                  style: TextStyle(color: Colors.green, fontSize: 15),
-                ),
-                title: Text("Ten Thiet bi :" + item.name));
-          }),
-    );
-    //   floatingActionButton: FloatingActionButton(
-    //       onPressed: (() {
-    //         _displayTextInputDialog(context, info);
-    //       }),
-    //       child: const Icon(Icons.add)),
-    // );
+        appBar: AppBar(title: const Text("Device ")),
+        body: ListView.builder(
+            itemCount: info.devices.length,
+            itemBuilder: (BuildContext context, int index) {
+              final item = info.devices[index];
+              final obSend = {"item": item, "uid": info.uid};
+              return GestureDetector(
+                  onTap: () {
+                    // Handle the tap event here
+                    Navigator.pushNamed(context, DevicePage.routeName,
+                        arguments: obSend);
+                  },
+                  child: Card(
+                    elevation: 4.0, // Add a drop shadow to the card
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          Icon(Icons.devices),
+                          SizedBox(width: 16.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Device Name:' + item.name,
+                                    style:
+                                        Theme.of(context).textTheme.headline6),
+                                Text('Device Description',
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ));
+            }));
   }
 
   Widget buildDataTable(Users users) {
@@ -263,25 +280,5 @@ class _HomePageState extends State<HomePage> {
             ],
           );
         });
-  }
-}
-
-class BoxPage extends StatelessWidget {
-  static String routeName = '/Box';
-  const BoxPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final info = ModalRoute.of(context)!.settings.arguments as Device;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detail Screen'),
-      ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text(info.name), Text(info.patient.fullname)],
-      )),
-    );
   }
 }

@@ -6,7 +6,10 @@ import 'package:app/model/Patient.dart';
 import 'package:app/model/TimeSlot.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/model/Users.dart';
+import 'package:app/view/Box_Page.dart';
+import 'package:app/view/Device_Page.dart';
 import 'package:app/view/Home_page.dart';
+import 'package:app/view/Medicine_Page.dart';
 import 'package:app/view/Register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,7 +37,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         HomePage.routeName: (context) => const HomePage(),
-        BoxPage.routeName: ((context) => const BoxPage())
+        DevicePage.routeName: ((context) => const DevicePage()),
+        BoxPage.routeName: ((context) => const BoxPage()),
+        MedicinePage.routeName: ((context) => const MedicinePage())
       },
       title: _title,
       home: Scaffold(
