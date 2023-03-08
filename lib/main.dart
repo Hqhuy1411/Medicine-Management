@@ -7,8 +7,9 @@ import 'package:app/model/TimeSlot.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/model/Users.dart';
 import 'package:app/view/Box_Page.dart';
+import 'package:app/view/Dashboard_page.dart';
 import 'package:app/view/Device_Page.dart';
-import 'package:app/view/Home_page.dart';
+import 'package:app/view/Home_Page.dart';
 import 'package:app/view/Medicine_Page.dart';
 import 'package:app/view/Register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,10 +37,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        HomePage.routeName: (context) => const HomePage(),
+        DashBoardPage.routeName: (context) => const DashBoardPage(),
         DevicePage.routeName: ((context) => const DevicePage()),
         BoxPage.routeName: ((context) => const BoxPage()),
-        MedicinePage.routeName: ((context) => const MedicinePage())
+        MedicinePage.routeName: ((context) => const MedicinePage()),
+        HomePage.routeName: (context) => const HomePage()
       },
       title: _title,
       home: Scaffold(
@@ -168,10 +170,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     if (nameController.text.isNotEmpty ||
                         passwordController.text.isNotEmpty ||
                         emailController.text.isNotEmpty) {
-                      print(nameController.text);
                       print(passwordController.text);
                       Users? user = await _firAuth.singIn(
                           emailController.text, passwordController.text);
+                      print(user!.Info());
                       if (user != null) {
                         Navigator.pushNamed(context, HomePage.routeName,
                             arguments: user);

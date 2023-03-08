@@ -8,7 +8,6 @@ import 'package:app/model/Medicine.dart';
 import 'package:app/model/Users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 
 class FirAuth {
   final FirebaseAuth _fireBaseAuth = FirebaseAuth.instance;
@@ -52,6 +51,21 @@ class FirAuth {
     User? user = userCredential.user;
     print(user!.uid);
     return getInfoUser(user.uid);
+  }
+
+  void changePassword(
+      User user, String currentPassword, String newPassword) async {
+    final cred = EmailAuthProvider.credential(
+        email: user.email.toString(), password: currentPassword);
+
+    user.reauthenticateWithCredential(cred).then((value) {
+      user.updatePassword(newPassword).then((_) {
+        //Success, do something
+        print("Cap nhat thanh cong");
+      }).catchError((error) {
+        throw error;
+      });
+    }).catchError((err) {});
   }
 
   Users? _getInfoUser(String keys, Map<String, dynamic> values, String uid) {
@@ -101,6 +115,26 @@ class FirAuth {
     });
   }
 
+  void AddMedicine3(Medicine medicine, String device, String userId) async {
+    var order = await getInfoUser(userId);
+    order.devices.forEach((e1) => {
+          if (e1.name == device)
+            {
+              e1.boxs.add(Box(name: "new box", medicines: [medicine]))
+            }
+        });
+
+    var ref = FirebaseDatabase.instance.ref().child("users");
+    ref.child(userId).update(
+        {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
+      print("on value: SUCCESSED");
+    }).catchError((err) {
+      print("err: " + err.toString());
+    }).whenComplete(() {
+      print("completed");
+    });
+  }
+
   void AddMedicine2(
       Medicine medicine, String device, String box, String userId) async {
     var order = await getInfoUser(userId);
@@ -112,6 +146,7 @@ class FirAuth {
                   })
             }
         });
+
     var ref = FirebaseDatabase.instance.ref().child("users");
     ref.child(userId).update(
         {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
@@ -122,20 +157,34 @@ class FirAuth {
       print("completed");
     });
   }
+
   // void UpdateMedicine(List<Medicine> medicines, String userId) async {
   //   var order = await getInfoUser(userId);
   //   order.medicines = medicines;
   //   var ref = FirebaseDatabase.instance.ref().child("users");
   //   ref.child(userId).update({
   //     "medicines": order.medicines.map((e) => e.toJson()).toList()
-  //   }).then((vl) {
-  //     print("on value: SUCCESSED");
-  //   }).catchError((err) {
-  //     print("err: " + err.toString());
-  //   }).whenComplete(() {
-  //     print("completed");
-  //   });
+  // }).then((vl) {
+  //   print("on value: SUCCESSED");
+  // }).catchError((err) {
+  //   print("err: " + err.toString());
+  // }).whenComplete(() {
+  //   print("completed");
+  // });
   // }
+  void updateUser(String name, String phone, String uid) async {
+    var ref = FirebaseDatabase.instance.ref().child("users");
+    ref
+        .child(uid)
+        .update({"name": name, "phone": int.parse(phone)})
+        .then((vl) => print("on value: SUCCESSED"))
+        .catchError((err) {
+          print("err: " + err.toString());
+        })
+        .whenComplete(() {
+          print("completed");
+        });
+  }
 
   Future<bool> checkEmailExists(String email) async {
     List<String> methods =

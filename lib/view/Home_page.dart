@@ -1,284 +1,46 @@
-import 'package:app/model/Device.dart';
-import 'package:app/model/Usage.dart';
-import 'package:app/model/Users.dart';
-import 'package:app/view/Device_Page.dart';
-import 'package:app/view/text_dialog_widget.dart';
+import 'package:app/view/ChangePass_Page.dart';
+import 'package:app/view/Dashboard_page.dart';
+import 'package:app/view/Info_Page.dart';
 import 'package:flutter/material.dart';
-import '../firebase_store/fire_base_auth.dart';
-import '../model/Medicine.dart';
-import '../utils/Row.dart';
-import 'Scrollable_widget.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
 class HomePage extends StatefulWidget {
-  static String routeName = '/Home';
   const HomePage({super.key});
+  static String routeName = '/Home';
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  var _firAuth = FirAuth();
-
-  TextEditingController nameMedicine = new TextEditingController();
-  TextEditingController descripMedicine = new TextEditingController();
-  TextEditingController quantityMedicine = new TextEditingController(text: '0');
+  int _index = 0;
+  static final List<Widget> _list = <Widget>[
+    DashBoardPage(),
+    InfoPage(),
+    ChangePasswordPage()
+  ];
+  void onItemTap(int index) {
+    setState(() {
+      _index = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    var info = ModalRoute.of(context)!.settings.arguments as Users;
     return Scaffold(
-        appBar: AppBar(title: const Text("Device ")),
-        body: ListView.builder(
-            itemCount: info.devices.length,
-            itemBuilder: (BuildContext context, int index) {
-              final item = info.devices[index];
-              final obSend = {"item": item, "uid": info.uid};
-              return GestureDetector(
-                  onTap: () {
-                    // Handle the tap event here
-                    Navigator.pushNamed(context, DevicePage.routeName,
-                        arguments: obSend);
-                  },
-                  child: Card(
-                    elevation: 4.0, // Add a drop shadow to the card
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        children: [
-                          Icon(Icons.devices),
-                          SizedBox(width: 16.0),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Device Name:' + item.name,
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
-                                Text('Device Description',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle1),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ));
-            }));
-  }
-
-  Widget buildDataTable(Users users) {
-    final columns = ['Ten Thuoc', 'Mo Ta', 'So Luong', 'Sang', 'Chieu', 'Toi'];
-
-    return DataTable(
-      columns: getColumns(columns),
-      rows: getRows(users.devices, users.uid),
+      body: _list.elementAt(_index),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Dashboard'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Change password')
+        ],
+        currentIndex: _index,
+        selectedItemColor: Colors.blue,
+        onTap: onItemTap,
+      ),
     );
-  }
-
-  List<DataColumn> getColumns(List<String> columns) {
-    return columns.map((String column) {
-      return DataColumn(
-        label: Text(column),
-      );
-    }).toList();
-  }
-
-  late Medicine medicine;
-
-  List<DataRow> getRows(List<Medicine> medicines, String uid) =>
-      medicines.map((Medicine medicine) {
-        final cells = [
-          medicine.name,
-          medicine.description,
-          medicine.quantity,
-          medicine.usage.mor.quantity,
-          medicine.usage.noon.quantity,
-          medicine.usage.even.quantity
-        ];
-
-        return DataRow(
-          cells: Utils.modelBuilder(cells, (index, cell) {
-            return DataCell(Text('$cell'), showEditIcon: true, onTap: () async {
-              final nameEdit = await openDialog(medicine, index);
-              print(index);
-              // List<Medicine> list = medicines
-              //     .map((e) => e == medicine
-              //         ? e.copy(usage: e.usage.copy(mor: int.parse(nameEdit)))
-              //         : e)
-              //     .toList();
-              List<Medicine> list =
-                  checkEdit(medicines, index, nameEdit, medicine);
-              setState(() {
-                medicines.clear();
-                for (var element in list) {
-                  medicines.add(element);
-                }
-                // _firAuth.UpdateMedicine(medicines, uid);
-              });
-            });
-          }),
-        );
-      }).toList();
-  List<Medicine> checkEdit(
-      List<Medicine> list, int index, String nameEdit, Medicine medicine) {
-    switch (index) {
-      case 0:
-        list = list
-            .map((e) => e == medicine ? e.copy(name: nameEdit) : e)
-            .toList();
-        break;
-      case 1:
-        list = list
-            .map((e) => e == medicine ? e.copy(description: nameEdit) : e)
-            .toList();
-        break;
-      case 2:
-        list = list
-            .map((e) =>
-                e == medicine ? e.copy(quantity: int.parse(nameEdit)) : e)
-            .toList();
-        break;
-      // case 3:
-      //   list = list
-      //       .map((e) => e == medicine
-      //           ? e.copy(usage: e.usage.copy(mor: int.parse(nameEdit)))
-      //           : e)
-      //       .toList();
-      //   break;
-      // case 4:
-      //   list = list
-      //       .map((e) => e == medicine
-      //           ? e.copy(usage: e.usage.copy(noon: int.parse(nameEdit)))
-      //           : e)
-      //       .toList();
-      //   break;
-      // case 5:
-      //   list = list
-      //       .map((e) => e == medicine
-      //           ? e.copy(usage: e.usage.copy(even: int.parse(nameEdit)))
-      //           : e)
-      //       .toList();
-      //   break;
-      default:
-    }
-    return list;
-  }
-
-  Future openDialog(Medicine medicine, int index) {
-    var controller2;
-    switch (index) {
-      case 0:
-        controller2 = TextEditingController(text: medicine.name);
-        break;
-      case 1:
-        controller2 = TextEditingController(text: medicine.description);
-        break;
-      case 2:
-        controller2 = TextEditingController(text: medicine.quantity.toString());
-        break;
-      case 3:
-        controller2 =
-            TextEditingController(text: medicine.usage.mor.toString());
-        break;
-      case 4:
-        controller2 =
-            TextEditingController(text: medicine.usage.noon.toString());
-        break;
-      case 5:
-        controller2 =
-            TextEditingController(text: medicine.usage.even.toString());
-        break;
-      default:
-    }
-    return showDialog(
-        context: context,
-        // ignore: prefer_const_constructors
-        builder: (context) => AlertDialog(
-              title: const Text('Edit'),
-              content: TextField(
-                controller: controller2,
-                decoration: const InputDecoration(
-                    hintText: 'You Edit', border: OutlineInputBorder()),
-              ),
-              actions: [
-                ElevatedButton(
-                  child: const Text('Done'),
-                  onPressed: () => Navigator.of(context).pop(controller2.text),
-                )
-              ],
-            ));
-  }
-
-  Future<void> _displayTextInputDialog(BuildContext context, Users info) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('TextField in Dialog'),
-            content: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Form(
-                  child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    // ignore: prefer_const_constructors
-                    controller: nameMedicine,
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      icon: const Icon(Icons.account_box),
-                    ),
-                  ),
-                  TextFormField(
-                    // ignore: prefer_const_constructors
-                    controller: descripMedicine,
-                    // ignore: prefer_const_constructors
-                    decoration: InputDecoration(
-                      labelText: 'Description',
-                      icon: const Icon(Icons.email),
-                    ),
-                  ),
-                  TextFormField(
-                    // ignore: prefer_const_constructors
-                    controller: quantityMedicine,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Quantity',
-                      icon: Icon(Icons.message),
-                    ),
-                  ),
-                ],
-              )),
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                child: Text('CANCEL'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ElevatedButton(
-                child: Text('OK'),
-                onPressed: () {
-                  // setState(() {
-                  //   medicine = Medicine(
-                  //       name: nameMedicine.text,
-                  //       quantity: int.parse(quantityMedicine.text),
-                  //       description: descripMedicine.text,
-                  //       usage: Usage());
-                  //   _firAuth.AddMedicine(medicine, info.uid);
-                  //   info.medicines.add(medicine);
-                  //   Navigator.pop(context);
-                  // });
-                  // nameMedicine.text = '';
-                  // quantityMedicine.text = '';
-                },
-              ),
-            ],
-          );
-        });
   }
 }
