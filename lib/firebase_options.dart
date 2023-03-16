@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -49,11 +46,23 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBQbudN54Xma7E0nNcWSATRK6hZnCnXklQ',
+    appId: '1:13432400380:web:de7e98196e5ea54b312a79',
+    messagingSenderId: '13432400380',
+    projectId: 'pbl5-f7469',
+    authDomain: 'pbl5-f7469.firebaseapp.com',
+    databaseURL: 'https://pbl5-f7469-default-rtdb.firebaseio.com',
+    storageBucket: 'pbl5-f7469.appspot.com',
+    measurementId: 'G-1DL82SMGPE',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAkFRi37qMVWrutEu3k6anMKNpglgwDja8',
     appId: '1:13432400380:android:a9c1f6be05891545312a79',
     messagingSenderId: '13432400380',
     projectId: 'pbl5-f7469',
+    databaseURL: 'https://pbl5-f7469-default-rtdb.firebaseio.com',
     storageBucket: 'pbl5-f7469.appspot.com',
   );
 
@@ -62,6 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:13432400380:ios:a35d75a48d563bda312a79',
     messagingSenderId: '13432400380',
     projectId: 'pbl5-f7469',
+    databaseURL: 'https://pbl5-f7469-default-rtdb.firebaseio.com',
     storageBucket: 'pbl5-f7469.appspot.com',
     iosClientId: '13432400380-voj6g0vo0r3od3qjhjntu8s1vm3baa7c.apps.googleusercontent.com',
     iosBundleId: 'com.example.app',

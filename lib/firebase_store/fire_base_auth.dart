@@ -158,20 +158,28 @@ class FirAuth {
     });
   }
 
-  // void UpdateMedicine(List<Medicine> medicines, String userId) async {
-  //   var order = await getInfoUser(userId);
-  //   order.medicines = medicines;
-  //   var ref = FirebaseDatabase.instance.ref().child("users");
-  //   ref.child(userId).update({
-  //     "medicines": order.medicines.map((e) => e.toJson()).toList()
-  // }).then((vl) {
-  //   print("on value: SUCCESSED");
-  // }).catchError((err) {
-  //   print("err: " + err.toString());
-  // }).whenComplete(() {
-  //   print("completed");
-  // });
-  // }
+  void UpdateMedicine(Box box, String device, String userId) async {
+    var order = await getInfoUser(userId);
+    order.devices.forEach((e1) => {
+          if (e1.name == device)
+            {
+              e1.boxs.forEach((e2) => {
+                    if (e2.name == box.name) {e2.medicines = box.medicines}
+                  })
+            }
+        });
+
+    var ref = FirebaseDatabase.instance.ref().child("users");
+    ref.child(userId).update(
+        {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
+      print("on value: SUCCESSED");
+    }).catchError((err) {
+      print("err: " + err.toString());
+    }).whenComplete(() {
+      print("completed");
+    });
+  }
+
   void updateUser(String name, String phone, String uid) async {
     var ref = FirebaseDatabase.instance.ref().child("users");
     ref

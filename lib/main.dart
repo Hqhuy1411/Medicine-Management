@@ -213,32 +213,32 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   onPressed: () {
                     //signup screen
                     // TEST update
-                    DateTime time = DateTime.now();
-                    Usage usage = Usage(
-                        mor: TimeSlot(time: time, quantity: 1),
-                        noon: TimeSlot(time: time, quantity: 1),
-                        even: TimeSlot(time: time, quantity: 1));
-                    Medicine medicine = Medicine(
-                        name: "Thuoc ke",
-                        description: "phe",
-                        quantity: 12,
-                        usage: usage);
-                    List<Medicine> listMe = [medicine, medicine];
-                    Box box = Box(name: "Box1", medicines: listMe);
-                    Box box2 = Box(name: "Box2", medicines: listMe);
-                    List<Box> listBo = [box, box2];
-                    Device device = Device(
-                        name: "Thiet bi so 1",
-                        patient: Patient(id: "012dx", fullname: "Nguyen Van B"),
-                        boxs: [box]);
-                    print(device.toJson().toString());
+                    // DateTime time = DateTime.now();
+                    // Usage usage = Usage(
+                    //     mor: TimeSlot(time: time, quantity: 1),
+                    //     noon: TimeSlot(time: time, quantity: 1),
+                    //     even: TimeSlot(time: time, quantity: 1));
+                    // Medicine medicine = Medicine(
+                    //     name: "Thuoc ke",
+                    //     description: "phe",
+                    //     quantity: 12,
+                    //     usage: usage);
+                    // List<Medicine> listMe = [medicine, medicine];
+                    // Box box = Box(name: "Box1", medicines: listMe);
+                    // Box box2 = Box(name: "Box2", medicines: listMe);
+                    // List<Box> listBo = [box, box2];
+                    // Device device = Device(
+                    //     name: "Thiet bi so 1",
+                    //     patient: Patient(id: "012dx", fullname: "Nguyen Van B"),
+                    //     boxs: [box]);
+                    // print(device.toJson().toString());
 
-                    _firAuth.AddMedicine(
-                        device, "8IXddhgOE7PVc96mE7Q1jMkVqqA3");
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const RegisterPage()));
+                    // _firAuth.AddMedicine(
+                    //     device, "8IXddhgOE7PVc96mE7Q1jMkVqqA3");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage()));
                   },
                 )
               ],

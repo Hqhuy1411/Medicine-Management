@@ -1,6 +1,7 @@
 import 'package:app/model/Device.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/model/Users.dart';
+import 'package:app/view/CreateDevice_Page.dart';
 import 'package:app/view/Device_Page.dart';
 import 'package:flutter/material.dart';
 import '../firebase_store/fire_base_auth.dart';
@@ -25,6 +26,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   @override
   Widget build(BuildContext context) {
     var info = ModalRoute.of(context)!.settings.arguments as Users;
+    Device.ID = info.devices.length;
     return Scaffold(
         appBar: AppBar(title: const Text("Device ")),
         body: Column(
@@ -48,10 +50,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Device Name' + info.name,
+                              Text('Hello :' + info.name,
                                   style: Theme.of(context).textTheme.headline6),
-                              Text('Device Info',
-                                  style: Theme.of(context).textTheme.subtitle1),
+                              // Text('Device Info',
+                              //     style: Theme.of(context).textTheme.subtitle1),
                             ],
                           ),
                         ),
@@ -86,7 +88,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Device Name:' + item.name,
+                                    Text('Thiet bi so ${item.id}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline6),
@@ -105,6 +107,22 @@ class _DashBoardPageState extends State<DashBoardPage> {
               ),
             )
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            final rs = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyHomePage()))
+                as Device;
+            if (rs != null) {
+              print("Receive device : " + rs.Info());
+              print(rs.boxs.length);
+              setState(() {
+                info.devices.add(rs);
+                _firAuth.AddMedicine(rs, info.uid);
+              });
+            }
+          },
+          child: Icon(Icons.add),
         ));
   }
 }

@@ -2,14 +2,24 @@ import 'package:app/model/Box.dart';
 import 'package:app/model/Patient.dart';
 
 class Device {
-  String name;
+  static int ID = 0;
+  int? id;
+  String? name;
+  String description;
   var patient;
   var boxs;
 
-  Device({this.name = "", this.patient, this.boxs});
+  Device({this.id, this.name, this.description = "", this.patient, this.boxs}) {
+    ID++;
+    this.id = ID;
+    this.name = "Thiet bi so $id";
+  }
 
   String Info() {
-    String result = boxs.map((val) => val.Info()).join(',');
+    String result = "";
+    if (boxs != null) {
+      result = boxs.map((val) => val.Info()).join(',');
+    }
     String pa = patient.Info();
     return 'name:' '$name' 'patient' '$pa' 'Boxs :[$result]';
   }
@@ -22,14 +32,18 @@ class Device {
       list.add(Box.fromJson(data1));
     });
     return Device(
+        id: parsedJson['id'] ?? 0,
         name: parsedJson['name'] ?? '',
+        description: parsedJson['description'] ?? '',
         patient: Patient.fromJson(data1),
         boxs: list);
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
+      'description': description,
       'patient': patient.toJson(),
       'boxs': (boxs ?? []).map((e) => e.toJson()).toList()
     };

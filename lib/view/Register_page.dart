@@ -1,3 +1,4 @@
+import 'package:app/model/Device.dart';
 import 'package:app/utils/vadilator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -164,13 +165,14 @@ class _RegisterPageState extends State<RegisterPage> {
                             return;
                             // use the email provided here
                           }
+                          List<Device> list = [];
                           _firAuth.signUp(
                               _emailController.text,
                               _passController.text,
                               Users(
-                                phone: int.parse(_phoneController.text),
-                                name: _nameController.text,
-                              ));
+                                  phone: int.parse(_phoneController.text),
+                                  name: _nameController.text,
+                                  devices: list));
                         },
                         child: const Text(
                           "Signup",
