@@ -32,7 +32,7 @@ class FirAuth {
 //           .child("users")
 //           .onValue
 //           .listen((event) async {
-//         final data = Map<String, dynamic>.from(event.snapshot.value as Map);
+//          final data = Map<String, dynamic>.from(event.snapshot.value as Map);
 //         data.forEach((key, value) {
 //           print('UID and info :$value');
 //           var data1 = Map<String, dynamic>.from(value as Map);
@@ -104,6 +104,7 @@ class FirAuth {
   void AddMedicine(Device device, String userId) async {
     var order = await getInfoUser(userId);
     order.devices.add(device);
+    print(order.devices[0].id);
     var ref = FirebaseDatabase.instance.ref().child("users");
     ref.child(userId).update(
         {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
@@ -115,13 +116,24 @@ class FirAuth {
     });
   }
 
-  void AddMedicine3(Medicine medicine, String device, String userId) async {
+  void UpdateDevice(Users user) async {
+    var order = await getInfoUser(user.uid);
+    order.devices = user.devices;
+    var ref = FirebaseDatabase.instance.ref().child("users");
+    ref.child(user.uid).update(
+        {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
+      print("on value: SUCCESSED");
+    }).catchError((err) {
+      print("err: " + err.toString());
+    }).whenComplete(() {
+      print("completed");
+    });
+  }
+
+  void AddMedicine3(Box box, int device, String userId) async {
     var order = await getInfoUser(userId);
     order.devices.forEach((e1) => {
-          if (e1.name == device)
-            {
-              e1.boxs.add(Box(name: "new box", medicines: [medicine]))
-            }
+          if (e1.id == device) {e1.boxs.add(box)}
         });
 
     var ref = FirebaseDatabase.instance.ref().child("users");
@@ -136,13 +148,13 @@ class FirAuth {
   }
 
   void AddMedicine2(
-      Medicine medicine, String device, String box, String userId) async {
+      Medicine medicine, int device, int box, String userId) async {
     var order = await getInfoUser(userId);
     order.devices.forEach((e1) => {
-          if (e1.name == device)
+          if (e1.id == device)
             {
               e1.boxs.forEach((e2) => {
-                    if (e2.name == box) {e2.medicines.add(medicine)}
+                    if (e2.id == box) {e2.medicines.add(medicine)}
                   })
             }
         });
@@ -158,13 +170,13 @@ class FirAuth {
     });
   }
 
-  void UpdateMedicine(Box box, String device, String userId) async {
+  void UpdateMedicine(Box box, int device, String userId) async {
     var order = await getInfoUser(userId);
     order.devices.forEach((e1) => {
-          if (e1.name == device)
+          if (e1.id == device)
             {
               e1.boxs.forEach((e2) => {
-                    if (e2.name == box.name) {e2.medicines = box.medicines}
+                    if (e2.id == box.id) {e2.medicines = box.medicines}
                   })
             }
         });

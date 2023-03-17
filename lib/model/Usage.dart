@@ -8,12 +8,12 @@ class Usage {
   TimeSlot even;
   Usage({required this.mor, required this.noon, required this.even});
   String Info() {
-    return 'Sang :' +
-        mor.Info() +
-        'Trua :' +
-        noon.Info() +
-        'Toi :' +
-        even.Info();
+    return 'S :' +
+        mor.quantity.toString() +
+        ' C :' +
+        noon.quantity.toString() +
+        ' T :' +
+        even.quantity.toString();
   }
 
   int Total() {
@@ -47,6 +47,12 @@ class Usage {
         noon: noon ?? this.noon,
         even: even ?? this.even,
       );
+
+  bool ss(Usage usage) {
+    return this.mor.time == usage.mor.time &&
+        this.noon.time == usage.noon.time &&
+        this.even.time == usage.even.time;
+  }
 
   @override
   bool operator ==(Object other) =>

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'dart:math';
 
 import 'package:app/model/Box.dart';
 import 'package:app/model/Device.dart';
@@ -7,10 +8,12 @@ import 'package:app/model/Medicine.dart';
 import 'package:app/model/TimeSlot.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/view/Box_Page.dart';
+import 'package:app/view/abc.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../firebase_store/fire_base_auth.dart';
+import 'CreateDevice_Page.dart';
 
 class DevicePage extends StatefulWidget {
   const DevicePage({super.key});
@@ -50,7 +53,7 @@ class _DevicePageState extends State<DevicePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Device Name' + info.name,
+                          Text('Device Name' + info.id.toString(),
                               style: Theme.of(context).textTheme.headline6),
                           Text('Device Info',
                               style: Theme.of(context).textTheme.subtitle1),
@@ -71,7 +74,7 @@ class _DevicePageState extends State<DevicePage> {
                         final obSend = {
                           "item": item,
                           "uid": uid,
-                          "device": info.name
+                          "device": info.id
                         };
                         return GestureDetector(
                             onTap: () {
@@ -94,14 +97,25 @@ class _DevicePageState extends State<DevicePage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('Box Name:' + item.name,
+                                          Text(
+                                              'Box Name :' + item.id.toString(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headline6),
-                                          Text('Box Description ',
+                                          Text(
+                                              'Total Medicines : ' +
+                                                  item.medicines.length
+                                                      .toString(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .subtitle1),
+                                          Text(
+                                            'Sang : ${item.medicines[0].usage.mor.getTime()}' +
+                                                ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
+                                                ' Toi : ${item.medicines[0].usage.even.getTime()}',
+                                          ),
+                                          for (var medicine in item.medicines)
+                                            Text(medicine.Info())
                                         ],
                                       ),
                                     ),
@@ -123,11 +137,32 @@ class _DevicePageState extends State<DevicePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             FloatingActionButton(
-              heroTag: "tag1",
+              heroTag: "tag0",
               onPressed: (() {
                 _displayTextInputDialog(context, info, uid);
               }),
               child: Icon(Icons.add),
+            ),
+            FloatingActionButton(
+              heroTag: "tag1",
+              onPressed: (() async {
+                //List<Medicine> medicines = [];
+                // _displayTextInputDialog(context, info, uid);
+                // fetchAlbum().then((value) => value.forEach((element) {
+                //       medicines.add(element);
+                //     }));
+                final list = await Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => App()));
+                if (list != null) {
+                  list.forEach((element) {
+                    print(element.Info());
+                    print(element.usage.mor.getTime());
+                    print(element.usage.noon.getTime());
+                    print(element.usage.even.getTime());
+                  });
+                }
+              }),
+              child: Icon(Icons.restart_alt_rounded),
             ),
             FloatingActionButton(
               heroTag: "tag2",
@@ -328,9 +363,11 @@ class _DevicePageState extends State<DevicePage> {
                           noon: TimeSlot(quantity: 2, time: dateC),
                           even: TimeSlot(quantity: 3, time: dateT)));
 
-                  _firAuth.AddMedicine3(medicine, device.name!, uid);
                   setState(() {
-                    device.boxs.add(Box(name: "name", medicines: [medicine]));
+                    Box box = Box(medicines: [medicine]);
+                    box.id = device.boxs.length + 1;
+                    device.boxs.add(box);
+                    _firAuth.AddMedicine3(box, device.id!, uid);
                   });
                   Navigator.pop(context);
                 },

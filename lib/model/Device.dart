@@ -1,19 +1,14 @@
 import 'package:app/model/Box.dart';
 import 'package:app/model/Patient.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Device {
-  static int ID = 0;
   int? id;
-  String? name;
   String description;
   var patient;
   var boxs;
 
-  Device({this.id, this.name, this.description = "", this.patient, this.boxs}) {
-    ID++;
-    this.id = ID;
-    this.name = "Thiet bi so $id";
-  }
+  Device({this.id, this.description = "", this.patient, this.boxs}) {}
 
   String Info() {
     String result = "";
@@ -21,7 +16,7 @@ class Device {
       result = boxs.map((val) => val.Info()).join(',');
     }
     String pa = patient.Info();
-    return 'name:' '$name' 'patient' '$pa' 'Boxs :[$result]';
+    return 'id:' '$id' 'patient' '$pa' 'Boxs :[$result]';
   }
 
   factory Device.fromJson(Map<String, dynamic> parsedJson) {
@@ -33,7 +28,6 @@ class Device {
     });
     return Device(
         id: parsedJson['id'] ?? 0,
-        name: parsedJson['name'] ?? '',
         description: parsedJson['description'] ?? '',
         patient: Patient.fromJson(data1),
         boxs: list);
@@ -42,7 +36,6 @@ class Device {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'name': name,
       'description': description,
       'patient': patient.toJson(),
       'boxs': (boxs ?? []).map((e) => e.toJson()).toList()
@@ -54,7 +47,8 @@ class Device {
       identical(this, other) ||
       other is Device &&
           runtimeType == other.runtimeType &&
-          name == other.name &&
+          description == other.description &&
+          id == other.id &&
           patient == other.patient &&
           boxs == other.boxs;
 

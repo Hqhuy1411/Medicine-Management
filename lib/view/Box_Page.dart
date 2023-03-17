@@ -46,7 +46,7 @@ class _BoxPageState extends State<BoxPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Device Name' + info.name,
+                      Text('Box Name : ' + info.id.toString(),
                           style: Theme.of(context).textTheme.headline6),
                       Text('Device Info',
                           style: Theme.of(context).textTheme.subtitle1),
@@ -138,7 +138,7 @@ class _BoxPageState extends State<BoxPage> {
   }
 
   Future<void> _displayTextInputDialog(
-      BuildContext context, Box box, String device, String uid) async {
+      BuildContext context, Box box, int device, String uid) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -197,7 +197,7 @@ class _BoxPageState extends State<BoxPage> {
                         quantity: int.parse(quantityMedicine.text),
                         description: descripMedicine.text,
                         usage: usage);
-                    _firAuth.AddMedicine2(medicine, device, box.name, uid);
+                    _firAuth.AddMedicine2(medicine, device, box.id!, uid);
                     box.medicines.add(medicine);
                     Navigator.pop(context);
                   });
@@ -211,7 +211,7 @@ class _BoxPageState extends State<BoxPage> {
   }
 
   Future<void> _EditdisplayTextInputDialog(BuildContext context,
-      Medicine medicine, Box box, String device, String uid) async {
+      Medicine medicine, Box box, int device, String uid) async {
     nameMedicine = TextEditingController(text: medicine.name);
     descripMedicine = TextEditingController(text: medicine.description);
     quantityMedicine =
@@ -276,6 +276,9 @@ class _BoxPageState extends State<BoxPage> {
                     Navigator.pop(context);
                   });
                   _firAuth.UpdateMedicine(box, device, uid);
+                  print(box.id);
+                  print(device);
+                  print(uid);
                   nameMedicine.text = '';
                 },
               ),
@@ -285,7 +288,7 @@ class _BoxPageState extends State<BoxPage> {
   }
 
   Future<void> showDeleteAlertDialog(
-      Box box, Medicine medicine, String device, String uid) async {
+      Box box, Medicine medicine, int device, String uid) async {
     showDialog(
         context: context,
         builder: (BuildContext context) {

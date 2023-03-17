@@ -21,9 +21,19 @@ class TimeSlot {
     };
   }
 
+  String getTime() {
+    return DateFormat.jm().format(time).toString();
+  }
+
   factory TimeSlot.fromJson(Map<String, dynamic> parsedJson) {
+    var data;
+    if (parsedJson['time'] == null) {
+      data = DateTime.fromMicrosecondsSinceEpoch(0);
+    } else {
+      data = DateTime.fromMillisecondsSinceEpoch(parsedJson['time'] * 1000);
+    }
     return TimeSlot(
-      time: DateTime.fromMillisecondsSinceEpoch(parsedJson['time'] * 1000),
+      time: data,
       quantity: parsedJson['quantity'] ?? 0,
     );
   }

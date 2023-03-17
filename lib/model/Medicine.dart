@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:app/model/Usage.dart';
+import 'package:http/http.dart' as http;
 
 class Medicine {
   String name;
@@ -11,10 +14,10 @@ class Medicine {
       this.quantity = 0,
       required this.usage});
   String Info() {
-    return 'name : $name'
+    return 'Name : $name'
             '  description : $description'
             ' quantity : $quantity'
-            ' usage :' +
+            '\n' +
         usage.Info().toString();
   }
 
@@ -67,4 +70,23 @@ class Medicine {
   @override
   // TODO: implement hashCode
   int get hashCode => super.hashCode;
+}
+
+Future<List<Medicine>> fetchAlbum() async {
+  final response = await http
+      .get(Uri.parse('https://api.jsonbin.io/v3/b/64141d94c0e7653a05895f00'));
+
+  if (response.statusCode == 200) {
+    //return Album.fromJson(jsonDecode(response.body));;
+    var list = jsonDecode(response.body);
+
+    List<Medicine> medicines = [];
+    for (var i in list['record']) {
+      var data = i as Map<String, dynamic>;
+      medicines.add(Medicine.fromJson(data));
+    }
+    return medicines;
+  } else {
+    throw Exception('Failed to load album');
+  }
 }

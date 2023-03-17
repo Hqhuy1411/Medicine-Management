@@ -1,10 +1,11 @@
 import 'package:app/model/Medicine.dart';
 
 class Box {
+  int? id;
   String name;
   var medicines;
 
-  Box({this.name = "", this.medicines});
+  Box({this.id, this.name = "", this.medicines});
 
   String Info() {
     String result = medicines.map((val) => val.Info()).join(',');
@@ -17,11 +18,15 @@ class Box {
       var data1 = Map<String, dynamic>.from(val as Map);
       list.add(Medicine.fromJson(data1));
     });
-    return Box(name: parsedJson['name'] ?? '', medicines: list);
+    return Box(
+        id: parsedJson['id'] ?? 0,
+        name: parsedJson['name'] ?? '',
+        medicines: list);
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'medicines': (medicines ?? []).map((e) => e.toJson()).toList()
     };

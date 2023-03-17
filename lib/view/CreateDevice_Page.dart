@@ -126,7 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
             print('Submited');
             List<Box> list = [];
             device = Device(
-                name: nameDevice.text,
                 description: descriptionDevice.text,
                 patient: Patient(fullname: namePatient.text, id: ""),
                 boxs: list);
