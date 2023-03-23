@@ -1,7 +1,4 @@
 // ignore_for_file: unused_local_variable
-
-import 'dart:convert';
-
 import 'package:app/model/Box.dart';
 import 'package:app/model/Device.dart';
 import 'package:app/model/Medicine.dart';
@@ -72,6 +69,7 @@ class FirAuth {
     if (keys == uid) {
       var user = Users.fromJson(values);
       user.uid = uid;
+      print(user.Info());
       return user;
     }
     return null;
@@ -130,7 +128,23 @@ class FirAuth {
     });
   }
 
-  void AddMedicine3(Box box, int device, String userId) async {
+  void addMultiBox(Device device, String userId) async {
+    var order = await getInfoUser(userId);
+    order.devices
+        .forEach((e1) => {if (e1.id == device.id) e1.boxs = device.boxs});
+
+    var ref = FirebaseDatabase.instance.ref().child("users");
+    ref.child(userId).update(
+        {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
+      print("on value: SUCCESSED");
+    }).catchError((err) {
+      print("err: " + err.toString());
+    }).whenComplete(() {
+      print("completed");
+    });
+  }
+
+  void addBox(Box box, int device, String userId) async {
     var order = await getInfoUser(userId);
     order.devices.forEach((e1) => {
           if (e1.id == device) {e1.boxs.add(box)}

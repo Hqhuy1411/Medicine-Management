@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 
 import '../firebase_store/fire_base_auth.dart';
 import '../model/Medicine.dart';
@@ -46,9 +47,9 @@ class _BoxPageState extends State<BoxPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Box Name : ' + info.id.toString(),
+                      Text('Box so : ' + info.id.toString(),
                           style: Theme.of(context).textTheme.headline6),
-                      Text('Device Info',
+                      Text('Box Info',
                           style: Theme.of(context).textTheme.subtitle1),
                     ],
                   ),
@@ -57,6 +58,129 @@ class _BoxPageState extends State<BoxPage> {
             ),
           ),
         ),
+        Slidable(
+            endActionPane: ActionPane(motion: StretchMotion(), children: [
+              SlidableAction(
+                onPressed: (context) {
+                  print("edit");
+                  // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                },
+                icon: Icons.edit,
+                backgroundColor: Colors.blue,
+              ),
+            ]),
+            child: Card(
+              elevation: 4.0, // Add a drop shadow to the card
+              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.alarm,
+                      size: 50,
+                    ),
+                    SizedBox(width: 32.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // ignore: prefer_interpolation_to_compose_strings
+                          const Text('MORNING'),
+                          Text(
+                              DateFormat.jm()
+                                  .format(info.getMedicine().usage.mor.time)
+                                  .toString(),
+                              style: Theme.of(context).textTheme.headline6),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )),
+        Slidable(
+            endActionPane: ActionPane(motion: StretchMotion(), children: [
+              SlidableAction(
+                onPressed: (context) {
+                  print("edit");
+                  // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                },
+                icon: Icons.edit,
+                backgroundColor: Colors.blue,
+              ),
+            ]),
+            child: Card(
+              elevation: 4.0, // Add a drop shadow to the card
+              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.alarm,
+                      size: 50,
+                    ),
+                    SizedBox(width: 32.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // ignore: prefer_interpolation_to_compose_strings
+                          const Text('AFTERNOON'),
+                          Text(
+                              DateFormat.jm()
+                                  .format(info.getMedicine().usage.noon.time)
+                                  .toString(),
+                              style: Theme.of(context).textTheme.headline6),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )),
+        Slidable(
+            endActionPane: ActionPane(motion: StretchMotion(), children: [
+              SlidableAction(
+                onPressed: (context) {
+                  print("edit");
+                  // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                },
+                icon: Icons.edit,
+                backgroundColor: Colors.blue,
+              ),
+            ]),
+            child: Card(
+              elevation: 4.0, // Add a drop shadow to the card
+              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.alarm,
+                      size: 50,
+                    ),
+                    SizedBox(width: 32.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // ignore: prefer_interpolation_to_compose_strings
+                          const Text('EVENING'),
+                          Text(
+                              DateFormat.jm()
+                                  .format(info.getMedicine().usage.even.time)
+                                  .toString(),
+                              style: Theme.of(context).textTheme.headline6),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )),
         SizedBox(height: 16.0),
         Expanded(
           child: info.medicines.length != 0
@@ -115,6 +239,11 @@ class _BoxPageState extends State<BoxPage> {
                                           Text(
                                               'Medicine Description ' +
                                                   item.description,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle1),
+                                          Text(
+                                              'S ${item.usage.mor.quantity} C ${item.usage.noon.quantity} T ${item.usage.even.quantity}',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .subtitle1),
@@ -216,6 +345,13 @@ class _BoxPageState extends State<BoxPage> {
     descripMedicine = TextEditingController(text: medicine.description);
     quantityMedicine =
         TextEditingController(text: medicine.quantity.toString());
+    var morMedicine =
+        TextEditingController(text: medicine.usage.mor.quantity.toString());
+    var noonMedicine =
+        TextEditingController(text: medicine.usage.noon.quantity.toString());
+    var eveMedicine =
+        TextEditingController(text: medicine.usage.even.quantity.toString());
+
     return showDialog(
         context: context,
         builder: (context) {
@@ -252,6 +388,33 @@ class _BoxPageState extends State<BoxPage> {
                       icon: Icon(Icons.message),
                     ),
                   ),
+                  TextFormField(
+                    // ignore: prefer_const_constructors
+                    controller: morMedicine,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Sang',
+                      icon: Icon(Icons.message),
+                    ),
+                  ),
+                  TextFormField(
+                    // ignore: prefer_const_constructors
+                    controller: noonMedicine,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Chieu',
+                      icon: Icon(Icons.message),
+                    ),
+                  ),
+                  TextFormField(
+                    // ignore: prefer_const_constructors
+                    controller: eveMedicine,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Toi',
+                      icon: Icon(Icons.message),
+                    ),
+                  ),
                 ],
               )),
             ),
@@ -269,17 +432,20 @@ class _BoxPageState extends State<BoxPage> {
 
                   setState(() {
                     //box.medicines.remove(medicine);
-                    box.medicines = box.medicines
-                        .map((e) =>
-                            e == medicine ? e.copy(name: nameMedicine.text) : e)
-                        .toList();
-                    Navigator.pop(context);
+                    medicine.name = nameMedicine.text;
+                    medicine.description = descripMedicine.text;
+                    medicine.quantity = int.parse(quantityMedicine.text);
+
+                    medicine.usage.mor.quantity = int.parse(morMedicine.text);
+                    medicine.usage.noon.quantity = int.parse(noonMedicine.text);
+                    medicine.usage.even.quantity = int.parse(eveMedicine.text);
                   });
+
+                  Navigator.pop(context);
                   _firAuth.UpdateMedicine(box, device, uid);
                   print(box.id);
                   print(device);
                   print(uid);
-                  nameMedicine.text = '';
                 },
               ),
             ],

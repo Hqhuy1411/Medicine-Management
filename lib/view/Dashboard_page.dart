@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../firebase_store/fire_base_auth.dart';
 import '../model/Medicine.dart';
+import 'Bottom_Page.dart';
 import 'Info_Page.dart';
 
 class DashBoardPage extends StatefulWidget {
@@ -19,10 +20,6 @@ class DashBoardPage extends StatefulWidget {
 
 class _DashBoardPageState extends State<DashBoardPage> {
   var _firAuth = FirAuth();
-
-  TextEditingController nameMedicine = new TextEditingController();
-  TextEditingController descripMedicine = new TextEditingController();
-  TextEditingController quantityMedicine = new TextEditingController(text: '0');
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +84,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                             ),
                             SlidableAction(
                               onPressed: (context) {
-                                print("edit");
+                                _displayEditDialog(item, info);
                               },
                               icon: Icons.edit,
                               backgroundColor: Colors.blue,
@@ -151,6 +148,61 @@ class _DashBoardPageState extends State<DashBoardPage> {
           },
           child: Icon(Icons.add),
         ));
+  }
+
+  Future<void> _displayEditDialog(Device device, Users user) async {
+    TextEditingController nameMedicine =
+        TextEditingController(text: device.id.toString());
+    TextEditingController descripMedicine =
+        TextEditingController(text: device.description);
+    TextEditingController quantityMedicine =
+        new TextEditingController(text: device.patient.fullname);
+    showBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              height: 400,
+              color: Colors.amberAccent,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    TextFormField(
+                      controller: nameMedicine,
+                      decoration: InputDecoration(
+                        labelText: 'Name',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: descripMedicine,
+                      decoration: InputDecoration(
+                        labelText: 'Description',
+                        icon: const Icon(Icons.email),
+                      ),
+                    ),
+                    TextFormField(
+                      controller: quantityMedicine,
+                      decoration: const InputDecoration(
+                        labelText: 'Name Patient',
+                        icon: Icon(Icons.message),
+                      ),
+                    ),
+                    ElevatedButton(
+                      child: const Text('Close BottomSheet'),
+                      onPressed: () {
+                        setState(() {
+                          device.description = descripMedicine.text;
+                          device.patient.fullname = quantityMedicine.text;
+                        });
+                        Navigator.pop(context);
+                        _firAuth.UpdateDevice(user);
+                      },
+                    ),
+                  ],
+                ),
+              ));
+        });
   }
 
   Future<void> showDeleteAlertDialog(Device device, Users user) async {

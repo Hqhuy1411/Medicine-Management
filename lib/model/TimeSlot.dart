@@ -28,7 +28,7 @@ class TimeSlot {
   factory TimeSlot.fromJson(Map<String, dynamic> parsedJson) {
     var data;
     if (parsedJson['time'] == null) {
-      data = DateTime.fromMicrosecondsSinceEpoch(0);
+      data = DateTime.fromMicrosecondsSinceEpoch(1672531200 * 1000);
     } else {
       data = DateTime.fromMillisecondsSinceEpoch(parsedJson['time'] * 1000);
     }

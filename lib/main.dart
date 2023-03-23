@@ -175,6 +175,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           emailController.text, passwordController.text);
                       print(user!.Info());
                       if (user != null) {
+                        print(user.uid);
                         Navigator.pushNamed(context, HomePage.routeName,
                             arguments: user);
                       }

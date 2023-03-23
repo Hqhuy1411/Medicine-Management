@@ -10,10 +10,10 @@ import 'package:app/model/Usage.dart';
 import 'package:app/view/Box_Page.dart';
 import 'package:app/view/abc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../firebase_store/fire_base_auth.dart';
-import 'CreateDevice_Page.dart';
 
 class DevicePage extends StatefulWidget {
   const DevicePage({super.key});
@@ -25,6 +25,9 @@ class DevicePage extends StatefulWidget {
 
 class _DevicePageState extends State<DevicePage> {
   String _imagepath = '';
+  DateTime dateS = DateTime(2023, 1, 1);
+  DateTime dateC = DateTime(2023, 1, 1);
+  DateTime dateT = DateTime(2023, 1, 1);
   final ImagePicker imgpicker = ImagePicker();
   TextEditingController nameMedicine = new TextEditingController();
   TextEditingController descripMedicine = new TextEditingController();
@@ -53,9 +56,9 @@ class _DevicePageState extends State<DevicePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Device Name' + info.id.toString(),
+                          Text('Thiet bi so ' + info.id.toString(),
                               style: Theme.of(context).textTheme.headline6),
-                          Text('Device Info',
+                          Text('Device Info ' + info.description,
                               style: Theme.of(context).textTheme.subtitle1),
                         ],
                       ),
@@ -82,53 +85,80 @@ class _DevicePageState extends State<DevicePage> {
                               Navigator.pushNamed(context, BoxPage.routeName,
                                   arguments: obSend);
                             },
-                            child: Card(
-                              elevation: 4.0, // Add a drop shadow to the card
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.gif_box),
-                                    SizedBox(width: 16.0),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              'Box Name :' + item.id.toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline6),
-                                          Text(
-                                              'Total Medicines : ' +
-                                                  item.medicines.length
-                                                      .toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle1),
-                                          Text(
-                                            'Sang : ${item.medicines[0].usage.mor.getTime()}' +
-                                                ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
-                                                ' Toi : ${item.medicines[0].usage.even.getTime()}',
-                                          ),
-                                          for (var medicine in item.medicines)
-                                            Text(medicine.Info())
-                                        ],
+                            child: Slidable(
+                                endActionPane: ActionPane(
+                                    motion: StretchMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          showEditTime(item, info.id, uid);
+                                        },
+                                        icon: Icons.edit,
+                                        backgroundColor: Colors.blue,
                                       ),
+                                    ]),
+                                child: Card(
+                                  elevation:
+                                      4.0, // Add a drop shadow to the card
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 8.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.gif_box),
+                                        SizedBox(width: 16.0),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  'Box so :' +
+                                                      item.id.toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline6),
+                                              Text(
+                                                  'Total Medicines : ' +
+                                                      item.medicines.length
+                                                          .toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1),
+                                              Text(
+                                                'Sang : ${item.medicines[0].usage.mor.getTime()}' +
+                                                    ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
+                                                    ' Toi : ${item.medicines[0].usage.even.getTime()}',
+                                              ),
+                                              for (var medicine
+                                                  in item.medicines)
+                                                Text(medicine.Info())
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ));
+                                  ),
+                                )));
                       },
                     )
                   : Center(
                       child: _imagepath == ""
                           ? Text('No image selected.')
-                          : Image.file(File(_imagepath)),
+                          : Stack(
+                              children: [
+                                Image.file(File(_imagepath)),
+                                Positioned(
+                                  bottom: 0,
+                                  left: 150,
+                                  child: ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text('Send'),
+                                  ),
+                                ),
+                              ],
+                            ),
                     ),
             ),
           ],
@@ -146,20 +176,26 @@ class _DevicePageState extends State<DevicePage> {
             FloatingActionButton(
               heroTag: "tag1",
               onPressed: (() async {
-                //List<Medicine> medicines = [];
-                // _displayTextInputDialog(context, info, uid);
-                // fetchAlbum().then((value) => value.forEach((element) {
-                //       medicines.add(element);
-                //     }));
+                var _firAuth = FirAuth();
+
+                List<Box> boxs = [];
+                int i = 0;
                 final list = await Navigator.push(
                     context, MaterialPageRoute(builder: (context) => App()));
+
                 if (list != null) {
                   list.forEach((element) {
-                    print(element.Info());
-                    print(element.usage.mor.getTime());
-                    print(element.usage.noon.getTime());
-                    print(element.usage.even.getTime());
+                    boxs.add(Box(id: ++i, medicines: [element]));
+                    print(element.usage.even.time);
+                    print(element.toJson());
                   });
+                }
+
+                setState(() {
+                  info.boxs = boxs;
+                });
+                for (var box in boxs) {
+                  _firAuth.addMultiBox(info, uid);
                 }
               }),
               child: Icon(Icons.restart_alt_rounded),
@@ -188,11 +224,124 @@ class _DevicePageState extends State<DevicePage> {
         ));
   }
 
+  Future<void> showEditTime(Box box, int device, String uid) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('TextField in Dialog'),
+            content: StatefulBuilder(builder: (context, setState) {
+              return Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                      child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                child: Text(
+                                    '${box.getMedicine().usage.mor.getTime()}'),
+                                onPressed: () async {
+                                  final time = await pickTime();
+                                  if (time == null) return;
+                                  final newtime = DateTime(
+                                      dateS.year,
+                                      dateS.month,
+                                      dateS.day,
+                                      time.hour,
+                                      time.minute);
+                                  setState(() {
+                                    box.getMedicine().usage.mor.time = newtime;
+                                  });
+                                }),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                child: Text(
+                                    '${box.getMedicine().usage.noon.getTime()}'),
+                                onPressed: () async {
+                                  final time = await pickTime();
+                                  if (time == null) return;
+                                  final newtime = DateTime(
+                                      dateC.year,
+                                      dateC.month,
+                                      dateC.day,
+                                      time.hour,
+                                      time.minute);
+                                  setState(() {
+                                    box.getMedicine().usage.noon.time = newtime;
+                                  });
+                                }),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                child: Text(
+                                    '${box.getMedicine().usage.even.getTime()}'),
+                                onPressed: () async {
+                                  final time = await pickTime();
+                                  if (time == null) return;
+                                  final newtime = DateTime(
+                                      dateT.year,
+                                      dateT.month,
+                                      dateT.day,
+                                      time.hour,
+                                      time.minute);
+                                  setState(() {
+                                    box.getMedicine().usage.even.time = newtime;
+                                  });
+                                }),
+                          )
+                        ],
+                      )
+                    ],
+                  )),
+                ),
+              );
+            }),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('CANCEL'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: Text('OK'),
+                onPressed: () {
+                  var _firAuth = FirAuth();
+                  setState(() {
+                    box.medicines.forEach((e) => {});
+                  });
+                  _firAuth.UpdateMedicine(box, device, uid);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   Future<void> _displayTextInputDialog(
       BuildContext context, Device device, String uid) async {
-    DateTime dateS = DateTime(2023, 1, 1);
-    DateTime dateC = DateTime(2023, 1, 1);
-    DateTime dateT = DateTime(2023, 1, 1);
     return showDialog(
         context: context,
         builder: (context) {
@@ -367,7 +516,7 @@ class _DevicePageState extends State<DevicePage> {
                     Box box = Box(medicines: [medicine]);
                     box.id = device.boxs.length + 1;
                     device.boxs.add(box);
-                    _firAuth.AddMedicine3(box, device.id!, uid);
+                    _firAuth.addBox(box, device.id!, uid);
                   });
                   Navigator.pop(context);
                 },
