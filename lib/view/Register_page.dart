@@ -173,6 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   phone: int.parse(_phoneController.text),
                                   name: _nameController.text,
                                   devices: list));
+                          Navigator.pop(context);
                         },
                         child: const Text(
                           "Signup",

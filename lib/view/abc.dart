@@ -8,56 +8,65 @@ import '../utils/Row.dart';
 import 'lib/view/Scrollable_widget.dart';
 
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  final List<Medicine> list;
+  const App({Key? key, required this.list}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<App> {
-  List<Medicine> _medicines = [];
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchAlbum();
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    fetchAlbum();
-  }
+  // void fetchAlbum() async {
+  //   final response = await http
+  //       .get(Uri.parse('https://api.jsonbin.io/v3/b/64141d94c0e7653a05895f00'));
 
-  void fetchAlbum() async {
-    final response = await http
-        .get(Uri.parse('https://api.jsonbin.io/v3/b/64141d94c0e7653a05895f00'));
+  //   if (response.statusCode == 200) {
+  //     //return Album.fromJson(jsonDecode(response.body));;
+  //     var list = jsonDecode(response.body);
 
-    if (response.statusCode == 200) {
-      //return Album.fromJson(jsonDecode(response.body));;
-      var list = jsonDecode(response.body);
-
-      List<Medicine> medicines = [];
-      for (var i in list['record']) {
-        var data = i as Map<String, dynamic>;
-        medicines.add(Medicine.fromJson(data));
-      }
-      setState(() {
-        _medicines = medicines;
-      });
-    } else {
-      throw Exception('Failed to load album');
-    }
-  }
+  //     List<Medicine> medicines = [];
+  //     for (var i in list['record']) {
+  //       var data = i as Map<String, dynamic>;
+  //       medicines.add(Medicine.fromJson(data));
+  //     }
+  //     setState(() {
+  //       _medicines = medicines;
+  //     });
+  //   } else {
+  //     throw Exception('Failed to load album');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScrollableWidget(child: buildDataTable(_medicines)),
+      body: ScrollableWidget(child: buildDataTable(widget.list)),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pop(context, _medicines);
+          Navigator.pop(context, widget.list);
         },
       ),
     );
   }
 
   Widget buildDataTable(List<Medicine> list) {
-    final columns = ['Ten Thuoc', 'Mo Ta', 'So Luong', 'Sang', 'Chieu', 'Toi'];
+    final columns = [
+      'Ten Thuoc',
+      'Mo Ta',
+      'So Luong',
+      'Sang',
+      'Thoi Gian',
+      'Chieu',
+      'Thoi Gian',
+      'Toi',
+      'Thoi Gian'
+    ];
     return DataTable(
       columns: getColumns(columns),
       rows: getRows(list),
@@ -78,13 +87,16 @@ class _MyHomePageState extends State<App> {
           medicine.name,
           medicine.description,
           medicine.quantity,
+          medicine.usage.mor.quantity,
           medicine.usage.mor.getTime(),
+          medicine.usage.noon.quantity,
           medicine.usage.noon.getTime(),
+          medicine.usage.even.quantity,
           medicine.usage.even.getTime(),
         ];
         return DataRow(
           cells: Utils.modelBuilder(cells, (index, cell) {
-            final showEditIcon = index == 3 || index == 4 || index == 5;
+            final showEditIcon = index == 4 || index == 6 || index == 8;
             return DataCell(Text('$cell'), showEditIcon: showEditIcon,
                 onTap: () async {
               DateTime dateS = DateTime(2023, 1, 1);
@@ -94,9 +106,9 @@ class _MyHomePageState extends State<App> {
               final newtime = DateTime(
                   dateS.year, dateS.month, dateS.day, time.hour, time.minute);
               setState(() {
-                if (index == 3) medicine.usage.mor.time = newtime;
-                if (index == 4) medicine.usage.noon.time = newtime;
-                if (index == 5) medicine.usage.even.time = newtime;
+                if (index == 4) medicine.usage.mor.time = newtime;
+                if (index == 6) medicine.usage.noon.time = newtime;
+                if (index == 8) medicine.usage.even.time = newtime;
               });
             });
           }),

@@ -14,6 +14,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../firebase_store/fire_base_auth.dart';
+import 'lib/Camera_page.dart';
 
 class DevicePage extends StatefulWidget {
   const DevicePage({super.key});
@@ -42,6 +43,91 @@ class _DevicePageState extends State<DevicePage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Box'),
+          actions: [
+            PopupMenuButton(
+              // add icon, by default "3 dot" icon
+              // icon: Icon(Icons.book)
+              itemBuilder: (context) {
+                return [
+                  PopupMenuItem<int>(
+                      value: 0,
+                      child: ListTile(
+                        leading: Icon(Icons.camera),
+                        title: Text('Camera'),
+                        onTap: () async {
+                          // Handle save action
+                          print("camera");
+                          var _firAuth = FirAuth();
+
+                          List<Box> boxs = [];
+                          int i = 0;
+                          final list = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ImagePickerWidget()));
+
+                          // if (list != null) {
+                          //   list.forEach((element) {
+                          //     boxs.add(Box(id: ++i, medicines: [element]));
+                          //     print(element.usage.even.time);
+                          //     print(element.toJson());
+                          //   });
+                          // }
+                          setState(() {
+                            if (list == null) {
+                              return;
+                            } else {
+                              list.forEach((element) {
+                                for (var box in info.boxs) {
+                                  if (box.medicines.length == 0) {
+                                    box.medicines.add(element);
+                                    break;
+                                  }
+                                }
+                              });
+                            }
+                          });
+                          // setState(() {
+                          //   info.boxs = boxs;
+                          // });
+                          // for (var box in boxs) {
+                          //   _firAuth.addMultiBox(info, uid);
+                          // }
+                          _firAuth.updateBox(info, uid);
+                        },
+                      )),
+                  PopupMenuItem<int>(
+                      value: 1,
+                      child: ListTile(
+                        leading: Icon(Icons.reset_tv),
+                        title: Text('Reset'),
+                        onTap: () {
+                          // Handle save action
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ImagePickerWidget()));
+                          // print("Reset");
+                          // try {
+                          //   var pickedFile = await imgpicker.pickImage(
+                          //       source: ImageSource.camera);
+                          //   if (pickedFile != null) {
+                          //     setState(() {
+                          //       _imagepath = pickedFile.path;
+                          //     });
+                          //   } else {
+                          //     print("No image is selected.");
+                          //   }
+                          // } catch (e) {
+                          //   print("error while picking image.");
+                          // }
+                        },
+                      )),
+                ];
+              },
+            ),
+          ],
         ),
         body: Column(
           children: [
@@ -69,98 +155,95 @@ class _DevicePageState extends State<DevicePage> {
             ),
             SizedBox(height: 16.0),
             Expanded(
-              child: info.boxs.length != 0
-                  ? ListView.builder(
-                      itemCount: info.boxs.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = info.boxs[index];
-                        final obSend = {
-                          "item": item,
-                          "uid": uid,
-                          "device": info.id
-                        };
-                        return GestureDetector(
-                            onTap: () {
-                              // Handle the tap event here
-                              Navigator.pushNamed(context, BoxPage.routeName,
-                                  arguments: obSend);
+                child: ListView.builder(
+              itemCount: info.boxs.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = info.boxs[index];
+                final obSend = {"item": item, "uid": uid, "device": info.id};
+                return GestureDetector(
+                    onTap: () {
+                      // Handle the tap event here
+                      Navigator.pushNamed(context, BoxPage.routeName,
+                          arguments: obSend);
+                    },
+                    child: Slidable(
+                        endActionPane:
+                            ActionPane(motion: StretchMotion(), children: [
+                          SlidableAction(
+                            onPressed: (context) {
+                              if (item.medicines.length > 0) {
+                                showEditTime(item, info.id, uid);
+                              }
                             },
-                            child: Slidable(
-                                endActionPane: ActionPane(
-                                    motion: StretchMotion(),
-                                    children: [
-                                      SlidableAction(
-                                        onPressed: (context) {
-                                          showEditTime(item, info.id, uid);
-                                        },
-                                        icon: Icons.edit,
-                                        backgroundColor: Colors.blue,
-                                      ),
-                                    ]),
-                                child: Card(
-                                  elevation:
-                                      4.0, // Add a drop shadow to the card
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 16.0, vertical: 8.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.gif_box),
-                                        SizedBox(width: 16.0),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  'Box so :' +
-                                                      item.id.toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline6),
-                                              Text(
-                                                  'Total Medicines : ' +
-                                                      item.medicines.length
-                                                          .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .subtitle1),
-                                              Text(
-                                                'Sang : ${item.medicines[0].usage.mor.getTime()}' +
-                                                    ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
-                                                    ' Toi : ${item.medicines[0].usage.even.getTime()}',
-                                              ),
-                                              for (var medicine
-                                                  in item.medicines)
-                                                Text(medicine.Info())
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )));
-                      },
-                    )
-                  : Center(
-                      child: _imagepath == ""
-                          ? Text('No image selected.')
-                          : Stack(
+                            icon: Icons.edit,
+                            backgroundColor: Colors.blue,
+                          ),
+                        ]),
+                        child: Card(
+                          elevation: 4.0, // Add a drop shadow to the card
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
                               children: [
-                                Image.file(File(_imagepath)),
-                                Positioned(
-                                  bottom: 0,
-                                  left: 150,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    child: Text('Send'),
+                                Icon(Icons.gif_box),
+                                SizedBox(width: 16.0),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Box so :' + item.id.toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6),
+                                      if (item.medicines.length > 0)
+                                        Column(children: [
+                                          Text(
+                                              'Total Medicines : ' +
+                                                  item.medicines.length
+                                                      .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle1),
+                                          Text(
+                                            'Sang : ${item.medicines[0].usage.mor.getTime()}' +
+                                                ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
+                                                ' Toi : ${item.medicines[0].usage.even.getTime()}',
+                                          ),
+                                          for (var medicine in item.medicines)
+                                            Text(medicine.Info())
+                                        ])
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                    ),
+                          ),
+                        )));
+              },
+            )),
+            SizedBox(
+              height: 20,
             ),
+            // Expanded(
+            //   child: _imagepath == ""
+            //       ? Text('No image selected.')
+            //       : Stack(
+            //           children: [
+            //             Image.file(File(_imagepath)),
+            //             Positioned(
+            //               bottom: 0,
+            //               left: 100,
+            //               child: ElevatedButton(
+            //                 onPressed: () {},
+            //                 child: Text('Send'),
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            // )
           ],
         ),
         floatingActionButton: Row(
@@ -173,53 +256,67 @@ class _DevicePageState extends State<DevicePage> {
               }),
               child: Icon(Icons.add),
             ),
-            FloatingActionButton(
-              heroTag: "tag1",
-              onPressed: (() async {
-                var _firAuth = FirAuth();
+            // FloatingActionButton(
+            //   heroTag: "tag1",
+            //   onPressed: (() async {
+            //     var _firAuth = FirAuth();
 
-                List<Box> boxs = [];
-                int i = 0;
-                final list = await Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => App()));
+            //     List<Box> boxs = [];
+            //     int i = 0;
+            //     final list = await Navigator.push(
+            //         context, MaterialPageRoute(builder: (context) => App()));
 
-                if (list != null) {
-                  list.forEach((element) {
-                    boxs.add(Box(id: ++i, medicines: [element]));
-                    print(element.usage.even.time);
-                    print(element.toJson());
-                  });
-                }
-
-                setState(() {
-                  info.boxs = boxs;
-                });
-                for (var box in boxs) {
-                  _firAuth.addMultiBox(info, uid);
-                }
-              }),
-              child: Icon(Icons.restart_alt_rounded),
-            ),
-            FloatingActionButton(
-              heroTag: "tag2",
-              onPressed: () async {
-                try {
-                  var pickedFile =
-                      await imgpicker.pickImage(source: ImageSource.camera);
-                  if (pickedFile != null) {
-                    setState(() {
-                      _imagepath = pickedFile.path;
-                    });
-                  } else {
-                    print("No image is selected.");
-                  }
-                } catch (e) {
-                  print("error while picking image.");
-                }
-                print("camera");
-              },
-              child: Icon(Icons.camera),
-            ),
+            //     // if (list != null) {
+            //     //   list.forEach((element) {
+            //     //     boxs.add(Box(id: ++i, medicines: [element]));
+            //     //     print(element.usage.even.time);
+            //     //     print(element.toJson());
+            //     //   });
+            //     // }
+            //     setState(() {
+            //       if (list == null) {
+            //         return;
+            //       } else {
+            //         list.forEach((element) {
+            //           for (var box in info.boxs) {
+            //             if (box.medicines.length == 0) {
+            //               box.medicines.add(element);
+            //               break;
+            //             }
+            //           }
+            //         });
+            //       }
+            //     });
+            //     // setState(() {
+            //     //   info.boxs = boxs;
+            //     // });
+            //     // for (var box in boxs) {
+            //     //   _firAuth.addMultiBox(info, uid);
+            //     // }
+            //     _firAuth.updateBox(info, uid);
+            //   }),
+            //   child: Icon(Icons.restart_alt_rounded),
+            // ),
+            // FloatingActionButton(
+            //   heroTag: "tag2",
+            //   onPressed: () async {
+            //     try {
+            //       var pickedFile =
+            //           await imgpicker.pickImage(source: ImageSource.camera);
+            //       if (pickedFile != null) {
+            //         setState(() {
+            //           _imagepath = pickedFile.path;
+            //         });
+            //       } else {
+            //         print("No image is selected.");
+            //       }
+            //     } catch (e) {
+            //       print("error while picking image.");
+            //     }
+            //     print("camera");
+            //   },
+            //   child: Icon(Icons.camera),
+            // ),
           ],
         ));
   }

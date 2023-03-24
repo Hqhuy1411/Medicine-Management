@@ -8,7 +8,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
 import '../firebase_store/fire_base_auth.dart';
+import '../model/Device.dart';
 import '../model/Medicine.dart';
+import '../model/TimeSlot.dart';
 
 class BoxPage extends StatefulWidget {
   const BoxPage({super.key});
@@ -58,129 +60,134 @@ class _BoxPageState extends State<BoxPage> {
             ),
           ),
         ),
-        Slidable(
-            endActionPane: ActionPane(motion: StretchMotion(), children: [
-              SlidableAction(
-                onPressed: (context) {
-                  print("edit");
-                  // _EditdisplayTextInputDialog(context, item, info, device, uid);
-                },
-                icon: Icons.edit,
-                backgroundColor: Colors.blue,
-              ),
-            ]),
-            child: Card(
-              elevation: 4.0, // Add a drop shadow to the card
-              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.alarm,
-                      size: 50,
+        if (info.medicines.length > 0)
+          Column(children: [
+            Slidable(
+                endActionPane: ActionPane(motion: StretchMotion(), children: [
+                  SlidableAction(
+                    onPressed: (context) {
+                      print("edit");
+                      // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                    },
+                    icon: Icons.edit,
+                    backgroundColor: Colors.blue,
+                  ),
+                ]),
+                child: Card(
+                  elevation: 4.0, // Add a drop shadow to the card
+                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.alarm,
+                          size: 50,
+                        ),
+                        SizedBox(width: 32.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // ignore: prefer_interpolation_to_compose_strings
+                              const Text('MORNING'),
+                              Text(
+                                  DateFormat.jm()
+                                      .format(info.getMedicine().usage.mor.time)
+                                      .toString(),
+                                  style: Theme.of(context).textTheme.headline6),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 32.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // ignore: prefer_interpolation_to_compose_strings
-                          const Text('MORNING'),
-                          Text(
-                              DateFormat.jm()
-                                  .format(info.getMedicine().usage.mor.time)
-                                  .toString(),
-                              style: Theme.of(context).textTheme.headline6),
-                        ],
-                      ),
+                  ),
+                )),
+            Slidable(
+                endActionPane: ActionPane(motion: StretchMotion(), children: [
+                  SlidableAction(
+                    onPressed: (context) {
+                      print("edit");
+                      // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                    },
+                    icon: Icons.edit,
+                    backgroundColor: Colors.blue,
+                  ),
+                ]),
+                child: Card(
+                  elevation: 4.0, // Add a drop shadow to the card
+                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.alarm,
+                          size: 50,
+                        ),
+                        SizedBox(width: 32.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // ignore: prefer_interpolation_to_compose_strings
+                              const Text('AFTERNOON'),
+                              Text(
+                                  DateFormat.jm()
+                                      .format(
+                                          info.getMedicine().usage.noon.time)
+                                      .toString(),
+                                  style: Theme.of(context).textTheme.headline6),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            )),
-        Slidable(
-            endActionPane: ActionPane(motion: StretchMotion(), children: [
-              SlidableAction(
-                onPressed: (context) {
-                  print("edit");
-                  // _EditdisplayTextInputDialog(context, item, info, device, uid);
-                },
-                icon: Icons.edit,
-                backgroundColor: Colors.blue,
-              ),
-            ]),
-            child: Card(
-              elevation: 4.0, // Add a drop shadow to the card
-              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.alarm,
-                      size: 50,
+                  ),
+                )),
+            Slidable(
+                endActionPane: ActionPane(motion: StretchMotion(), children: [
+                  SlidableAction(
+                    onPressed: (context) {
+                      print("edit");
+                      // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                    },
+                    icon: Icons.edit,
+                    backgroundColor: Colors.blue,
+                  ),
+                ]),
+                child: Card(
+                  elevation: 4.0, // Add a drop shadow to the card
+                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.alarm,
+                          size: 50,
+                        ),
+                        SizedBox(width: 32.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // ignore: prefer_interpolation_to_compose_strings
+                              const Text('EVENING'),
+                              Text(
+                                  DateFormat.jm()
+                                      .format(
+                                          info.getMedicine().usage.even.time)
+                                      .toString(),
+                                  style: Theme.of(context).textTheme.headline6),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 32.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // ignore: prefer_interpolation_to_compose_strings
-                          const Text('AFTERNOON'),
-                          Text(
-                              DateFormat.jm()
-                                  .format(info.getMedicine().usage.noon.time)
-                                  .toString(),
-                              style: Theme.of(context).textTheme.headline6),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )),
-        Slidable(
-            endActionPane: ActionPane(motion: StretchMotion(), children: [
-              SlidableAction(
-                onPressed: (context) {
-                  print("edit");
-                  // _EditdisplayTextInputDialog(context, item, info, device, uid);
-                },
-                icon: Icons.edit,
-                backgroundColor: Colors.blue,
-              ),
-            ]),
-            child: Card(
-              elevation: 4.0, // Add a drop shadow to the card
-              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.alarm,
-                      size: 50,
-                    ),
-                    SizedBox(width: 32.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // ignore: prefer_interpolation_to_compose_strings
-                          const Text('EVENING'),
-                          Text(
-                              DateFormat.jm()
-                                  .format(info.getMedicine().usage.even.time)
-                                  .toString(),
-                              style: Theme.of(context).textTheme.headline6),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )),
+                  ),
+                )),
+          ]),
         SizedBox(height: 16.0),
         Expanded(
           child: info.medicines.length != 0
@@ -260,7 +267,11 @@ class _BoxPageState extends State<BoxPage> {
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _displayTextInputDialog(context, info, device, uid);
+          if (info.medicines.length > 0) {
+            _displayTextInputDialog(context, info, device, uid);
+          } else {
+            _displayTextInputDialog2(context, info, device, uid);
+          }
         },
       ),
     );
@@ -268,6 +279,9 @@ class _BoxPageState extends State<BoxPage> {
 
   Future<void> _displayTextInputDialog(
       BuildContext context, Box box, int device, String uid) async {
+    var morMedicine = TextEditingController(text: '0');
+    var noonMedicine = TextEditingController(text: '0');
+    var eveMedicine = TextEditingController(text: '0');
     return showDialog(
         context: context,
         builder: (context) {
@@ -304,6 +318,33 @@ class _BoxPageState extends State<BoxPage> {
                       icon: Icon(Icons.message),
                     ),
                   ),
+                  TextFormField(
+                    // ignore: prefer_const_constructors
+                    controller: morMedicine,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Quantity',
+                      icon: Icon(Icons.message),
+                    ),
+                  ),
+                  TextFormField(
+                    // ignore: prefer_const_constructors
+                    controller: noonMedicine,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Quantity',
+                      icon: Icon(Icons.message),
+                    ),
+                  ),
+                  TextFormField(
+                    // ignore: prefer_const_constructors
+                    controller: eveMedicine,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Quantity',
+                      icon: Icon(Icons.message),
+                    ),
+                  ),
                 ],
               )),
             ),
@@ -318,18 +359,29 @@ class _BoxPageState extends State<BoxPage> {
                 child: Text('OK'),
                 onPressed: () {
                   var _firAuth = FirAuth();
+                  Usage usage = box.getMedicine().usage;
+                  Usage usage2 = Usage(
+                      mor: TimeSlot(
+                          quantity: int.parse(morMedicine.text),
+                          time: usage.mor.time),
+                      noon: TimeSlot(
+                          quantity: int.parse(noonMedicine.text),
+                          time: usage.noon.time),
+                      even: TimeSlot(
+                          quantity: int.parse(eveMedicine.text),
+                          time: usage.even.time));
 
+                  var medicine = Medicine(
+                      name: nameMedicine.text,
+                      quantity: int.parse(quantityMedicine.text),
+                      description: descripMedicine.text,
+                      usage: usage2);
                   setState(() {
-                    Usage usage = box.getMedicine().usage;
-                    var medicine = Medicine(
-                        name: nameMedicine.text,
-                        quantity: int.parse(quantityMedicine.text),
-                        description: descripMedicine.text,
-                        usage: usage);
-                    _firAuth.AddMedicine2(medicine, device, box.id!, uid);
                     box.medicines.add(medicine);
-                    Navigator.pop(context);
                   });
+                  _firAuth.AddMedicine2(medicine, device, box.id!, uid);
+
+                  Navigator.pop(context);
                   nameMedicine.text = '';
                   quantityMedicine.text = '';
                 },
@@ -487,4 +539,207 @@ class _BoxPageState extends State<BoxPage> {
           );
         });
   }
+
+  Future<void> _displayTextInputDialog2(
+      BuildContext context, Box box, int device, String uid) async {
+    DateTime dateS = DateTime(2023, 1, 1);
+    DateTime dateC = DateTime(2023, 1, 1);
+    DateTime dateT = DateTime(2023, 1, 1);
+    var morMedicine = TextEditingController(text: '0');
+    var noonMedicine = TextEditingController(text: '0');
+    var eveMedicine = TextEditingController(text: '0');
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('TextField in Dialog'),
+            content: StatefulBuilder(builder: (context, setState) {
+              return Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                      child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        // ignore: prefer_const_constructors
+                        controller: nameMedicine,
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                        ),
+                      ),
+                      TextFormField(
+                        // ignore: prefer_const_constructors
+                        controller: descripMedicine,
+                        // ignore: prefer_const_constructors
+                        decoration: InputDecoration(
+                          labelText: 'Description',
+                          icon: const Icon(Icons.email),
+                        ),
+                      ),
+                      TextFormField(
+                        // ignore: prefer_const_constructors
+                        controller: quantityMedicine,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: 'Quantity',
+                          icon: Icon(Icons.message),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: morMedicine,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                labelText: 'Sang',
+                                icon: Icon(Icons.message),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                child: dateS.hour == 0
+                                    ? Text("Select Time")
+                                    : Text('${dateS.hour}' ': ${dateS.minute}'),
+                                onPressed: () async {
+                                  final time = await pickTime();
+                                  if (time == null) return;
+                                  final newtime = DateTime(
+                                      dateS.year,
+                                      dateS.month,
+                                      dateS.day,
+                                      time.hour,
+                                      time.minute);
+                                  setState(() {
+                                    dateS = newtime;
+                                  });
+                                }),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: noonMedicine,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                labelText: 'Trua',
+                                icon: Icon(Icons.message),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                child: dateC.hour == 0
+                                    ? Text("Select Time")
+                                    : Text('${dateC.hour}' ': ${dateC.minute}'),
+                                onPressed: () async {
+                                  final time = await pickTime();
+                                  if (time == null) return;
+                                  final newtime = DateTime(
+                                      dateC.year,
+                                      dateC.month,
+                                      dateC.day,
+                                      time.hour,
+                                      time.minute);
+                                  setState(() {
+                                    dateC = newtime;
+                                  });
+                                }),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              controller: eveMedicine,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                labelText: 'Toi',
+                                icon: Icon(Icons.message),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                child: dateT.hour == 0
+                                    ? Text("Select Time")
+                                    : Text('${dateT.hour}' ': ${dateT.minute}'),
+                                onPressed: () async {
+                                  final time = await pickTime();
+                                  if (time == null) return;
+                                  final newtime = DateTime(
+                                      dateT.year,
+                                      dateT.month,
+                                      dateT.day,
+                                      time.hour,
+                                      time.minute);
+                                  setState(() {
+                                    dateT = newtime;
+                                  });
+                                }),
+                          )
+                        ],
+                      )
+                    ],
+                  )),
+                ),
+              );
+            }),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('CANCEL'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: Text('OK'),
+                onPressed: () {
+                  var _firAuth = FirAuth();
+                  Medicine medicine = Medicine(
+                      name: nameMedicine.text,
+                      description: descripMedicine.text,
+                      quantity: int.parse(quantityMedicine.text),
+                      usage: Usage(
+                          mor: TimeSlot(
+                              quantity: int.parse(morMedicine.text),
+                              time: dateS),
+                          noon: TimeSlot(
+                              quantity: int.parse(noonMedicine.text),
+                              time: dateC),
+                          even: TimeSlot(
+                              quantity: int.parse(eveMedicine.text),
+                              time: dateT)));
+
+                  setState(() {
+                    box.medicines.add(medicine);
+                    // Box box = Box(medicines: [medicine]);
+                    // box.id = device.boxs.length + 1;
+                    // device.boxs.add(box);
+                    // _firAuth.addBox(box, device.id!, uid);
+                  });
+                  _firAuth.AddMedicine2(medicine, device, box.id!, uid);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<TimeOfDay?> pickTime() => showTimePicker(
+      context: context, initialTime: TimeOfDay(hour: 7, minute: 0));
 }

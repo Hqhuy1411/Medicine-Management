@@ -128,6 +128,21 @@ class FirAuth {
     });
   }
 
+  void updateBox(Device device, String uid) async {
+    var order = await getInfoUser(uid);
+    order.devices.forEach(
+        (element) => {if (element.id == device.id) element.boxs = device.boxs});
+    var ref = FirebaseDatabase.instance.ref().child("users");
+    ref.child(uid).update(
+        {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
+      print("on value: SUCCESSED");
+    }).catchError((err) {
+      print("err: " + err.toString());
+    }).whenComplete(() {
+      print("completed");
+    });
+  }
+
   void addMultiBox(Device device, String userId) async {
     var order = await getInfoUser(userId);
     order.devices

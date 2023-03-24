@@ -8,7 +8,13 @@ class Device {
   var patient;
   var boxs;
 
-  Device({this.id, this.description = "", this.patient, this.boxs}) {}
+  Device({this.id, this.description = "", this.patient, this.boxs}) {
+    if (boxs.length == 0) {
+      for (int i = 1; i <= 5; i++) {
+        boxs.add(Box(id: i, name: "Box ${i}", medicines: []));
+      }
+    }
+  }
 
   String Info() {
     String result = "";
