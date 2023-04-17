@@ -32,8 +32,8 @@ class Box {
     };
   }
 
-  Medicine getMedicine() {
-    return medicines[0];
+  Medicine? getMedicine() {
+    return medicines.length > 0 ? medicines[0] : null;
   }
 
   @override

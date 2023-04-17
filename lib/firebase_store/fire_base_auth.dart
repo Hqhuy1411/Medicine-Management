@@ -104,6 +104,8 @@ class FirAuth {
     order.devices.add(device);
     print(order.devices[0].id);
     var ref = FirebaseDatabase.instance.ref().child("users");
+    var refDevices = FirebaseDatabase.instance.ref().child("devices");
+
     ref.child(userId).update(
         {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
       print("on value: SUCCESSED");
@@ -112,12 +114,15 @@ class FirAuth {
     }).whenComplete(() {
       print("completed");
     });
+    refDevices.child(userId + device.id.toString()).set(device.toJson());
   }
 
-  void UpdateDevice(Users user) async {
+  void UpdateDevice(Device device, Users user, int i) async {
     var order = await getInfoUser(user.uid);
     order.devices = user.devices;
     var ref = FirebaseDatabase.instance.ref().child("users");
+    var refDevices = FirebaseDatabase.instance.ref().child("devices");
+
     ref.child(user.uid).update(
         {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
       print("on value: SUCCESSED");
@@ -126,6 +131,11 @@ class FirAuth {
     }).whenComplete(() {
       print("completed");
     });
+    if (i == 0) {
+      refDevices.child(user.uid + device.id.toString()).update(device.toJson());
+    } else {
+      refDevices.child(user.uid + device.id.toString()).remove();
+    }
   }
 
   void updateBox(Device device, String uid) async {
@@ -133,6 +143,8 @@ class FirAuth {
     order.devices.forEach(
         (element) => {if (element.id == device.id) element.boxs = device.boxs});
     var ref = FirebaseDatabase.instance.ref().child("users");
+    var refDevices = FirebaseDatabase.instance.ref().child("devices");
+
     ref.child(uid).update(
         {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
       print("on value: SUCCESSED");
@@ -141,6 +153,7 @@ class FirAuth {
     }).whenComplete(() {
       print("completed");
     });
+    refDevices.child(uid + device.id.toString()).update(device.toJson());
   }
 
   void addMultiBox(Device device, String userId) async {
@@ -189,6 +202,7 @@ class FirAuth {
         });
 
     var ref = FirebaseDatabase.instance.ref().child("users");
+    var refDevices = FirebaseDatabase.instance.ref().child("devices");
     ref.child(userId).update(
         {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
       print("on value: SUCCESSED");
@@ -197,6 +211,9 @@ class FirAuth {
     }).whenComplete(() {
       print("completed");
     });
+    refDevices
+        .child(userId + device.toString())
+        .update(order.getDevice(device).toJson());
   }
 
   void UpdateMedicine(Box box, int device, String userId) async {
@@ -211,6 +228,8 @@ class FirAuth {
         });
 
     var ref = FirebaseDatabase.instance.ref().child("users");
+    var refDevices = FirebaseDatabase.instance.ref().child("devices");
+
     ref.child(userId).update(
         {"devices": order.devices.map((e) => e.toJson()).toList()}).then((vl) {
       print("on value: SUCCESSED");
@@ -219,6 +238,9 @@ class FirAuth {
     }).whenComplete(() {
       print("completed");
     });
+    refDevices
+        .child(userId + device.toString())
+        .update(order.getDevice(device).toJson());
   }
 
   void updateUser(String name, String phone, String uid) async {

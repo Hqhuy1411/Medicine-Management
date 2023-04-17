@@ -76,31 +76,67 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
               SizedBox(
                 height: 20,
               ),
-              image != null ? Image.file(image!) : Text("No image selected"),
+              image != null
+                  ? ClipRect(
+                      child: Align(
+                          alignment: Alignment.center,
+                          heightFactor: 0.7,
+                          child: Image.file(image!)),
+                    )
+                  : Text("No image selected"),
               if (image != null)
                 ElevatedButton(
                   child: Text("send"),
                   onPressed: (() async {
                     try {
-                      var request = http.MultipartRequest(
-                          'POST', Uri.parse('http://192.168.1.18:8000/auth'));
-                      var response = await request.send();
-                      var responseBody = await response.stream.bytesToString();
-                      var list = jsonDecode(responseBody);
-                      // print(responseBody);
-                      List<Medicine> medicines = [];
-                      for (var i in list) {
-                        var data = i as Map<String, dynamic>;
-                        medicines.add(Medicine.fromJson(data));
+                      // var request = http.MultipartRequest('POST',
+                      //     Uri.parse('http://172.20.10.3:5000/upload-image'));
+                      // request.files.add(await http.MultipartFile.fromPath(
+                      //     'image', image!.path));
+                      final bytes = await image!.readAsBytes();
+                      final _imageBytes = bytes.buffer.asUint8List();
+                      final url = 'http://172.20.10.3:5000//upload-image';
+
+                      final response = await http.post(Uri.parse(url), body: {
+                        'image': base64Encode(_imageBytes),
+                      });
+                      if (response.statusCode == 200) {
+                        print('Upload success!');
+                        var list = json.decode(response.body);
+                        List<Medicine> medicines = [];
+                        for (var i in list) {
+                          var data = i as Map<String, dynamic>;
+                          medicines.add(Medicine.fromJson(data));
+                        }
+                        // ignore: use_build_context_synchronously
+                        final listReceive = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => App(
+                                      list: medicines,
+                                    )));
+                        Navigator.pop(context, listReceive);
+                      } else {
+                        print(
+                            'Upload failed. Error code: ${response.statusCode}');
                       }
-                      // ignore: use_build_context_synchronously
-                      final listReceive = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => App(
-                                    list: medicines,
-                                  )));
-                      Navigator.pop(context, listReceive);
+                      // var response = await request.send();
+                      // var responseBody = await response.stream.bytesToString();
+                      // var list = jsonDecode(responseBody);
+                      // // print(responseBody);
+                      // List<Medicine> medicines = [];
+                      // for (var i in list) {
+                      //   var data = i as Map<String, dynamic>;
+                      //   medicines.add(Medicine.fromJson(data));
+                      // }
+                      // // ignore: use_build_context_synchronously
+                      // final listReceive = await Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => App(
+                      //               list: medicines,
+                      //             )));
+                      // Navigator.pop(context, listReceive);
                     } catch (err) {
                       print(err);
                     }

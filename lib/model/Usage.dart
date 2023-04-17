@@ -8,12 +8,7 @@ class Usage {
   TimeSlot even;
   Usage({required this.mor, required this.noon, required this.even});
   String Info() {
-    return 'S :' +
-        mor.quantity.toString() +
-        ' C :' +
-        noon.quantity.toString() +
-        ' T :' +
-        even.quantity.toString();
+    return 'S :' + mor.Info() + ' C :' + noon.Info() + ' T :' + even.Info();
   }
 
   int Total() {

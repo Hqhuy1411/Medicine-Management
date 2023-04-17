@@ -8,6 +8,7 @@ import 'package:app/model/Medicine.dart';
 import 'package:app/model/TimeSlot.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/view/Box_Page.dart';
+import 'package:app/view/Carema.dart';
 import 'package:app/view/abc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -29,7 +30,7 @@ class _DevicePageState extends State<DevicePage> {
   DateTime dateS = DateTime(2023, 1, 1);
   DateTime dateC = DateTime(2023, 1, 1);
   DateTime dateT = DateTime(2023, 1, 1);
-  final ImagePicker imgpicker = ImagePicker();
+  // final ImagePicker imgpicker = ImagePicker();
   TextEditingController nameMedicine = new TextEditingController();
   TextEditingController descripMedicine = new TextEditingController();
   TextEditingController quantityMedicine = new TextEditingController(text: '0');
@@ -107,7 +108,7 @@ class _DevicePageState extends State<DevicePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ImagePickerWidget()));
+                                  builder: (context) => CameraScreen()));
                           // print("Reset");
                           // try {
                           //   var pickedFile = await imgpicker.pickImage(
@@ -249,13 +250,13 @@ class _DevicePageState extends State<DevicePage> {
         floatingActionButton: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            FloatingActionButton(
-              heroTag: "tag0",
-              onPressed: (() {
-                _displayTextInputDialog(context, info, uid);
-              }),
-              child: Icon(Icons.add),
-            ),
+            // FloatingActionButton(
+            //   heroTag: "tag0",
+            //   onPressed: (() {
+            //     _displayTextInputDialog(context, info, uid);
+            //   }),
+            //   child: Icon(Icons.add),
+            // ),
             // FloatingActionButton(
             //   heroTag: "tag1",
             //   onPressed: (() async {
@@ -342,7 +343,7 @@ class _DevicePageState extends State<DevicePage> {
                           Expanded(
                             child: ElevatedButton(
                                 child: Text(
-                                    '${box.getMedicine().usage.mor.getTime()}'),
+                                    '${box.getMedicine()!.usage.mor.getTime()}'),
                                 onPressed: () async {
                                   final time = await pickTime();
                                   if (time == null) return;
@@ -353,7 +354,7 @@ class _DevicePageState extends State<DevicePage> {
                                       time.hour,
                                       time.minute);
                                   setState(() {
-                                    box.getMedicine().usage.mor.time = newtime;
+                                    box.getMedicine()!.usage.mor.time = newtime;
                                   });
                                 }),
                           )
@@ -367,7 +368,7 @@ class _DevicePageState extends State<DevicePage> {
                           Expanded(
                             child: ElevatedButton(
                                 child: Text(
-                                    '${box.getMedicine().usage.noon.getTime()}'),
+                                    '${box.getMedicine()!.usage.noon.getTime()}'),
                                 onPressed: () async {
                                   final time = await pickTime();
                                   if (time == null) return;
@@ -378,7 +379,8 @@ class _DevicePageState extends State<DevicePage> {
                                       time.hour,
                                       time.minute);
                                   setState(() {
-                                    box.getMedicine().usage.noon.time = newtime;
+                                    box.getMedicine()!.usage.noon.time =
+                                        newtime;
                                   });
                                 }),
                           )
@@ -392,7 +394,7 @@ class _DevicePageState extends State<DevicePage> {
                           Expanded(
                             child: ElevatedButton(
                                 child: Text(
-                                    '${box.getMedicine().usage.even.getTime()}'),
+                                    '${box.getMedicine()!.usage.even.getTime()}'),
                                 onPressed: () async {
                                   final time = await pickTime();
                                   if (time == null) return;
@@ -403,7 +405,8 @@ class _DevicePageState extends State<DevicePage> {
                                       time.hour,
                                       time.minute);
                                   setState(() {
-                                    box.getMedicine().usage.even.time = newtime;
+                                    box.getMedicine()!.usage.even.time =
+                                        newtime;
                                   });
                                 }),
                           )

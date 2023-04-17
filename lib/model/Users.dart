@@ -35,4 +35,8 @@ class Users {
       'devices': devices.map((e) => e.toJson()).toList()
     };
   }
+
+  Device getDevice(int device) {
+    return devices.elementAt(device - 1);
+  }
 }

@@ -6,6 +6,7 @@ import 'package:app/model/Patient.dart';
 import 'package:app/model/TimeSlot.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/model/Users.dart';
+import 'package:app/utils/Notification.dart';
 import 'package:app/view/Box_Page.dart';
 import 'package:app/view/Dashboard_page.dart';
 import 'package:app/view/Device_Page.dart';
@@ -60,6 +61,7 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  NotificationsService notificationsService = NotificationsService();
   var _firAuth = FirAuth();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -74,6 +76,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   //   Medicine(
   //       name: "Thuoc xo", description: "Dau bung", quantity: 21, usage: Usage())
   // ];
+
+  @override
+  void initState() {
+    super.initState();
+    notificationsService.initializeNotification();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -153,9 +162,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 // var millis = 1677690817000;
                 // var dt = DateTime.fromMillisecondsSinceEpoch(millis);
                 // print(DateFormat.jm().format(dt));
-                var od =
-                    await _firAuth.getInfoUser("8IXddhgOE7PVc96mE7Q1jMkVqqA3");
-                print(od.name);
+                // var od =
+                //     await _firAuth.getInfoUser("8IXddhgOE7PVc96mE7Q1jMkVqqA3");
+                // print(od.name);
+                //notificationsService.sendNotification();
+                // notificationsService.sendNotification(
+                //     // e.getMedicine().usage.even.time.hour,
+                //     // e.getMedicine().usage.even.time.minute);
+                //     1,
+                //     8);
               },
               child: const Text(
                 'Forgot Password',
@@ -176,6 +191,29 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       print(user!.Info());
                       if (user != null) {
                         print(user.uid);
+                        user.devices.forEach((element) {
+                          element.boxs.forEach((e) {
+                            if (e.getMedicine() != null) {
+                              notificationsService.sendNotification(
+                                  element.id!,
+                                  e.id,
+                                  e.getMedicine().usage.mor.time.hour,
+                                  e.getMedicine().usage.mor.time.minute);
+                              notificationsService.sendNotification(
+                                  element.id!,
+                                  e.id,
+                                  e.getMedicine().usage.noon.time.hour,
+                                  e.getMedicine().usage.noon.time.minute);
+                              notificationsService.sendNotification(
+                                  element.id!,
+                                  e.id,
+                                  e.getMedicine().usage.even.time.hour,
+                                  e.getMedicine().usage.even.time.minute);
+                              // 1,
+                              // 5);
+                            }
+                          });
+                        });
                         Navigator.pushNamed(context, HomePage.routeName,
                             arguments: user);
                       }

@@ -2,13 +2,10 @@ import 'package:app/model/Box.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/view/Medicine_Page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-
+import 'package:time_picker_widget/time_picker_widget.dart' as tpk;
 import '../firebase_store/fire_base_auth.dart';
-import '../model/Device.dart';
 import '../model/Medicine.dart';
 import '../model/TimeSlot.dart';
 
@@ -68,6 +65,7 @@ class _BoxPageState extends State<BoxPage> {
                     onPressed: (context) {
                       print("edit");
                       // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                      showEditTime(info, device, uid, 1);
                     },
                     icon: Icons.edit,
                     backgroundColor: Colors.blue,
@@ -109,6 +107,7 @@ class _BoxPageState extends State<BoxPage> {
                     onPressed: (context) {
                       print("edit");
                       // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                      showEditTime(info, device, uid, 2);
                     },
                     icon: Icons.edit,
                     backgroundColor: Colors.blue,
@@ -151,6 +150,7 @@ class _BoxPageState extends State<BoxPage> {
                     onPressed: (context) {
                       print("edit");
                       // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                      showEditTime(info, device, uid, 3);
                     },
                     icon: Icons.edit,
                     backgroundColor: Colors.blue,
@@ -359,7 +359,7 @@ class _BoxPageState extends State<BoxPage> {
                 child: Text('OK'),
                 onPressed: () {
                   var _firAuth = FirAuth();
-                  Usage usage = box.getMedicine().usage;
+                  Usage usage = box.getMedicine()!.usage;
                   Usage usage2 = Usage(
                       mor: TimeSlot(
                           quantity: int.parse(morMedicine.text),
@@ -606,7 +606,7 @@ class _BoxPageState extends State<BoxPage> {
                                     ? Text("Select Time")
                                     : Text('${dateS.hour}' ': ${dateS.minute}'),
                                 onPressed: () async {
-                                  final time = await pickTime();
+                                  final time = await pickTime(0);
                                   if (time == null) return;
                                   final newtime = DateTime(
                                       dateS.year,
@@ -642,7 +642,7 @@ class _BoxPageState extends State<BoxPage> {
                                     ? Text("Select Time")
                                     : Text('${dateC.hour}' ': ${dateC.minute}'),
                                 onPressed: () async {
-                                  final time = await pickTime();
+                                  final time = await pickTime(1);
                                   if (time == null) return;
                                   final newtime = DateTime(
                                       dateC.year,
@@ -678,7 +678,7 @@ class _BoxPageState extends State<BoxPage> {
                                     ? Text("Select Time")
                                     : Text('${dateT.hour}' ': ${dateT.minute}'),
                                 onPressed: () async {
-                                  final time = await pickTime();
+                                  final time = await pickTime(2);
                                   if (time == null) return;
                                   final newtime = DateTime(
                                       dateT.year,
@@ -740,6 +740,142 @@ class _BoxPageState extends State<BoxPage> {
         });
   }
 
-  Future<TimeOfDay?> pickTime() => showTimePicker(
-      context: context, initialTime: TimeOfDay(hour: 7, minute: 0));
+  Future<TimeOfDay?> pickTime(int buoi) {
+    int min = 0;
+    int max = 0;
+    if (buoi == 0) {
+      min = 5;
+      max = 9;
+    } else if (buoi == 1) {
+      min = 10;
+      max = 15;
+    } else {
+      min = 16;
+      max = 21;
+    }
+    return tpk.showCustomTimePicker(
+        context: context,
+        onFailValidation: (context) => print('Unavailable selection'),
+        initialTime: buoi == 0
+            ? TimeOfDay(hour: 7, minute: 0)
+            : buoi == 1
+                ? TimeOfDay(hour: 11, minute: 30)
+                : TimeOfDay(hour: 18, minute: 30),
+        selectableTimePredicate: (time) =>
+            time!.minute % 15 == 0 && time.hour >= min && time.hour <= max);
+  }
+
+  Future<void> showEditTime(Box box, int device, String uid, int buoi) async {
+    DateTime dateS = DateTime(2023, 1, 1);
+    DateTime dateC = DateTime(2023, 1, 1);
+    DateTime dateT = DateTime(2023, 1, 1);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('TextField in Dialog'),
+            content: StatefulBuilder(builder: (context, setState) {
+              return Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                      child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          if (buoi == 1)
+                            Expanded(
+                              child: ElevatedButton(
+                                  child: Text(
+                                      '${box.getMedicine()!.usage.mor.getTime()}'),
+                                  onPressed: () async {
+                                    dateS = box.getMedicine()!.usage.mor.time;
+                                    final time = await pickTime(0);
+                                    if (time == null) return;
+                                    final newtime = DateTime(
+                                        dateS.year,
+                                        dateS.month,
+                                        dateS.day,
+                                        time.hour,
+                                        time.minute);
+                                    setState(() {
+                                      box.getMedicine()!.usage.mor.time =
+                                          newtime;
+                                    });
+                                  }),
+                            ),
+                          if (buoi == 2)
+                            Expanded(
+                              child: ElevatedButton(
+                                  child: Text(
+                                      '${box.getMedicine()!.usage.noon.getTime()}'),
+                                  onPressed: () async {
+                                    dateC = box.getMedicine()!.usage.noon.time;
+                                    final time = await pickTime(1);
+                                    if (time == null) return;
+                                    final newtime = DateTime(
+                                        dateC.year,
+                                        dateC.month,
+                                        dateC.day,
+                                        time.hour,
+                                        time.minute);
+                                    setState(() {
+                                      box.getMedicine()!.usage.noon.time =
+                                          newtime;
+                                    });
+                                  }),
+                            ),
+                          if (buoi == 3)
+                            Expanded(
+                              child: ElevatedButton(
+                                  child: Text(
+                                      '${box.getMedicine()!.usage.even.getTime()}'),
+                                  onPressed: () async {
+                                    dateT = box.getMedicine()!.usage.even.time;
+                                    final time = await pickTime(2);
+                                    if (time == null) return;
+                                    final newtime = DateTime(
+                                        dateT.year,
+                                        dateT.month,
+                                        dateT.day,
+                                        time.hour,
+                                        time.minute);
+                                    setState(() {
+                                      box.getMedicine()!.usage.even.time =
+                                          newtime;
+                                    });
+                                  }),
+                            )
+                        ],
+                      )
+                    ],
+                  )),
+                ),
+              );
+            }),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('CANCEL'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ElevatedButton(
+                child: Text('OK'),
+                onPressed: () {
+                  var _firAuth = FirAuth();
+                  setState(() {
+                    box.medicines.forEach((e) => {});
+                  });
+                  _firAuth.UpdateMedicine(box, device, uid);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
 }

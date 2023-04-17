@@ -196,7 +196,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                           device.patient.fullname = quantityMedicine.text;
                         });
                         Navigator.pop(context);
-                        _firAuth.UpdateDevice(user);
+                        _firAuth.UpdateDevice(device, user, 0);
                       },
                     ),
                   ],
@@ -223,12 +223,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   onPressed: () {
                     var _firAuth = FirAuth();
+                    _firAuth.UpdateDevice(device, user, 1);
 
                     // Write code to delete item
                     setState(() {
                       user.devices.remove(device);
                     });
-                    _firAuth.UpdateDevice(user);
                     Navigator.pop(context);
                   },
                   child: const Text(

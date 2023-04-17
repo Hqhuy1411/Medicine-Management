@@ -96,11 +96,8 @@ class _MyHomePageState extends State<App> {
         ];
         return DataRow(
           cells: Utils.modelBuilder(cells, (index, cell) {
-            final showEditIcon = index == 4 || index == 6 || index == 8;
-            return DataCell(Text('$cell'), showEditIcon: showEditIcon,
-                onTap: () async {
+            return DataCell(Text('$cell'), showEditIcon: true, onTap: () async {
               DateTime dateS = DateTime(2023, 1, 1);
-
               final time = await pickTime();
               if (time == null) return;
               final newtime = DateTime(
