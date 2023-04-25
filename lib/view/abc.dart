@@ -76,7 +76,7 @@ class _MyHomePageState extends State<App> {
   List<DataColumn> getColumns(List<String> columns) {
     return columns.map((String column) {
       return DataColumn(
-        label: Text(column),
+        label: RotatedBox(quarterTurns: -1, child: Text(column)),
       );
     }).toList();
   }

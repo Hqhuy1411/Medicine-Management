@@ -362,14 +362,11 @@ class _BoxPageState extends State<BoxPage> {
                   Usage usage = box.getMedicine()!.usage;
                   Usage usage2 = Usage(
                       mor: TimeSlot(
-                          quantity: int.parse(morMedicine.text),
-                          time: usage.mor.time),
+                          quantity: (morMedicine.text), time: usage.mor.time),
                       noon: TimeSlot(
-                          quantity: int.parse(noonMedicine.text),
-                          time: usage.noon.time),
+                          quantity: (noonMedicine.text), time: usage.noon.time),
                       even: TimeSlot(
-                          quantity: int.parse(eveMedicine.text),
-                          time: usage.even.time));
+                          quantity: (eveMedicine.text), time: usage.even.time));
 
                   var medicine = Medicine(
                       name: nameMedicine.text,
@@ -488,9 +485,9 @@ class _BoxPageState extends State<BoxPage> {
                     medicine.description = descripMedicine.text;
                     medicine.quantity = int.parse(quantityMedicine.text);
 
-                    medicine.usage.mor.quantity = int.parse(morMedicine.text);
-                    medicine.usage.noon.quantity = int.parse(noonMedicine.text);
-                    medicine.usage.even.quantity = int.parse(eveMedicine.text);
+                    medicine.usage.mor.quantity = (morMedicine.text);
+                    medicine.usage.noon.quantity = (noonMedicine.text);
+                    medicine.usage.even.quantity = (eveMedicine.text);
                   });
 
                   Navigator.pop(context);
@@ -715,14 +712,11 @@ class _BoxPageState extends State<BoxPage> {
                       quantity: int.parse(quantityMedicine.text),
                       usage: Usage(
                           mor: TimeSlot(
-                              quantity: int.parse(morMedicine.text),
-                              time: dateS),
+                              quantity: (morMedicine.text), time: dateS),
                           noon: TimeSlot(
-                              quantity: int.parse(noonMedicine.text),
-                              time: dateC),
+                              quantity: (noonMedicine.text), time: dateC),
                           even: TimeSlot(
-                              quantity: int.parse(eveMedicine.text),
-                              time: dateT)));
+                              quantity: (eveMedicine.text), time: dateT)));
 
                   setState(() {
                     box.medicines.add(medicine);

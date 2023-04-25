@@ -80,7 +80,9 @@ class _DevicePageState extends State<DevicePage> {
                             } else {
                               list.forEach((element) {
                                 for (var box in info.boxs) {
-                                  if (box.medicines.length == 0) {
+                                  if (box.medicines.length == 0 ||
+                                      box.getMedicine().usage.mor.time ==
+                                          element.usage.mor.time) {
                                     box.medicines.add(element);
                                     break;
                                   }
@@ -608,9 +610,9 @@ class _DevicePageState extends State<DevicePage> {
                       description: descripMedicine.text,
                       quantity: int.parse(quantityMedicine.text),
                       usage: Usage(
-                          mor: TimeSlot(quantity: 1, time: dateS),
-                          noon: TimeSlot(quantity: 2, time: dateC),
-                          even: TimeSlot(quantity: 3, time: dateT)));
+                          mor: TimeSlot(quantity: "", time: dateS),
+                          noon: TimeSlot(quantity: "", time: dateC),
+                          even: TimeSlot(quantity: "", time: dateT)));
 
                   setState(() {
                     Box box = Box(medicines: [medicine]);

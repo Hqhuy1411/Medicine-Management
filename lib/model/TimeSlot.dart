@@ -6,9 +6,9 @@ import '../utils/Notification.dart';
 
 class TimeSlot {
   var time;
-  int quantity;
+  String quantity;
 
-  TimeSlot({this.time = DateTime.now, this.quantity = 0});
+  TimeSlot({this.time = DateTime.now, this.quantity = ""});
 
   String Info() {
     return '{Quantity : $quantity' +
@@ -36,11 +36,11 @@ class TimeSlot {
     }
     return TimeSlot(
       time: data,
-      quantity: parsedJson['quantity'] ?? 0,
+      quantity: parsedJson['quantity'] ?? '',
     );
   }
 
-  TimeSlot copy({DateTime? time, int? quantity}) => TimeSlot(
+  TimeSlot copy({DateTime? time, String? quantity}) => TimeSlot(
         time: time ?? this.time,
         quantity: quantity ?? this.quantity,
       );

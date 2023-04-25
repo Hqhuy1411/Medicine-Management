@@ -11,7 +11,7 @@ class Usage {
     return 'S :' + mor.Info() + ' C :' + noon.Info() + ' T :' + even.Info();
   }
 
-  int Total() {
+  String Total() {
     return mor.quantity + even.quantity + noon.quantity;
   }
 

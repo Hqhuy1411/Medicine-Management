@@ -93,6 +93,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       //     Uri.parse('http://172.20.10.3:5000/upload-image'));
                       // request.files.add(await http.MultipartFile.fromPath(
                       //     'image', image!.path));
+
                       final bytes = await image!.readAsBytes();
                       final _imageBytes = bytes.buffer.asUint8List();
                       final url = 'http://172.20.10.3:5000//upload-image';
@@ -100,6 +101,11 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       final response = await http.post(Uri.parse(url), body: {
                         'image': base64Encode(_imageBytes),
                       });
+
+                      // final url = 'http://192.168.1.102:8000/auth';
+
+                      // final response = await http.post(Uri.parse(url));
+
                       if (response.statusCode == 200) {
                         print('Upload success!');
                         var list = json.decode(response.body);
@@ -107,6 +113,13 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         for (var i in list) {
                           var data = i as Map<String, dynamic>;
                           medicines.add(Medicine.fromJson(data));
+                        }
+                        if (medicines.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Anh khong dung format"),
+                          ));
+
+                          return;
                         }
                         // ignore: use_build_context_synchronously
                         final listReceive = await Navigator.push(
