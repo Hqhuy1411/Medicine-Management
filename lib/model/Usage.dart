@@ -15,6 +15,14 @@ class Usage {
     return mor.quantity + even.quantity + noon.quantity;
   }
 
+  int checkEmpty() {
+    if (this.mor.quantity == "0") return 1;
+    if (this.noon.quantity == "0") return 2;
+    if (this.even.quantity == "0") return 3;
+
+    return 0;
+  }
+
   factory Usage.fromJson(Map<String, dynamic> parsedJson) {
     // parsedJson.forEach((key, value) {
     //   print('$key' ' :' '$value');

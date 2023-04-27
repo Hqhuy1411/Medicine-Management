@@ -81,8 +81,13 @@ class _DevicePageState extends State<DevicePage> {
                               list.forEach((element) {
                                 for (var box in info.boxs) {
                                   if (box.medicines.length == 0 ||
-                                      box.getMedicine().usage.mor.time ==
-                                          element.usage.mor.time) {
+                                      element.usage.checkEmpty() == 0 ||
+                                      (box.medicines.length >= 0 &&
+                                          element.usage.checkEmpty() ==
+                                              box
+                                                  .getMedicine()
+                                                  .usage
+                                                  .checkEmpty())) {
                                     box.medicines.add(element);
                                     break;
                                   }
@@ -97,6 +102,7 @@ class _DevicePageState extends State<DevicePage> {
                           //   _firAuth.addMultiBox(info, uid);
                           // }
                           _firAuth.updateBox(info, uid);
+                          instruction(context);
                         },
                       )),
                   PopupMenuItem<int>(
@@ -440,6 +446,35 @@ class _DevicePageState extends State<DevicePage> {
             ],
           );
         });
+  }
+
+  Future<void> instruction(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Stepper in Alert Dialog'),
+          content: Stepper(
+            currentStep: 0,
+            onStepTapped: (step) {},
+            steps: [
+              Step(
+                title: Text('Step 1'),
+                content: Text('This is the content of step 1'),
+              ),
+              Step(
+                title: Text('Step 2'),
+                content: Text('This is the content of step 2'),
+              ),
+              Step(
+                title: Text('Step 3'),
+                content: Text('This is the content of step 3'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _displayTextInputDialog(

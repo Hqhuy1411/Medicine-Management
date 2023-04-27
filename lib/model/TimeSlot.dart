@@ -11,9 +11,11 @@ class TimeSlot {
   TimeSlot({this.time = DateTime.now, this.quantity = ""});
 
   String Info() {
-    return '{Quantity : $quantity' +
-        DateFormat.jm().format(time).toString() +
-        '}';
+    return 'Quantity : $quantity'
+        // +
+        //       " " +
+        //       DateFormat.jm().format(time).toString() +
+        '';
   }
 
   Map<String, dynamic> toJson() {

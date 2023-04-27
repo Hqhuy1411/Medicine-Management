@@ -28,6 +28,7 @@ class Box {
     return {
       'id': id,
       'name': name,
+      'size': medicines.length ?? 0,
       'medicines': (medicines ?? []).map((e) => e.toJson()).toList()
     };
   }

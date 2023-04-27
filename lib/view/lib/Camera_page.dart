@@ -94,17 +94,17 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       // request.files.add(await http.MultipartFile.fromPath(
                       //     'image', image!.path));
 
-                      final bytes = await image!.readAsBytes();
-                      final _imageBytes = bytes.buffer.asUint8List();
-                      final url = 'http://172.20.10.3:5000//upload-image';
+                      // final bytes = await image!.readAsBytes();
+                      // final _imageBytes = bytes.buffer.asUint8List();
+                      // final url = 'http://172.20.10.3:5000//upload-image';
 
-                      final response = await http.post(Uri.parse(url), body: {
-                        'image': base64Encode(_imageBytes),
-                      });
+                      // final response = await http.post(Uri.parse(url), body: {
+                      //   'image': base64Encode(_imageBytes),
+                      // });
 
-                      // final url = 'http://192.168.1.102:8000/auth';
+                      final url = 'http://192.168.1.18:8000/auth';
 
-                      // final response = await http.post(Uri.parse(url));
+                      final response = await http.post(Uri.parse(url));
 
                       if (response.statusCode == 200) {
                         print('Upload success!');
