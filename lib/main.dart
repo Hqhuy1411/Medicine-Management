@@ -85,7 +85,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: <Widget>[
@@ -108,13 +111,18 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 )),
             Container(
               padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email',
-                ),
-              ),
+              child: Row(children: [
+                Icon(Icons.account_circle_sharp),
+                SizedBox(width: 10),
+                Expanded(
+                    child: TextField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                  ),
+                ))
+              ]),
             ),
             // Container(
             //   padding: const EdgeInsets.all(10),
@@ -138,14 +146,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             // ),
             Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: TextField(
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
-                ),
-              ),
+              child: Row(children: [
+                Icon(Icons.lock),
+                SizedBox(width: 10),
+                Expanded(
+                    child: TextField(
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                  ),
+                ))
+              ]),
             ),
             TextButton(
               onPressed: () async {

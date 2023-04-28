@@ -10,6 +10,7 @@ import 'package:app/model/Usage.dart';
 import 'package:app/view/Box_Page.dart';
 import 'package:app/view/Carema.dart';
 import 'package:app/view/abc.dart';
+import 'package:boxicons/boxicons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
@@ -102,7 +103,6 @@ class _DevicePageState extends State<DevicePage> {
                           //   _firAuth.addMultiBox(info, uid);
                           // }
                           _firAuth.updateBox(info, uid);
-                          instruction(context);
                         },
                       )),
                   PopupMenuItem<int>(
@@ -113,10 +113,10 @@ class _DevicePageState extends State<DevicePage> {
                         onTap: () {
                           // Handle save action
 
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CameraScreen()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => CameraScreen()));
                           // print("Reset");
                           // try {
                           //   var pickedFile = await imgpicker.pickImage(
@@ -131,6 +131,8 @@ class _DevicePageState extends State<DevicePage> {
                           // } catch (e) {
                           //   print("error while picking image.");
                           // }
+
+                          //instruction(context);
                         },
                       )),
                 ];
@@ -138,123 +140,140 @@ class _DevicePageState extends State<DevicePage> {
             ),
           ],
         ),
-        body: Column(
-          children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Icon(Icons.devices),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Thiet bi so ' + info.id.toString(),
-                              style: Theme.of(context).textTheme.headline6),
-                          Text('Device Info ' + info.description,
-                              style: Theme.of(context).textTheme.subtitle1),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            Expanded(
-                child: ListView.builder(
-              itemCount: info.boxs.length,
-              itemBuilder: (BuildContext context, int index) {
-                final item = info.boxs[index];
-                final obSend = {"item": item, "uid": uid, "device": info.id};
-                return GestureDetector(
-                    onTap: () {
-                      // Handle the tap event here
-                      Navigator.pushNamed(context, BoxPage.routeName,
-                          arguments: obSend);
-                    },
-                    child: Slidable(
-                        endActionPane:
-                            ActionPane(motion: StretchMotion(), children: [
-                          SlidableAction(
-                            onPressed: (context) {
-                              if (item.medicines.length > 0) {
-                                showEditTime(item, info.id, uid);
-                              }
-                            },
-                            icon: Icons.edit,
-                            backgroundColor: Colors.blue,
+        body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        Icon(Boxicons.bx_package),
+                        SizedBox(width: 16.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Thiet bi so ' + info.id.toString(),
+                                  style: Theme.of(context).textTheme.headline6),
+                              Text('Device Info ' + info.description,
+                                  style: Theme.of(context).textTheme.subtitle1),
+                            ],
                           ),
-                        ]),
-                        child: Card(
-                          elevation: 4.0, // Add a drop shadow to the card
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.gif_box),
-                                SizedBox(width: 16.0),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Box so :' + item.id.toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6),
-                                      if (item.medicines.length > 0)
-                                        Column(children: [
-                                          Text(
-                                              'Total Medicines : ' +
-                                                  item.medicines.length
-                                                      .toString(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.0),
+                Expanded(
+                    child: ListView.builder(
+                  itemCount: info.boxs.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final item = info.boxs[index];
+                    final obSend = {
+                      "item": item,
+                      "uid": uid,
+                      "device": info.id
+                    };
+                    return GestureDetector(
+                        onTap: () {
+                          // Handle the tap event here
+                          Navigator.pushNamed(context, BoxPage.routeName,
+                              arguments: obSend);
+                        },
+                        child: Slidable(
+                            endActionPane:
+                                ActionPane(motion: StretchMotion(), children: [
+                              SlidableAction(
+                                onPressed: (context) {
+                                  if (item.medicines.length > 0) {
+                                    showEditTime(item, info.id, uid);
+                                  }
+                                },
+                                icon: Icons.edit,
+                                backgroundColor: Colors.blue,
+                              ),
+                            ]),
+                            child: Card(
+                              color: Colors.lightBlue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              elevation: 4.0, // Add a drop shadow to the card
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 8.0),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Boxicons.bx_box,
+                                      size: 50,
+                                    ),
+                                    SizedBox(width: 16.0),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Box so :' + item.id.toString(),
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .subtitle1),
-                                          Text(
-                                            'Sang : ${item.medicines[0].usage.mor.getTime()}' +
-                                                ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
-                                                ' Toi : ${item.medicines[0].usage.even.getTime()}',
-                                          ),
-                                          for (var medicine in item.medicines)
-                                            Text(medicine.Info())
-                                        ])
-                                    ],
-                                  ),
+                                                  .headline6),
+                                          if (item.medicines.length > 0)
+                                            Column(children: [
+                                              Text(
+                                                  'Total Medicines : ' +
+                                                      item.medicines.length
+                                                          .toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1),
+                                              Text(
+                                                'Sang : ${item.medicines[0].usage.mor.getTime()}' +
+                                                    ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
+                                                    ' Toi : ${item.medicines[0].usage.even.getTime()}',
+                                              ),
+                                              for (var medicine
+                                                  in item.medicines)
+                                                Text(medicine.Info())
+                                            ])
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                        )));
-              },
+                              ),
+                            )));
+                  },
+                )),
+                SizedBox(
+                  height: 20,
+                ),
+                // Expanded(
+                //   child: _imagepath == ""
+                //       ? Text('No image selected.')
+                //       : Stack(
+                //           children: [
+                //             Image.file(File(_imagepath)),
+                //             Positioned(
+                //               bottom: 0,
+                //               left: 100,
+                //               child: ElevatedButton(
+                //                 onPressed: () {},
+                //                 child: Text('Send'),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                // )
+              ],
             )),
-            SizedBox(
-              height: 20,
-            ),
-            // Expanded(
-            //   child: _imagepath == ""
-            //       ? Text('No image selected.')
-            //       : Stack(
-            //           children: [
-            //             Image.file(File(_imagepath)),
-            //             Positioned(
-            //               bottom: 0,
-            //               left: 100,
-            //               child: ElevatedButton(
-            //                 onPressed: () {},
-            //                 child: Text('Send'),
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            // )
-          ],
-        ),
         floatingActionButton: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -448,7 +467,7 @@ class _DevicePageState extends State<DevicePage> {
         });
   }
 
-  Future<void> instruction(BuildContext context) async {
+  void instruction(BuildContext context) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -458,7 +477,7 @@ class _DevicePageState extends State<DevicePage> {
             currentStep: 0,
             onStepTapped: (step) {},
             steps: [
-              Step(
+              const Step(
                 title: Text('Step 1'),
                 content: Text('This is the content of step 1'),
               ),

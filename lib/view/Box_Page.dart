@@ -34,237 +34,283 @@ class _BoxPageState extends State<BoxPage> {
       appBar: AppBar(
         title: const Text('Medicines'),
       ),
-      body: Column(children: [
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Icon(Icons.devices),
-                SizedBox(width: 16.0),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Box so : ' + info.id.toString(),
-                          style: Theme.of(context).textTheme.headline6),
-                      Text('Box Info',
-                          style: Theme.of(context).textTheme.subtitle1),
-                    ],
-                  ),
+      body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
+          padding: const EdgeInsets.all(10),
+          child: Column(children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.devices),
+                    SizedBox(width: 16.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Box so : ' + info.id.toString(),
+                              style: Theme.of(context).textTheme.headline6),
+                          Text('Box Info',
+                              style: Theme.of(context).textTheme.subtitle1),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-        if (info.medicines.length > 0)
-          Column(children: [
-            Slidable(
-                endActionPane: ActionPane(motion: StretchMotion(), children: [
-                  SlidableAction(
-                    onPressed: (context) {
-                      print("edit");
-                      // _EditdisplayTextInputDialog(context, item, info, device, uid);
-                      showEditTime(info, device, uid, 1);
-                    },
-                    icon: Icons.edit,
-                    backgroundColor: Colors.blue,
-                  ),
-                ]),
-                child: Card(
-                  elevation: 4.0, // Add a drop shadow to the card
-                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.alarm,
-                          size: 50,
-                        ),
-                        SizedBox(width: 32.0),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // ignore: prefer_interpolation_to_compose_strings
-                              const Text('MORNING'),
-                              Text(
-                                  DateFormat.jm()
-                                      .format(info.getMedicine().usage.mor.time)
-                                      .toString(),
-                                  style: Theme.of(context).textTheme.headline6),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-            Slidable(
-                endActionPane: ActionPane(motion: StretchMotion(), children: [
-                  SlidableAction(
-                    onPressed: (context) {
-                      print("edit");
-                      // _EditdisplayTextInputDialog(context, item, info, device, uid);
-                      showEditTime(info, device, uid, 2);
-                    },
-                    icon: Icons.edit,
-                    backgroundColor: Colors.blue,
-                  ),
-                ]),
-                child: Card(
-                  elevation: 4.0, // Add a drop shadow to the card
-                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.alarm,
-                          size: 50,
-                        ),
-                        SizedBox(width: 32.0),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // ignore: prefer_interpolation_to_compose_strings
-                              const Text('AFTERNOON'),
-                              Text(
-                                  DateFormat.jm()
-                                      .format(
-                                          info.getMedicine().usage.noon.time)
-                                      .toString(),
-                                  style: Theme.of(context).textTheme.headline6),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-            Slidable(
-                endActionPane: ActionPane(motion: StretchMotion(), children: [
-                  SlidableAction(
-                    onPressed: (context) {
-                      print("edit");
-                      // _EditdisplayTextInputDialog(context, item, info, device, uid);
-                      showEditTime(info, device, uid, 3);
-                    },
-                    icon: Icons.edit,
-                    backgroundColor: Colors.blue,
-                  ),
-                ]),
-                child: Card(
-                  elevation: 4.0, // Add a drop shadow to the card
-                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.alarm,
-                          size: 50,
-                        ),
-                        SizedBox(width: 32.0),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // ignore: prefer_interpolation_to_compose_strings
-                              const Text('EVENING'),
-                              Text(
-                                  DateFormat.jm()
-                                      .format(
-                                          info.getMedicine().usage.even.time)
-                                      .toString(),
-                                  style: Theme.of(context).textTheme.headline6),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-          ]),
-        SizedBox(height: 16.0),
-        Expanded(
-          child: info.medicines.length != 0
-              ? ListView.builder(
-                  itemCount: info.medicines.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = info.medicines[index];
-                    return GestureDetector(
-                        onTap: () {
-                          // Handle the tap event here
-                          Navigator.pushNamed(context, MedicinePage.routeName,
-                              arguments: item);
+            if (info.medicines.length > 0)
+              Column(children: [
+                Slidable(
+                    endActionPane:
+                        ActionPane(motion: StretchMotion(), children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          print("edit");
+                          // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                          showEditTime(info, device, uid, 1);
                         },
-                        child: Slidable(
-                            endActionPane:
-                                ActionPane(motion: StretchMotion(), children: [
-                              SlidableAction(
-                                onPressed: (context) {
-                                  print("delete" + item.Info());
-                                  showDeleteAlertDialog(
-                                      info, item, device, uid);
-                                },
-                                icon: Icons.delete,
-                                backgroundColor: Colors.red,
+                        icon: Icons.edit,
+                        backgroundColor: Colors.blue,
+                      ),
+                    ]),
+                    child: Card(
+                      color: Colors.lightBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      elevation: 4.0, // Add a drop shadow to the card
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.alarm,
+                              size: 50,
+                            ),
+                            SizedBox(width: 32.0),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // ignore: prefer_interpolation_to_compose_strings
+                                  const Text('MORNING'),
+                                  Text(
+                                      DateFormat.jm()
+                                          .format(
+                                              info.getMedicine().usage.mor.time)
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                ],
                               ),
-                              SlidableAction(
-                                onPressed: (context) {
-                                  print("edit");
-                                  _EditdisplayTextInputDialog(
-                                      context, item, info, device, uid);
-                                },
-                                icon: Icons.edit,
-                                backgroundColor: Colors.blue,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+                Slidable(
+                    endActionPane:
+                        ActionPane(motion: StretchMotion(), children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          print("edit");
+                          // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                          showEditTime(info, device, uid, 2);
+                        },
+                        icon: Icons.edit,
+                        backgroundColor: Colors.blue,
+                      ),
+                    ]),
+                    child: Card(
+                      color: Colors.lightBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      elevation: 4.0, // Add a drop shadow to the card
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.alarm,
+                              size: 50,
+                            ),
+                            SizedBox(width: 32.0),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // ignore: prefer_interpolation_to_compose_strings
+                                  const Text('AFTERNOON'),
+                                  Text(
+                                      DateFormat.jm()
+                                          .format(info
+                                              .getMedicine()
+                                              .usage
+                                              .noon
+                                              .time)
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                ],
                               ),
-                            ]),
-                            child: Card(
-                              elevation: 4.0, // Add a drop shadow to the card
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8.0),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.medical_information),
-                                    SizedBox(width: 16.0),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // ignore: prefer_interpolation_to_compose_strings
-                                          Text('Medicine Name:' + item.name,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline6),
-                                          Text(
-                                              'Medicine Description ' +
-                                                  item.description,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle1),
-                                          Text(
-                                              'S ${item.usage.mor.quantity} C ${item.usage.noon.quantity} T ${item.usage.even.quantity}',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .subtitle1),
-                                        ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+                Slidable(
+                    endActionPane:
+                        ActionPane(motion: StretchMotion(), children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          print("edit");
+                          // _EditdisplayTextInputDialog(context, item, info, device, uid);
+                          showEditTime(info, device, uid, 3);
+                        },
+                        icon: Icons.edit,
+                        backgroundColor: Colors.blue,
+                      ),
+                    ]),
+                    child: Card(
+                      color: Colors.lightBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      elevation: 4.0, // Add a drop shadow to the card
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.alarm,
+                              size: 50,
+                            ),
+                            SizedBox(width: 32.0),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // ignore: prefer_interpolation_to_compose_strings
+                                  const Text('EVENING'),
+                                  Text(
+                                      DateFormat.jm()
+                                          .format(info
+                                              .getMedicine()
+                                              .usage
+                                              .even
+                                              .time)
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline6),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+              ]),
+            SizedBox(height: 16.0),
+            Expanded(
+              child: info.medicines.length != 0
+                  ? ListView.builder(
+                      itemCount: info.medicines.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = info.medicines[index];
+                        return GestureDetector(
+                            onTap: () {
+                              // Handle the tap event here
+                              Navigator.pushNamed(
+                                  context, MedicinePage.routeName,
+                                  arguments: item);
+                            },
+                            child: Slidable(
+                                endActionPane: ActionPane(
+                                    motion: StretchMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          print("delete" + item.Info());
+                                          showDeleteAlertDialog(
+                                              info, item, device, uid);
+                                        },
+                                        icon: Icons.delete,
+                                        backgroundColor: Colors.red,
                                       ),
+                                      SlidableAction(
+                                        onPressed: (context) {
+                                          print("edit");
+                                          _EditdisplayTextInputDialog(
+                                              context, item, info, device, uid);
+                                        },
+                                        icon: Icons.edit,
+                                        backgroundColor: Colors.blue,
+                                      ),
+                                    ]),
+                                child: Card(
+                                  color: Colors.lightBlue,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  elevation:
+                                      4.0, // Add a drop shadow to the card
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 8.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.medical_information,
+                                          size: 50,
+                                        ),
+                                        SizedBox(width: 16.0),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              // ignore: prefer_interpolation_to_compose_strings
+                                              Text('Medicine Name:' + item.name,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline6),
+                                              Text(
+                                                  'Medicine Description ' +
+                                                      item.description,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1),
+                                              Text(
+                                                  'S ${item.usage.mor.quantity} C ${item.usage.noon.quantity} T ${item.usage.even.quantity}',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                            )));
-                  })
-              : Text("Chua co thong tin ve hop"),
-        ),
-      ]),
+                                  ),
+                                )));
+                      })
+                  : Text("Chua co thong tin ve hop"),
+            ),
+          ])),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (info.medicines.length > 0) {
