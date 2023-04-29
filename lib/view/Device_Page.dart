@@ -16,6 +16,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../firebase_store/fire_base_auth.dart';
+import 'Instruction_page.dart';
 import 'lib/Camera_page.dart';
 
 class DevicePage extends StatefulWidget {
@@ -103,6 +104,11 @@ class _DevicePageState extends State<DevicePage> {
                           //   _firAuth.addMultiBox(info, uid);
                           // }
                           _firAuth.updateBox(info, uid);
+                          await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MyListPage(boxs: info.boxs)));
                         },
                       )),
                   PopupMenuItem<int>(

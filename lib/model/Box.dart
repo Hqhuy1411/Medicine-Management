@@ -37,6 +37,18 @@ class Box {
     return medicines.length > 0 ? medicines[0] : null;
   }
 
+  String listNameMedicines() {
+    String rs = "";
+    if (medicines.length == 0) {
+      return "empty";
+    } else {
+      for (var medicine in medicines) {
+        rs += medicine.name.toString();
+      }
+      return rs;
+    }
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
