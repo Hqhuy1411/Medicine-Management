@@ -32,7 +32,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static const String _title = 'Sample App';
+  static const String _title = 'Smart Medicine Box App';
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       },
       title: _title,
       home: Scaffold(
-        appBar: AppBar(title: const Text(_title)),
+        // appBar: AppBar(title: const Text(_title)),
         body: const MyStatefulWidget(),
       ),
     );
@@ -82,7 +82,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     super.initState();
     notificationsService.initializeNotification();
   }
-
+bool _isObscured = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,75 +92,210 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: <Widget>[
+            // Container(
+            //     alignment: Alignment.center,
+            //     padding: const EdgeInsets.all(10),
+            //     child: const Text(
+            //       'SMART MEDICINE BOX',
+            //       style: TextStyle(
+            //           color: Colors.blue,
+            //           fontWeight: FontWeight.w500,
+            //           fontSize: 30),
+            //     )),
             Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'HELLO',
+              width: 120,
+              height: 50,
+              color: Color(0xff64abbf),
+              // margin: EdgeInsets.symmetric(vertical: 100, horizontal: 50),
+              margin: EdgeInsets.only(top: 70, bottom: 20, left: 20, right: 20),
+              // alignment: Alignment.center,
+              // decoration: BoxDecoration(
+              //   color: Color(0xff64abbf),
+              // ),
+              child: Center(
+                child: Text(
+                  'SMART MEDICINE BOX',
                   style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30),
-                )),
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'Log in',
-                  style: TextStyle(fontSize: 20),
-                )),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: Row(children: [
-                Icon(Icons.account_circle_sharp),
-                SizedBox(width: 10),
-                Expanded(
-                    child: TextField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
+                    color: Colors.white,
+                    fontSize: 15.0,
                   ),
-                ))
-              ]),
+                ),
+              ),
+            ),
+            SizedBox(width: 20),
+            Container(
+              width: 60,
+              height: 60,
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 185),
+              decoration: BoxDecoration(
+                color: Color(0xff64abbf),
+                // image: DecorationImage(
+                //   image: AssetImage('/images/icon_app.png'),
+                //   fit: BoxFit.cover,
+                // ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: Image.asset('images/icon_app.png', fit: BoxFit.cover),
+                    ),
+                  ],
+                ),
+            ),
+
+            Container(
+              width: 70,
+              height: 70,
+              // padding: EdgeInsets.only(right: 5.0),
+              // margin: EdgeInsets.symmetric(horizontal: 40),
+              margin: EdgeInsets.only(top: 20, bottom: 0, left: 40, right: 40),
+              decoration: BoxDecoration(
+                color: Color(0xff64abbf),
+              ),
+
+                child: Stack(
+                  children: <Widget>[
+                    Row(children: [
+                      // SizedBox(width: 10),
+                      Expanded(
+                        child: Center(
+                          child: TextField(
+                            controller: emailController,
+                            style: TextStyle(
+                                color: Colors.black, // màu chữ
+                                fontSize: 15, // kích thước chữ
+                              ),
+                              decoration: InputDecoration(
+                                icon: Icon(
+                                  Icons.email_outlined,
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                                constraints: BoxConstraints(
+                                  maxHeight: 40, // chiều cao tối đa của TextField
+                                  maxWidth: 280, // chiều rộng tối đa của TextField
+                                ),
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0), // bo góc
+                                  borderSide: BorderSide.none,
+                                ),
+                                // border: InputBorder.none, // loại bỏ đường viền
+                                // contentPadding: EdgeInsets.symmetric(vertical: 10), // khoảng cách giữa đường viền và văn bản
+                                hintText: 'Your Email', // placeholder
+                                hintStyle: TextStyle(
+                                  color: Colors.grey, // màu placeholder
+                                  fontSize: 15, // kích thước placeholder
+                                ),
+                              ),
+                      )))
+                    ]),
+                  ],
+                ),
             ),
             // Container(
             //   padding: const EdgeInsets.all(10),
-            //   child: TextField(
-            //     controller: nameController,
-            //     decoration: const InputDecoration(
-            //       border: OutlineInputBorder(),
-            //       labelText: 'Name',
-            //     ),
-            //   ),
-            // ),
-            // Container(
-            //   padding: const EdgeInsets.all(10),
-            //   child: TextField(
-            //     controller: phoneController,
-            //     decoration: const InputDecoration(
-            //       border: OutlineInputBorder(),
-            //       labelText: 'Phone',
-            //     ),
-            //   ),
+            //   child: Row(children: [
+            //     Icon(Icons.account_circle_sharp),
+            //     SizedBox(width: 10),
+            //     Expanded(
+            //         child: TextField(
+            //       controller: emailController,
+            //       decoration: const InputDecoration(
+            //         border: OutlineInputBorder(),
+            //         labelText: 'Email',
+            //       ),
+            //     ))
+            //   ]),
             // ),
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: Row(children: [
-                Icon(Icons.lock),
-                SizedBox(width: 10),
-                Expanded(
-                    child: TextField(
-                  obscureText: true,
-                  controller: passwordController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                  ),
-                ))
-              ]),
+              
+              width: 70,
+              height: 70,
+              // padding: EdgeInsets.only(right: 5.0),
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              decoration: BoxDecoration(
+                color: Color(0xff64abbf),
+              ),
+
+                child: Stack(
+                  children: <Widget>[
+                    Row(children: [
+                      // SizedBox(width: 10),
+                      Expanded(
+                        child: Center(
+                          
+                          child: TextField(
+                            
+                            obscureText: _isObscured,
+                            controller: passwordController,
+                            style: TextStyle(
+                                color: Colors.black, // màu chữ
+                                fontSize: 15, // kích thước chữ
+                              ),
+                              decoration: InputDecoration(
+                                icon: Icon(
+                                  Icons.lock_outline,
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                                constraints: BoxConstraints(
+                                  maxHeight: 40, // chiều cao tối đa của TextField
+                                  maxWidth: 280, // chiều rộng tối đa của TextField
+                                ),
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0), // bo góc
+                                  borderSide: BorderSide.none,
+                                ),
+                                // border: InputBorder.none, // loại bỏ đường viền
+                                // contentPadding: EdgeInsets.symmetric(vertical: 10), // khoảng cách giữa đường viền và văn bản
+                                hintText: 'Your Password', // placeholder
+                                hintStyle: TextStyle(
+                                  color: Colors.grey, // màu placeholder
+                                  fontSize: 15, // kích thước placeholder
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: Icon(_isObscured ? Icons.visibility_off : Icons.visibility),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isObscured = !_isObscured;
+                                    });
+                                  },
+                                ),
+                              ),
+                      )))
+                    ]),
+                  ],
+                ),
             ),
-            TextButton(
+            // Container(
+            //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            //   child: Row(children: [
+            //     Icon(Icons.lock),
+            //     SizedBox(width: 10),
+            //     Expanded(
+            //         child: TextField(
+            //       obscureText: true,
+            //       controller: passwordController,
+            //       decoration: const InputDecoration(
+            //         border: OutlineInputBorder(),
+            //         labelText: 'Password',
+            //       ),
+            //     ))
+            //   ]),
+            // ),
+            // SizedBox(width: 20),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Align(alignment: Alignment.centerRight,
+              child: TextButton(
+              
               onPressed: () async {
                 //forgot password screen
                 // var order =
@@ -189,11 +324,29 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 'Forgot Password',
               ),
             ),
+              ),
+            ),
+            
+            // SizedBox(width: 30),
             Container(
+              margin: EdgeInsets.only(top: 20, bottom: 0, left: 90, right: 90),
                 height: 50,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
-                  child: const Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                  primary: Color(0xff64abbf), // set màu sắc của nút
+                  // onPrimary: Colors.white, // set màu sắc của chữ
+                  // padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 70.0), // set kích thước của nút
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0), // set độ bo góc của nút
+                  ),
+                ),
+                  child: const Text('Login',
+                   style: TextStyle(
+                    color: Colors.white, // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),),
                   onPressed: () async {
                     if (nameController.text.isNotEmpty ||
                         passwordController.text.isNotEmpty ||
@@ -253,13 +406,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     }
                   },
                 )),
-            Row(
+            Container(
+              margin: EdgeInsets.only(top: 30),
+              child: Row(
               // ignore: sort_child_properties_last
               children: <Widget>[
-                const Text('Does not have account?'),
+                const Text('Creating new account'),
                 TextButton(
                   child: const Text(
-                    'Sign up',
+                    'Here',
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
@@ -296,6 +451,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ],
               mainAxisAlignment: MainAxisAlignment.center,
             ),
+            ),
+            
           ],
         ));
   }
