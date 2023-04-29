@@ -6,6 +6,7 @@ import 'package:app/view/Device_Page.dart';
 import 'package:boxicons/boxicons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:time_picker_widget/main.dart';
 import '../firebase_store/fire_base_auth.dart';
 import '../model/Medicine.dart';
 import 'Bottom_Page.dart';
@@ -26,7 +27,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   Widget build(BuildContext context) {
     var info = ModalRoute.of(context)!.settings.arguments as Users;
     return Scaffold(
-        appBar: AppBar(title: const Text("Device ")),
+        // appBar: AppBar(title: const Text("Device ")),
         body: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -34,39 +35,109 @@ class _DashBoardPageState extends State<DashBoardPage> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                GestureDetector(
-                    onTap: () {
-                      // Handle the tap event here
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => const InfoPage()));
-                    },
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          children: [
-                            Icon(Boxicons.bxs_user_account),
-                            SizedBox(width: 16.0),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Hello :' + info.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6),
-                                  // Text('Device Info',
-                                  //     style: Theme.of(context).textTheme.subtitle1),
-                                ],
-                              ),
+                Container(
+                  width: 340,
+                  height: 50,
+                  color: Color(0xff64abbf),
+                  margin: EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        // top: 30, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+                        // left: 0, // set vị trí đứng từ trái qua, dựa vào giá trị x
+                        // right: 0,
+                        child: Center(
+                          child: Text(
+                            'SMART MEDICINE BOX',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15.0,
                             ),
-                          ],
+                          ),
+                          
+                        ),
+
+                      ),
+                       Positioned(
+                        top: 5, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+                        right: 5, // set vị trí đứng từ phải qua, dựa vào giá trị x
+                        child: IconButton(
+                          icon: Icon(
+                                  Icons.logout_outlined,
+                                  color: Color(0xFFFFFFFF),
+                                ),
+                          onPressed: () {
+                            // Navigator.popUntil(context, ModalRoute.withName('/'));
+                            Navigator.pop(context);
+                          },
+                        
                         ),
                       ),
-                    )),
-                SizedBox(height: 16.0),
+                    ],
+                  ),
+                ),
+                // Container(
+                //   width: 300,
+                //   height: 100,
+                  
+                //   margin: EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                //   decoration: BoxDecoration(
+                //     color: Color(0xff64abbf),
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                //   child: Stack(
+                //     children: [
+                //       Positioned(
+                //         // top: 30, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+                //         // left: 0, // set vị trí đứng từ trái qua, dựa vào giá trị x
+                //         // right: 0,
+                //         child: Center(
+                //           child: Text(
+                //                     textAlign: TextAlign.center,
+                //                     'Hi ' + info.name + '!',
+                //                     style: TextStyle(
+                //                       color: Colors.white,
+                //                       fontSize: 20.0,
+                //                       ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // GestureDetector(
+                //     onTap: () {
+                //       // Handle the tap event here
+                //       // Navigator.push(
+                //       //     context,
+                //       //     MaterialPageRoute(
+                //       //         builder: (context) => const InfoPage()));
+                //     },
+                //     child: Card(
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(16.0),
+                //         child: Row(
+                //           children: [
+                //             Icon(Boxicons.bxs_user_account),
+                //             SizedBox(width: 16.0),
+                //             Expanded(
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Text('Hi: ' + info.name,
+                //                       style: Theme.of(context)
+                //                           .textTheme
+                //                           .headline6),
+                //                   // Text('Device Info',
+                //                   //     style: Theme.of(context).textTheme.subtitle1),
+                //                 ],
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     )),
+                // SizedBox(height: 16.0),
                 Expanded(
                   child: ListView.builder(
                     itemCount: info.devices.length,
@@ -100,20 +171,21 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                     ),
                                   ]),
                               child: Card(
-                                color: Colors.lightBlue,
+                                color: Color(0xff64abbf),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 elevation: 4.0, // Add a drop shadow to the card
                                 margin: EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 8.0),
+                                    horizontal: 10.0, vertical: 8.0),
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
                                     children: [
                                       Icon(
-                                        Boxicons.bx_package,
-                                        size: 50,
+                                        Boxicons.bx_archive,
+                                        size: 70,
+                                        color: Colors.white,
                                       ),
                                       SizedBox(width: 16.0),
                                       Expanded(
@@ -121,20 +193,23 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text('Thiet bi so ${item.id}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline6),
+                                            Text('DEVICE ${item.id}',
+                                                style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0,
+                                              ),),
                                             Text(
                                                 'Device Description : ${item.description}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1),
+                                                style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15.0,
+                                              ),),
                                             Text(
                                                 'Name Patient : ${item.patient.fullname}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1),
+                                                style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15.0,
+                                              ),),
                                           ],
                                         ),
                                       ),
@@ -148,6 +223,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
               ],
             )),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Color(0xff64abbf),
           onPressed: () async {
             final rs = await Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyHomePage()))
@@ -162,7 +238,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
               });
             }
           },
-          child: Icon(Icons.add),
+          child: Icon(Icons.add, color: Color(0xFFFFFFFF)),
         ));
   }
 

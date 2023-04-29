@@ -32,13 +32,13 @@ class _HomePageState extends State<HomePage> {
       body: _list.elementAt(_index),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Dashboard'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), label: 'Change password')
         ],
         currentIndex: _index,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Color(0xff64abbf),
         onTap: onItemTap,
       ),
     );

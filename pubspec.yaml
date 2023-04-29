@@ -76,6 +76,9 @@ flutter:
   assets:
     - images/icon.png
     - images/bg.png
+    - images/icon_app.png
+    - images/icon_mail.png
+    - images/icon_pass.png
     # - images/abc.jpg
   #   - images/a_dot_ham.jpeg
 
