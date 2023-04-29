@@ -78,7 +78,7 @@ class _BoxPageState extends State<BoxPage> {
                       ),
                     ]),
                     child: Card(
-                      color: Colors.lightBlue,
+                      color: Color(0xff64abbf),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -129,7 +129,7 @@ class _BoxPageState extends State<BoxPage> {
                       ),
                     ]),
                     child: Card(
-                      color: Colors.lightBlue,
+                      color: Color(0xff64abbf),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -183,7 +183,7 @@ class _BoxPageState extends State<BoxPage> {
                       ),
                     ]),
                     child: Card(
-                      color: Colors.lightBlue,
+                      color: Color(0xff64abbf),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -262,7 +262,7 @@ class _BoxPageState extends State<BoxPage> {
                                       ),
                                     ]),
                                 child: Card(
-                                  color: Colors.lightBlue,
+                                  color: Color(0xff64abbf),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),

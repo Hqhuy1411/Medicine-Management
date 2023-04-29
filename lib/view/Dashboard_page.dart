@@ -39,9 +39,26 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   width: 340,
                   height: 50,
                   color: Color(0xff64abbf),
-                  margin: EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
+                  margin:
+                      EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
                   child: Stack(
                     children: [
+                      Positioned(
+                        top:
+                            5, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+                        right:
+                            5, // set vị trí đứng từ phải qua, dựa vào giá trị x
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.logout_outlined,
+                            color: Color(0xFFFFFFFF),
+                          ),
+                          onPressed: () {
+                            // Navigator.popUntil(context, ModalRoute.withName('/'));
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
                       Positioned(
                         // top: 30, // set vị trí đứng từ trên xuống, dựa vào giá trị y
                         // left: 0, // set vị trí đứng từ trái qua, dựa vào giá trị x
@@ -54,23 +71,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
                               fontSize: 15.0,
                             ),
                           ),
-                          
-                        ),
-
-                      ),
-                       Positioned(
-                        top: 5, // set vị trí đứng từ trên xuống, dựa vào giá trị y
-                        right: 5, // set vị trí đứng từ phải qua, dựa vào giá trị x
-                        child: IconButton(
-                          icon: Icon(
-                                  Icons.logout_outlined,
-                                  color: Color(0xFFFFFFFF),
-                                ),
-                          onPressed: () {
-                            // Navigator.popUntil(context, ModalRoute.withName('/'));
-                            Navigator.pop(context);
-                          },
-                        
                         ),
                       ),
                     ],
@@ -79,7 +79,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                 // Container(
                 //   width: 300,
                 //   height: 100,
-                  
+
                 //   margin: EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
                 //   decoration: BoxDecoration(
                 //     color: Color(0xff64abbf),
@@ -193,23 +193,27 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text('DEVICE ${item.id}',
-                                                style: TextStyle(
+                                            Text(
+                                              'DEVICE ${item.id}',
+                                              style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20.0,
-                                              ),),
+                                              ),
+                                            ),
                                             Text(
-                                                'Device Description : ${item.description}',
-                                                style: TextStyle(
+                                              'Device Description : ${item.description}',
+                                              style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15.0,
-                                              ),),
+                                              ),
+                                            ),
                                             Text(
-                                                'Name Patient : ${item.patient.fullname}',
-                                                style: TextStyle(
+                                              'Name Patient : ${item.patient.fullname}',
+                                              style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15.0,
-                                              ),),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),

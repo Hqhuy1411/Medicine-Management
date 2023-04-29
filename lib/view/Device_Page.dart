@@ -206,7 +206,7 @@ class _DevicePageState extends State<DevicePage> {
                               ),
                             ]),
                             child: Card(
-                              color: Colors.lightBlue,
+                              color: Color(0xff64abbf),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                               ),

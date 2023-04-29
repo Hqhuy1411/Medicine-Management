@@ -39,7 +39,7 @@ class _MyListPageState extends State<MyListPage> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Card(
-                  color: Colors.blue[800],
+                  color: Color.fromRGBO(2, 51, 79, 1),
                   elevation: 4.0,
                   margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                   child: Column(
