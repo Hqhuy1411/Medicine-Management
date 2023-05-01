@@ -52,29 +52,93 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Image Picker Example"),
+          backgroundColor: Color(0xff64abbf),
+          title: const Text('SMART MEDICINE BOX',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+            ),
+            textAlign: TextAlign.center,),
         ),
-        body: Center(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
+          padding: EdgeInsets.fromLTRB(70, 0, 70, 0),
+          // child: 
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Pick Image from Gallery",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    pickImage();
-                  }),
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Pick Image from Camera",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    pickImageC();
-                  }),
+              Container(
+                  width: 320,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    color: Color(0xff64abbf),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: EdgeInsets.only(top: 30, bottom: 40, left: 10, right: 10),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 10,
+                        left: 60,
+                        child: Center(
+                          child: Text(
+                            'Select an Image from?',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // SizedBox(
+                      //   height: 20,
+                      //   // left: 100,
+                      // ),
+                      Positioned(
+                        top: 35,
+                        left: 100,
+                        child: Center(
+                          child: MaterialButton(
+                          color: Colors.white,
+                          child: const Text("Gallery",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                          onPressed: () {
+                            pickImage();
+                          }),
+                        ),
+                      ),
+                      Positioned(
+                        top: 70,
+                        left: 100,
+                        child: Center(
+                          child: MaterialButton(
+                          color: Colors.white,
+                          child: const Text("Camera",
+                              style: TextStyle(
+                                  fontSize: 15, 
+                                  color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                          onPressed: () {
+                            pickImageC();
+                          }),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               SizedBox(
-                height: 20,
+                height: 100,
               ),
               image != null
                   ? ClipRect(
@@ -83,10 +147,31 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                           heightFactor: 0.7,
                           child: Image.file(image!)),
                     )
-                  : Text("No image selected"),
+                  : Center(
+                      child: Text(
+                        'No image selected',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  // Text("No image selected"),
               if (image != null)
                 ElevatedButton(
-                  child: Text("send"),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.only(bottom: 50),
+                    primary: Color(0xff64abbf),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                    ),
+                  ),
+                  child: Text("Next",
+                   style: TextStyle(
+                    color: Colors.white, // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),),
                   onPressed: (() async {
                     try {
                       // var request = http.MultipartRequest('POST',
@@ -116,7 +201,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         }
                         if (medicines.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Anh khong dung format"),
+                            content: Text("The image is not in the correct format!"),
                           ));
 
                           return;
