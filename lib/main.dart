@@ -122,30 +122,35 @@ bool _isObscured = true;
                 ),
               ),
             ),
-            SizedBox(width: 20),
+            // SizedBox(width: 20),
             Container(
-              width: 60,
-              height: 60,
-              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 185),
+              width: 70,
+              height: 70,
+              // margin: EdgeInsets.symmetric(vertical: 20, horizontal: 185),
+              margin: EdgeInsets.only(top: 20, bottom: 20, left: 130, right: 130),
               decoration: BoxDecoration(
                 color: Color(0xff64abbf),
-                // image: DecorationImage(
-                //   image: AssetImage('/images/icon_app.png'),
-                //   fit: BoxFit.cover,
-                // ),
+                image: DecorationImage(
+                  image: AssetImage('images/icon_app.png'),
+                  fit: BoxFit.cover,
+                ),
                 borderRadius: BorderRadius.circular(10),
               ),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: Image.asset('images/icon_app.png', fit: BoxFit.cover),
-                    ),
-                  ],
-                ),
+                // child: Stack(
+                //   children: <Widget>[
+                //     Positioned(
+                //       top: 0,
+                //       left: 0,
+                //       right: 0,
+                //       bottom: 0,
+                //       child: Image.asset('images/icon_app.png', fit: BoxFit.cover),
+                //       icon: Icon(
+                //                   Icons.email_outlined,
+                //                   color: Color(0xFFFFFFFF),
+                //                 ),
+                //     ),
+                //   ],
+                // ),
             ),
 
             Container(
