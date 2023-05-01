@@ -45,7 +45,13 @@ class _DevicePageState extends State<DevicePage> {
     final uid = obRecei['uid'];
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Box'),
+          backgroundColor: Color(0xff64abbf),
+          title: const Text('SMART MEDICINE BOX',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+            ),
+            textAlign: TextAlign.center,),
           actions: [
             PopupMenuButton(
               // add icon, by default "3 dot" icon
@@ -55,7 +61,8 @@ class _DevicePageState extends State<DevicePage> {
                   PopupMenuItem<int>(
                       value: 0,
                       child: ListTile(
-                        leading: Icon(Icons.camera),
+                        leading: Icon(Icons.camera_alt_outlined,
+                        color: Color(0xff64abbf),),
                         title: Text('Camera'),
                         onTap: () async {
                           // Handle save action
@@ -114,7 +121,8 @@ class _DevicePageState extends State<DevicePage> {
                   PopupMenuItem<int>(
                       value: 1,
                       child: ListTile(
-                        leading: Icon(Icons.reset_tv),
+                        leading: Icon(Icons.refresh_outlined,
+                        color: Color(0xff64abbf),),
                         title: Text('Reset'),
                         onTap: () {
                           // Handle save action
@@ -151,30 +159,113 @@ class _DevicePageState extends State<DevicePage> {
                 image: DecorationImage(
                     image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
             padding: const EdgeInsets.all(10),
+            
             child: Column(
               children: [
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Icon(Boxicons.bx_package),
-                        SizedBox(width: 16.0),
-                        Expanded(
+            //     Container(
+            //       width: 340,
+            //       height: 50,
+            //       color: Color(0xff64abbf),
+            //       margin: EdgeInsets.only(top: 30, bottom: 40, left: 10, right: 10),
+            //       child: Stack(
+            //         children: [
+            //           Positioned(
+            //             top:
+            //                 5, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+            //             left:
+            //                 5, // set vị trí đứng từ phải qua, dựa vào giá trị x
+            //             child: IconButton(
+            //               icon: Icon(
+            //                 Icons.arrow_back_outlined,
+            //                 color: Color(0xFFFFFFFF),
+            //               ),
+            //               onPressed: () {
+            //                 // Navigator.popUntil(context, ModalRoute.withName('/'));
+            //                 Navigator.pop(context);
+            //               },
+            //             ),
+            //           ),
+
+            //           Positioned(
+            //             child: Center(
+            //               child: Text(
+            //                 'SMART MEDICINE BOX',
+            //                 style: TextStyle(
+            //                   color: Colors.white,
+            //                   fontSize: 15.0,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            // ),
+            Container(
+                  width: 250,
+                  height: 60,
+
+                  margin: EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  decoration: BoxDecoration(
+                    color: Color(0xff64abbf),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 8, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+                        left: 50, // set vị trí đứng từ trái qua, dựa vào giá trị x
+                        // right: 0,
+                        child: Center(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text('Thiet bi so ' + info.id.toString(),
-                                  style: Theme.of(context).textTheme.headline6),
-                              Text('Device Info ' + info.description,
-                                  style: Theme.of(context).textTheme.subtitle1),
+                              Text('DEVICE ' + info.id.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0,
+                                      ),),
+                              Text('Description: ' + info.description,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15.0,
+                                      ),),
                             ],
                           ),
+                          // child: Text(
+                          //           textAlign: TextAlign.center,
+                          //           'Hi ' + info.name + '!',
+                          //           style: TextStyle(
+                          //             color: Colors.white,
+                          //             fontSize: 20.0,
+                          //             ),
+                          // ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
+                // Card(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(16.0),
+                //     child: Row(
+                //       children: [
+                //         Icon(Boxicons.bx_package),
+                //         SizedBox(width: 16.0),
+                //         Expanded(
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             children: [
+                //               Text('DEVICE ' + info.id.toString(),
+                //                   style: Theme.of(context).textTheme.headline6),
+                //               Text('Description: ' + info.description,
+                //                   style: Theme.of(context).textTheme.subtitle1),
+                //             ],
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 SizedBox(height: 16.0),
                 Expanded(
                     child: ListView.builder(
@@ -218,36 +309,43 @@ class _DevicePageState extends State<DevicePage> {
                                 child: Row(
                                   children: [
                                     Icon(
-                                      Boxicons.bx_box,
-                                      size: 50,
-                                    ),
+                                        Boxicons.bx_archive,
+                                        size: 50,
+                                        color: Colors.white,
+                                      ),
                                     SizedBox(width: 16.0),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('Box so :' + item.id.toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline6),
+                                          Text('Box: ' + item.id.toString(),
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0,
+                                              ),),
                                           if (item.medicines.length > 0)
                                             Column(children: [
                                               Text(
                                                   'Total Medicines : ' +
                                                       item.medicines.length
                                                           .toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .subtitle1),
+                                                  style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15.0,
+                                              ),),
                                               Text(
                                                 'Sang : ${item.medicines[0].usage.mor.getTime()}' +
                                                     ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
                                                     ' Toi : ${item.medicines[0].usage.even.getTime()}',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15.0,
                                               ),
-                                              for (var medicine
-                                                  in item.medicines)
-                                                Text(medicine.Info())
+                                              ),
+                                              // for (var medicine
+                                              //     in item.medicines)
+                                              //   Text(medicine.Info())
                                             ])
                                         ],
                                       ),
