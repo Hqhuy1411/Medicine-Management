@@ -32,7 +32,15 @@ class _BoxPageState extends State<BoxPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Medicines'),
+        backgroundColor: Color(0xff64abbf),
+          title: Center(
+            child: Text('BOX DETAILS',
+            textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15.0,
+              ),
+            ),) ,
       ),
       body: Container(
           decoration: BoxDecoration(
@@ -40,28 +48,70 @@ class _BoxPageState extends State<BoxPage> {
                   image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
           padding: const EdgeInsets.all(10),
           child: Column(children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Icon(Icons.devices),
-                    SizedBox(width: 16.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Box so : ' + info.id.toString(),
-                              style: Theme.of(context).textTheme.headline6),
-                          Text('Box Info',
-                              style: Theme.of(context).textTheme.subtitle1),
-                        ],
+              Container(
+                  width: 250,
+                  height: 50,
+                  margin: EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  decoration: BoxDecoration(
+                    color: Color(0xff64abbf),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Text('Box: ' + info.id.toString(),
+                                style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                        ),),
+                              Text('Box details: ',
+                                  style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15.0,
+                                          ),),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
+
+            // Card(
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(16.0),
+            //     child: Row(
+            //       children: [
+            //         Icon(Icons.devices),
+            //         SizedBox(width: 16.0),
+            //         Expanded(
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               Text('Box: ' + info.id.toString(),
+            //                   style: TextStyle(
+            //                           color: Colors.white,
+            //                           fontSize: 20.0,
+            //                           ),),
+            //               Text('Box details: ',
+            //                   // style: Theme.of(context).textTheme.subtitle1
+            //                   style: TextStyle(
+            //                           color: Colors.white,
+            //                           fontSize: 15.0,
+            //                           ),),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             if (info.medicines.length > 0)
               Column(children: [
                 Slidable(
@@ -308,10 +358,21 @@ class _BoxPageState extends State<BoxPage> {
                                   ),
                                 )));
                       })
-                  : Text("Chua co thong tin ve hop"),
+                  : Center(
+                      child: Text(
+                        'Empty Box',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  // Text("Empty Box"),
             ),
           ])),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xff64abbf),
+        child: Icon(Icons.add, color: Color(0xFFFFFFFF)),
         onPressed: () {
           if (info.medicines.length > 0) {
             _displayTextInputDialog(context, info, device, uid);
@@ -332,7 +393,7 @@ class _BoxPageState extends State<BoxPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('TextField in Dialog'),
+            title: Text('Add Medicine'),
             content: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Form(
@@ -342,8 +403,9 @@ class _BoxPageState extends State<BoxPage> {
                     // ignore: prefer_const_constructors
                     controller: nameMedicine,
                     decoration: InputDecoration(
-                      labelText: 'Name',
-                      icon: const Icon(Icons.account_box),
+                      labelText: "Medicine's Name",
+                      icon: const Icon(Icons.medication_rounded,
+                      color: Color(0xff64abbf),),
                     ),
                   ),
                   TextFormField(
@@ -352,7 +414,8 @@ class _BoxPageState extends State<BoxPage> {
                     // ignore: prefer_const_constructors
                     decoration: InputDecoration(
                       labelText: 'Description',
-                      icon: const Icon(Icons.email),
+                      icon: const Icon(Icons.description,
+                      color: Color(0xff64abbf),),
                     ),
                   ),
                   TextFormField(
@@ -361,7 +424,8 @@ class _BoxPageState extends State<BoxPage> {
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'Quantity',
-                      icon: Icon(Icons.message),
+                      icon: Icon(Icons.numbers,
+                      color: Color(0xff64abbf),),
                     ),
                   ),
                   TextFormField(
@@ -369,8 +433,9 @@ class _BoxPageState extends State<BoxPage> {
                     controller: morMedicine,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                      labelText: 'Quantity',
-                      icon: Icon(Icons.message),
+                      labelText: 'Morning Quantity',
+                      icon: Icon(Icons.numbers,
+                      color: Color(0xff64abbf),),
                     ),
                   ),
                   TextFormField(
@@ -378,8 +443,9 @@ class _BoxPageState extends State<BoxPage> {
                     controller: noonMedicine,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                      labelText: 'Quantity',
-                      icon: Icon(Icons.message),
+                      labelText: 'Noon Quantity',
+                      icon: Icon(Icons.numbers,
+                      color: Color(0xff64abbf),),
                     ),
                   ),
                   TextFormField(
@@ -387,8 +453,9 @@ class _BoxPageState extends State<BoxPage> {
                     controller: eveMedicine,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                      labelText: 'Quantity',
-                      icon: Icon(Icons.message),
+                      labelText: 'Evening Quantity',
+                      icon: Icon(Icons.numbers,
+                      color: Color(0xff64abbf),),
                     ),
                   ),
                 ],
@@ -396,13 +463,35 @@ class _BoxPageState extends State<BoxPage> {
             ),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('CANCEL'),
+                style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                  ),
+                      ),
+                child: Text("CANCEL",
+                   style: TextStyle(
+                    color: Color(0xff64abbf), // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
               ElevatedButton(
-                child: Text('OK'),
+                style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff64abbf),
+                        shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                  ),
+                      ),
+                child: Text("OK",
+                   style: TextStyle(
+                    color: Colors.white, // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),),
                 onPressed: () {
                   var _firAuth = FirAuth();
                   Usage usage = box.getMedicine()!.usage;
@@ -595,7 +684,7 @@ class _BoxPageState extends State<BoxPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('TextField in Dialog'),
+            title: Text('Add Medicine'),
             content: StatefulBuilder(builder: (context, setState) {
               return Container(
                 child: Padding(
@@ -607,8 +696,11 @@ class _BoxPageState extends State<BoxPage> {
                         // ignore: prefer_const_constructors
                         controller: nameMedicine,
                         decoration: InputDecoration(
-                          labelText: 'Name',
+                          labelText: "Medicine's Name",
+                          icon: const Icon(Icons.medication_rounded,
+                          color: Color(0xff64abbf),),
                         ),
+                        
                       ),
                       TextFormField(
                         // ignore: prefer_const_constructors
@@ -616,7 +708,8 @@ class _BoxPageState extends State<BoxPage> {
                         // ignore: prefer_const_constructors
                         decoration: InputDecoration(
                           labelText: 'Description',
-                          icon: const Icon(Icons.email),
+                          icon: const Icon(Icons.description,
+                          color: Color(0xff64abbf),),
                         ),
                       ),
                       TextFormField(
@@ -625,7 +718,8 @@ class _BoxPageState extends State<BoxPage> {
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(
                           labelText: 'Quantity',
-                          icon: Icon(Icons.message),
+                          icon: Icon(Icons.numbers,
+                          color: Color(0xff64abbf),),
                         ),
                       ),
                       Row(
@@ -635,8 +729,9 @@ class _BoxPageState extends State<BoxPage> {
                               controller: morMedicine,
                               keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
-                                labelText: 'Sang',
-                                icon: Icon(Icons.message),
+                                labelText: 'Morning Qty',
+                                icon: Icon(Icons.numbers,
+                                color: Color(0xff64abbf),),
                               ),
                             ),
                           ),
@@ -645,8 +740,20 @@ class _BoxPageState extends State<BoxPage> {
                           ),
                           Expanded(
                             child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff64abbf),
+                                shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                          ),
+                              ),
                                 child: dateS.hour == 0
-                                    ? Text("Select Time")
+                                    ? Text("Select Time",
+                                        style: TextStyle(
+                                          color: Colors.white, // set màu sắc của chữ bên trong nút
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                          ),
+                                        )
                                     : Text('${dateS.hour}' ': ${dateS.minute}'),
                                 onPressed: () async {
                                   final time = await pickTime(0);
@@ -671,8 +778,9 @@ class _BoxPageState extends State<BoxPage> {
                               controller: noonMedicine,
                               keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
-                                labelText: 'Trua',
-                                icon: Icon(Icons.message),
+                                labelText: 'Noon Qty',
+                                icon: Icon(Icons.numbers,
+                                color: Color(0xff64abbf),),
                               ),
                             ),
                           ),
@@ -681,8 +789,20 @@ class _BoxPageState extends State<BoxPage> {
                           ),
                           Expanded(
                             child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff64abbf),
+                                shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                          ),
+                              ),
                                 child: dateC.hour == 0
-                                    ? Text("Select Time")
+                                    ? Text("Select Time",
+                                        style: TextStyle(
+                                          color: Colors.white, // set màu sắc của chữ bên trong nút
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                          ),
+                                        )
                                     : Text('${dateC.hour}' ': ${dateC.minute}'),
                                 onPressed: () async {
                                   final time = await pickTime(1);
@@ -707,9 +827,10 @@ class _BoxPageState extends State<BoxPage> {
                               controller: eveMedicine,
                               keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
-                                labelText: 'Toi',
-                                icon: Icon(Icons.message),
-                              ),
+                                labelText: 'Evening Qty',
+                                icon: Icon(Icons.numbers,
+                                color: Color(0xff64abbf),),
+                    ),
                             ),
                           ),
                           SizedBox(
@@ -717,8 +838,20 @@ class _BoxPageState extends State<BoxPage> {
                           ),
                           Expanded(
                             child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff64abbf),
+                                shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                          ),
+                              ),
                                 child: dateT.hour == 0
-                                    ? Text("Select Time")
+                                    ? Text("Select Time",
+                                        style: TextStyle(
+                                          color: Colors.white, // set màu sắc của chữ bên trong nút
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                          ),
+                                        )
                                     : Text('${dateT.hour}' ': ${dateT.minute}'),
                                 onPressed: () async {
                                   final time = await pickTime(2);
@@ -743,13 +876,36 @@ class _BoxPageState extends State<BoxPage> {
             }),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('CANCEL'),
+                // child: Text('CANCEL'),
+                style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                  ),
+                      ),
+                  child: Text("CANCEL",
+                   style: TextStyle(
+                    color: Color(0xff64abbf), // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
               ElevatedButton(
-                child: Text('OK'),
+                style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff64abbf),
+                        shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                  ),
+                      ),
+                child: Text("OK",
+                  style: TextStyle(
+                  color: Colors.white, // set màu sắc của chữ bên trong nút
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),),
                 onPressed: () {
                   var _firAuth = FirAuth();
                   Medicine medicine = Medicine(
@@ -898,13 +1054,35 @@ class _BoxPageState extends State<BoxPage> {
             }),
             actions: <Widget>[
               ElevatedButton(
-                child: Text('CANCEL'),
+                style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                  ),
+                      ),
+                child: Text("CANCEL",
+                   style: TextStyle(
+                    color: Color(0xff64abbf), // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
               ElevatedButton(
-                child: Text('OK'),
+                style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff64abbf),
+                        shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                                  ),
+                      ),
+                child: Text("OK",
+                   style: TextStyle(
+                    color: Colors.white, // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),),
                 onPressed: () {
                   var _firAuth = FirAuth();
                   setState(() {

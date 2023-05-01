@@ -53,12 +53,14 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff64abbf),
-          title: const Text('SMART MEDICINE BOX',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.0,
-            ),
-            textAlign: TextAlign.center,),
+          title: Center(
+            child: Text('SMART MEDICINE BOX',
+            textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+              ),
+            ),) ,
         ),
         body: Container(
           decoration: BoxDecoration(
@@ -79,66 +81,120 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   margin: EdgeInsets.only(top: 30, bottom: 40, left: 10, right: 10),
                   child: Stack(
                     children: [
-                      Positioned(
-                        top: 10,
-                        left: 60,
-                        child: Center(
-                          child: Text(
-                            'Select an Image from?',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17.0,
-                            ),
+                      // Positioned(
+                        // top: 10,
+                        // left: 60,
+                        Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 5,
+                                // left: 100,
+                              ),
+                              Text(
+                                'Select an Image from?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17.0,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                                // left: 100,
+                              ),
+                              MaterialButton(
+                                color: Colors.white,
+                                child: const Text("Gallery",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                                onPressed: () {
+                                  pickImage();
+                                }
+                                ),
+                              SizedBox(
+                                height: 5,
+                                // left: 100,
+                              ),
+                              MaterialButton(
+                                color: Colors.white,
+                                child: const Text("Camera",
+                                    style: TextStyle(
+                                        fontSize: 15, 
+                                        color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                                onPressed: () {
+                                  pickImageC();
+                                }),
+                            ],
                           ),
+                          // child: Text(
+                          //   'Select an Image from?',
+                          //   style: TextStyle(
+                          //     color: Colors.white,
+                          //     fontSize: 17.0,
+                          //   ),
+                          // ),
                         ),
-                      ),
+                      // ),
                       // SizedBox(
-                      //   height: 20,
+                      //   height: 15,
                       //   // left: 100,
                       // ),
-                      Positioned(
-                        top: 35,
-                        left: 100,
-                        child: Center(
-                          child: MaterialButton(
-                          color: Colors.white,
-                          child: const Text("Gallery",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          // padding: EdgeInsets.symmetric(horizontal: 120.0),
-                          onPressed: () {
-                            pickImage();
-                          }),
-                        ),
-                      ),
-                      Positioned(
-                        top: 70,
-                        left: 100,
-                        child: Center(
-                          child: MaterialButton(
-                          color: Colors.white,
-                          child: const Text("Camera",
-                              style: TextStyle(
-                                  fontSize: 15, 
-                                  color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          // padding: EdgeInsets.symmetric(horizontal: 120.0),
-                          onPressed: () {
-                            pickImageC();
-                          }),
-                        ),
-                      ),
+                      // Positioned(
+                      //   // top: 35,
+                      //   // left: 100,
+                      //   child: Center(
+                      //     child: MaterialButton(
+                      //     color: Colors.white,
+                      //     child: const Text("Gallery",
+                      //         style: TextStyle(
+                      //             fontSize: 15,
+                      //             color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(20.0),
+                      //     ),
+                      //     // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                      //     onPressed: () {
+                      //       pickImage();
+                      //     }),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      //   // left: 100,
+                      // ),
+                      // Positioned(
+                      //   top: 70,
+                      //   left: 100,
+                      //   child: Center(
+                      //     child: MaterialButton(
+                      //     color: Colors.white,
+                      //     child: const Text("Camera",
+                      //         style: TextStyle(
+                      //             fontSize: 15, 
+                      //             color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(20.0),
+                      //     ),
+                      //     // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                      //     onPressed: () {
+                      //       pickImageC();
+                      //     }),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
               SizedBox(
-                height: 100,
+                height: 30,
               ),
               image != null
                   ? ClipRect(
@@ -158,9 +214,12 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                     ),
                   // Text("No image selected"),
               if (image != null)
-                ElevatedButton(
+              Center(
+                child: ElevatedButton(
+                  // width: 10,
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.only(bottom: 50),
+                    fixedSize: Size(90, 40),
                     primary: Color(0xff64abbf),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
@@ -240,6 +299,9 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                     }
                   }),
                 )
+              ),
+
+                
             ],
           ),
         ));
