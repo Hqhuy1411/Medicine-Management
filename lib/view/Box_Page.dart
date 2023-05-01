@@ -32,7 +32,15 @@ class _BoxPageState extends State<BoxPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Medicines'),
+        backgroundColor: Color(0xff64abbf),
+        title: const Text(
+          'SMART MEDICINE BOX',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+          ),
+          textAlign: TextAlign.center,
+        ),
       ),
       body: Container(
           decoration: BoxDecoration(
@@ -40,26 +48,51 @@ class _BoxPageState extends State<BoxPage> {
                   image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
           padding: const EdgeInsets.all(10),
           child: Column(children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Icon(Icons.devices),
-                    SizedBox(width: 16.0),
-                    Expanded(
+            Container(
+              width: 250,
+              height: 60,
+              margin: EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+              decoration: BoxDecoration(
+                color: Color(0xff64abbf),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 8, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+                    left: 50, // set vị trí đứng từ trái qua, dựa vào giá trị x
+                    // right: 0,
+                    child: Center(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text('Box so : ' + info.id.toString(),
-                              style: Theme.of(context).textTheme.headline6),
-                          Text('Box Info',
-                              style: Theme.of(context).textTheme.subtitle1),
+                          Text(
+                            'Box ' + info.id.toString(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                          Text(
+                            'Description: ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15.0,
+                            ),
+                          ),
                         ],
                       ),
+                      // child: Text(
+                      //           textAlign: TextAlign.center,
+                      //           'Hi ' + info.name + '!',
+                      //           style: TextStyle(
+                      //             color: Colors.white,
+                      //             fontSize: 20.0,
+                      //             ),
+                      // ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             if (info.medicines.length > 0)
@@ -312,6 +345,8 @@ class _BoxPageState extends State<BoxPage> {
             ),
           ])),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xff64abbf),
+        child: Icon(Icons.add, color: Color(0xFFFFFFFF)),
         onPressed: () {
           if (info.medicines.length > 0) {
             _displayTextInputDialog(context, info, device, uid);
