@@ -82,7 +82,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     super.initState();
     notificationsService.initializeNotification();
   }
-bool _isObscured = true;
+
+  bool _isObscured = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -124,10 +125,11 @@ bool _isObscured = true;
             ),
             // SizedBox(width: 20),
             Container(
-              width: 70,
-              height: 70,
+              width: 150,
+              height: 150,
               // margin: EdgeInsets.symmetric(vertical: 20, horizontal: 185),
-              margin: EdgeInsets.only(top: 20, bottom: 20, left: 130, right: 130),
+              margin:
+                  EdgeInsets.only(top: 20, bottom: 20, left: 130, right: 130),
               decoration: BoxDecoration(
                 color: Color(0xff64abbf),
                 image: DecorationImage(
@@ -136,21 +138,21 @@ bool _isObscured = true;
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-                // child: Stack(
-                //   children: <Widget>[
-                //     Positioned(
-                //       top: 0,
-                //       left: 0,
-                //       right: 0,
-                //       bottom: 0,
-                //       child: Image.asset('images/icon_app.png', fit: BoxFit.cover),
-                //       icon: Icon(
-                //                   Icons.email_outlined,
-                //                   color: Color(0xFFFFFFFF),
-                //                 ),
-                //     ),
-                //   ],
-                // ),
+              // child: Stack(
+              //   children: <Widget>[
+              //     Positioned(
+              //       top: 0,
+              //       left: 0,
+              //       right: 0,
+              //       bottom: 0,
+              //       child: Image.asset('images/icon_app.png', fit: BoxFit.cover),
+              //       icon: Icon(
+              //                   Icons.email_outlined,
+              //                   color: Color(0xFFFFFFFF),
+              //                 ),
+              //     ),
+              //   ],
+              // ),
             ),
 
             Container(
@@ -163,45 +165,45 @@ bool _isObscured = true;
                 color: Color(0xff64abbf),
               ),
 
-                child: Stack(
-                  children: <Widget>[
-                    Row(children: [
-                      // SizedBox(width: 10),
-                      Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Row(children: [
+                    // SizedBox(width: 10),
+                    Expanded(
                         child: Center(
-                          child: TextField(
-                            controller: emailController,
-                            style: TextStyle(
-                                color: Colors.black, // màu chữ
-                                fontSize: 15, // kích thước chữ
-                              ),
-                              decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.email_outlined,
-                                  color: Color(0xFFFFFFFF),
-                                ),
-                                constraints: BoxConstraints(
-                                  maxHeight: 40, // chiều cao tối đa của TextField
-                                  maxWidth: 280, // chiều rộng tối đa của TextField
-                                ),
-                                fillColor: Colors.white,
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30.0), // bo góc
-                                  borderSide: BorderSide.none,
-                                ),
-                                // border: InputBorder.none, // loại bỏ đường viền
-                                // contentPadding: EdgeInsets.symmetric(vertical: 10), // khoảng cách giữa đường viền và văn bản
-                                hintText: 'Your Email', // placeholder
-                                hintStyle: TextStyle(
-                                  color: Colors.grey, // màu placeholder
-                                  fontSize: 15, // kích thước placeholder
-                                ),
-                              ),
-                      )))
-                    ]),
-                  ],
-                ),
+                            child: TextField(
+                      controller: emailController,
+                      style: TextStyle(
+                        color: Colors.black, // màu chữ
+                        fontSize: 15, // kích thước chữ
+                      ),
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.email_outlined,
+                          color: Color(0xFFFFFFFF),
+                        ),
+                        constraints: BoxConstraints(
+                          maxHeight: 40, // chiều cao tối đa của TextField
+                          maxWidth: 280, // chiều rộng tối đa của TextField
+                        ),
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0), // bo góc
+                          borderSide: BorderSide.none,
+                        ),
+                        // border: InputBorder.none, // loại bỏ đường viền
+                        // contentPadding: EdgeInsets.symmetric(vertical: 10), // khoảng cách giữa đường viền và văn bản
+                        hintText: 'Your Email', // placeholder
+                        hintStyle: TextStyle(
+                          color: Colors.grey, // màu placeholder
+                          fontSize: 15, // kích thước placeholder
+                        ),
+                      ),
+                    )))
+                  ]),
+                ],
+              ),
             ),
             // Container(
             //   padding: const EdgeInsets.all(10),
@@ -219,7 +221,6 @@ bool _isObscured = true;
             //   ]),
             // ),
             Container(
-              
               width: 70,
               height: 70,
               // padding: EdgeInsets.only(right: 5.0),
@@ -228,56 +229,56 @@ bool _isObscured = true;
                 color: Color(0xff64abbf),
               ),
 
-                child: Stack(
-                  children: <Widget>[
-                    Row(children: [
-                      // SizedBox(width: 10),
-                      Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Row(children: [
+                    // SizedBox(width: 10),
+                    Expanded(
                         child: Center(
-                          
-                          child: TextField(
-                            
-                            obscureText: _isObscured,
-                            controller: passwordController,
-                            style: TextStyle(
-                                color: Colors.black, // màu chữ
-                                fontSize: 15, // kích thước chữ
-                              ),
-                              decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.lock_outline,
-                                  color: Color(0xFFFFFFFF),
-                                ),
-                                constraints: BoxConstraints(
-                                  maxHeight: 40, // chiều cao tối đa của TextField
-                                  maxWidth: 280, // chiều rộng tối đa của TextField
-                                ),
-                                fillColor: Colors.white,
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30.0), // bo góc
-                                  borderSide: BorderSide.none,
-                                ),
-                                // border: InputBorder.none, // loại bỏ đường viền
-                                // contentPadding: EdgeInsets.symmetric(vertical: 10), // khoảng cách giữa đường viền và văn bản
-                                hintText: 'Your Password', // placeholder
-                                hintStyle: TextStyle(
-                                  color: Colors.grey, // màu placeholder
-                                  fontSize: 15, // kích thước placeholder
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(_isObscured ? Icons.visibility_off : Icons.visibility),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscured = !_isObscured;
-                                    });
-                                  },
-                                ),
-                              ),
-                      )))
-                    ]),
-                  ],
-                ),
+                            child: TextField(
+                      obscureText: _isObscured,
+                      controller: passwordController,
+                      style: TextStyle(
+                        color: Colors.black, // màu chữ
+                        fontSize: 15, // kích thước chữ
+                      ),
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.lock_outline,
+                          color: Color(0xFFFFFFFF),
+                        ),
+                        constraints: BoxConstraints(
+                          maxHeight: 40, // chiều cao tối đa của TextField
+                          maxWidth: 280, // chiều rộng tối đa của TextField
+                        ),
+                        fillColor: Colors.white,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0), // bo góc
+                          borderSide: BorderSide.none,
+                        ),
+                        // border: InputBorder.none, // loại bỏ đường viền
+                        // contentPadding: EdgeInsets.symmetric(vertical: 10), // khoảng cách giữa đường viền và văn bản
+                        hintText: 'Your Password', // placeholder
+                        hintStyle: TextStyle(
+                          color: Colors.grey, // màu placeholder
+                          fontSize: 15, // kích thước placeholder
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(_isObscured
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                          onPressed: () {
+                            setState(() {
+                              _isObscured = !_isObscured;
+                            });
+                          },
+                        ),
+                      ),
+                    )))
+                  ]),
+                ],
+              ),
             ),
             // Container(
             //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -298,60 +299,64 @@ bool _isObscured = true;
             // SizedBox(width: 20),
             Container(
               margin: EdgeInsets.only(top: 10),
-              child: Align(alignment: Alignment.centerRight,
-              child: TextButton(
-              
-              onPressed: () async {
-                //forgot password screen
-                // var order =
-                //     await _firAuth.getInfoUser("cCfa3TzR9NfQfWwsuLX1NBligBo2");
-                // print(order.Info());
-                // order.medicines.add(Medicine(
-                //     name: "Thuoc lac", description: "phe", quantity: 41));
-                // print(order.Info());
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () async {
+                    //forgot password screen
+                    // var order =
+                    //     await _firAuth.getInfoUser("cCfa3TzR9NfQfWwsuLX1NBligBo2");
+                    // print(order.Info());
+                    // order.medicines.add(Medicine(
+                    //     name: "Thuoc lac", description: "phe", quantity: 41));
+                    // print(order.Info());
 
-                // _firAuth.deleteData();
+                    // _firAuth.deleteData();
 
-                // var millis = 1677690817000;
-                // var dt = DateTime.fromMillisecondsSinceEpoch(millis);
-                // print(DateFormat.jm().format(dt));
-                // var od =
-                //     await _firAuth.getInfoUser("8IXddhgOE7PVc96mE7Q1jMkVqqA3");
-                // print(od.name);
-                //notificationsService.sendNotification();
-                // notificationsService.sendNotification(
-                //     // e.getMedicine().usage.even.time.hour,
-                //     // e.getMedicine().usage.even.time.minute);
-                //     1,
-                //     8);
-              },
-              child: const Text(
-                'Forgot Password',
+                    // var millis = 1677690817000;
+                    // var dt = DateTime.fromMillisecondsSinceEpoch(millis);
+                    // print(DateFormat.jm().format(dt));
+                    // var od =
+                    //     await _firAuth.getInfoUser("8IXddhgOE7PVc96mE7Q1jMkVqqA3");
+                    // print(od.name);
+                    //notificationsService.sendNotification();
+                    // notificationsService.sendNotification(
+                    //     // e.getMedicine().usage.even.time.hour,
+                    //     // e.getMedicine().usage.even.time.minute);
+                    //     1,
+                    //     8);
+                  },
+                  child: const Text(
+                    'Forgot Password',
+                  ),
+                ),
               ),
             ),
-              ),
-            ),
-            
+
             // SizedBox(width: 30),
             Container(
-              margin: EdgeInsets.only(top: 20, bottom: 0, left: 90, right: 90),
+                margin:
+                    EdgeInsets.only(top: 20, bottom: 0, left: 90, right: 90),
                 height: 50,
                 // padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                  primary: Color(0xff64abbf), // set màu sắc của nút
-                  // onPrimary: Colors.white, // set màu sắc của chữ
-                  // padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 70.0), // set kích thước của nút
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0), // set độ bo góc của nút
+                    primary: Color(0xff64abbf), // set màu sắc của nút
+                    // onPrimary: Colors.white, // set màu sắc của chữ
+                    // padding: EdgeInsets.symmetric(vertical: 40.0, horizontal: 70.0), // set kích thước của nút
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(30.0), // set độ bo góc của nút
+                    ),
                   ),
-                ),
-                  child: const Text('Login',
-                   style: TextStyle(
-                    color: Colors.white, // set màu sắc của chữ bên trong nút
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),),
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(
+                      color: Colors.white, // set màu sắc của chữ bên trong nút
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
                   onPressed: () async {
                     if (nameController.text.isNotEmpty ||
                         passwordController.text.isNotEmpty ||
@@ -414,50 +419,49 @@ bool _isObscured = true;
             Container(
               margin: EdgeInsets.only(top: 30),
               child: Row(
-              // ignore: sort_child_properties_last
-              children: <Widget>[
-                const Text('Creating new account'),
-                TextButton(
-                  child: const Text(
-                    'Here',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () {
-                    //signup screen
-                    // TEST update
-                    // DateTime time = DateTime.now();
-                    // Usage usage = Usage(
-                    //     mor: TimeSlot(time: time, quantity: 1),
-                    //     noon: TimeSlot(time: time, quantity: 1),
-                    //     even: TimeSlot(time: time, quantity: 1));
-                    // Medicine medicine = Medicine(
-                    //     name: "Thuoc ke",
-                    //     description: "phe",
-                    //     quantity: 12,
-                    //     usage: usage);
-                    // List<Medicine> listMe = [medicine, medicine];
-                    // Box box = Box(name: "Box1", medicines: listMe);
-                    // Box box2 = Box(name: "Box2", medicines: listMe);
-                    // List<Box> listBo = [box, box2];
-                    // Device device = Device(
-                    //     name: "Thiet bi so 1",
-                    //     patient: Patient(id: "012dx", fullname: "Nguyen Van B"),
-                    //     boxs: [box]);
-                    // print(device.toJson().toString());
+                // ignore: sort_child_properties_last
+                children: <Widget>[
+                  const Text('Creating new account'),
+                  TextButton(
+                    child: const Text(
+                      'Here',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      //signup screen
+                      // TEST update
+                      // DateTime time = DateTime.now();
+                      // Usage usage = Usage(
+                      //     mor: TimeSlot(time: time, quantity: 1),
+                      //     noon: TimeSlot(time: time, quantity: 1),
+                      //     even: TimeSlot(time: time, quantity: 1));
+                      // Medicine medicine = Medicine(
+                      //     name: "Thuoc ke",
+                      //     description: "phe",
+                      //     quantity: 12,
+                      //     usage: usage);
+                      // List<Medicine> listMe = [medicine, medicine];
+                      // Box box = Box(name: "Box1", medicines: listMe);
+                      // Box box2 = Box(name: "Box2", medicines: listMe);
+                      // List<Box> listBo = [box, box2];
+                      // Device device = Device(
+                      //     name: "Thiet bi so 1",
+                      //     patient: Patient(id: "012dx", fullname: "Nguyen Van B"),
+                      //     boxs: [box]);
+                      // print(device.toJson().toString());
 
-                    // _firAuth.AddMedicine(
-                    //     device, "8IXddhgOE7PVc96mE7Q1jMkVqqA3");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterPage()));
-                  },
-                )
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
+                      // _firAuth.AddMedicine(
+                      //     device, "8IXddhgOE7PVc96mE7Q1jMkVqqA3");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterPage()));
+                    },
+                  )
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
             ),
-            ),
-            
           ],
         ));
   }

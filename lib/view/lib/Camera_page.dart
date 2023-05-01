@@ -54,145 +54,149 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
         appBar: AppBar(
           backgroundColor: Color(0xff64abbf),
           title: Center(
-            child: Text('SMART MEDICINE BOX',
-            textAlign: TextAlign.center,
+            child: Text(
+              'SMART MEDICINE BOX',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,
               ),
-            ),) ,
+            ),
+          ),
         ),
         body: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
+              image: DecorationImage(
+                  image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
           padding: EdgeInsets.fromLTRB(70, 0, 70, 0),
-          // child: 
+          // child:
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  width: 320,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: Color(0xff64abbf),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  margin: EdgeInsets.only(top: 30, bottom: 40, left: 10, right: 10),
-                  child: Stack(
-                    children: [
-                      // Positioned(
-                        // top: 10,
-                        // left: 60,
-                        Center(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 5,
-                                // left: 100,
-                              ),
-                              Text(
-                                'Select an Image from?',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 17.0,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                                // left: 100,
-                              ),
-                              MaterialButton(
-                                color: Colors.white,
-                                child: const Text("Gallery",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                // padding: EdgeInsets.symmetric(horizontal: 120.0),
-                                onPressed: () {
-                                  pickImage();
-                                }
-                                ),
-                              SizedBox(
-                                height: 5,
-                                // left: 100,
-                              ),
-                              MaterialButton(
-                                color: Colors.white,
-                                child: const Text("Camera",
-                                    style: TextStyle(
-                                        fontSize: 15, 
-                                        color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                // padding: EdgeInsets.symmetric(horizontal: 120.0),
-                                onPressed: () {
-                                  pickImageC();
-                                }),
-                            ],
-                          ),
-                          // child: Text(
-                          //   'Select an Image from?',
-                          //   style: TextStyle(
-                          //     color: Colors.white,
-                          //     fontSize: 17.0,
-                          //   ),
-                          // ),
-                        ),
-                      // ),
-                      // SizedBox(
-                      //   height: 15,
-                      //   // left: 100,
-                      // ),
-                      // Positioned(
-                      //   // top: 35,
-                      //   // left: 100,
-                      //   child: Center(
-                      //     child: MaterialButton(
-                      //     color: Colors.white,
-                      //     child: const Text("Gallery",
-                      //         style: TextStyle(
-                      //             fontSize: 15,
-                      //             color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(20.0),
-                      //     ),
-                      //     // padding: EdgeInsets.symmetric(horizontal: 120.0),
-                      //     onPressed: () {
-                      //       pickImage();
-                      //     }),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      //   // left: 100,
-                      // ),
-                      // Positioned(
-                      //   top: 70,
-                      //   left: 100,
-                      //   child: Center(
-                      //     child: MaterialButton(
-                      //     color: Colors.white,
-                      //     child: const Text("Camera",
-                      //         style: TextStyle(
-                      //             fontSize: 15, 
-                      //             color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(20.0),
-                      //     ),
-                      //     // padding: EdgeInsets.symmetric(horizontal: 120.0),
-                      //     onPressed: () {
-                      //       pickImageC();
-                      //     }),
-                      //   ),
-                      // ),
-                    ],
-                  ),
+                width: 320,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Color(0xff64abbf),
+                  borderRadius: BorderRadius.circular(20),
                 ),
+                margin:
+                    EdgeInsets.only(top: 30, bottom: 40, left: 10, right: 10),
+                child: Stack(
+                  children: [
+                    // Positioned(
+                    // top: 10,
+                    // left: 60,
+                    Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 5,
+                            // left: 100,
+                          ),
+                          Text(
+                            'Select an Image from?',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17.0,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                            // left: 100,
+                          ),
+                          MaterialButton(
+                              color: Colors.white,
+                              child: const Text("Gallery",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xff64abbf),
+                                      fontWeight: FontWeight.bold)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                              onPressed: () {
+                                pickImage();
+                              }),
+                          SizedBox(
+                            height: 5,
+                            // left: 100,
+                          ),
+                          MaterialButton(
+                              color: Colors.white,
+                              child: const Text("Camera",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Color(0xff64abbf),
+                                      fontWeight: FontWeight.bold)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                              onPressed: () {
+                                pickImageC();
+                              }),
+                        ],
+                      ),
+                      // child: Text(
+                      //   'Select an Image from?',
+                      //   style: TextStyle(
+                      //     color: Colors.white,
+                      //     fontSize: 17.0,
+                      //   ),
+                      // ),
+                    ),
+                    // ),
+                    // SizedBox(
+                    //   height: 15,
+                    //   // left: 100,
+                    // ),
+                    // Positioned(
+                    //   // top: 35,
+                    //   // left: 100,
+                    //   child: Center(
+                    //     child: MaterialButton(
+                    //     color: Colors.white,
+                    //     child: const Text("Gallery",
+                    //         style: TextStyle(
+                    //             fontSize: 15,
+                    //             color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(20.0),
+                    //     ),
+                    //     // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                    //     onPressed: () {
+                    //       pickImage();
+                    //     }),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 10,
+                    //   // left: 100,
+                    // ),
+                    // Positioned(
+                    //   top: 70,
+                    //   left: 100,
+                    //   child: Center(
+                    //     child: MaterialButton(
+                    //     color: Colors.white,
+                    //     child: const Text("Camera",
+                    //         style: TextStyle(
+                    //             fontSize: 15,
+                    //             color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(20.0),
+                    //     ),
+                    //     // padding: EdgeInsets.symmetric(horizontal: 120.0),
+                    //     onPressed: () {
+                    //       pickImageC();
+                    //     }),
+                    //   ),
+                    // ),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: 30,
               ),
@@ -212,25 +216,28 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         ),
                       ),
                     ),
-                  // Text("No image selected"),
+              // Text("No image selected"),
               if (image != null)
-              Center(
-                child: ElevatedButton(
+                Center(
+                    child: ElevatedButton(
                   // width: 10,
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.only(bottom: 50),
                     fixedSize: Size(90, 40),
                     primary: Color(0xff64abbf),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
+                      borderRadius:
+                          BorderRadius.circular(20.0), // set độ bo góc của nút
                     ),
                   ),
-                  child: Text("Next",
-                   style: TextStyle(
-                    color: Colors.white, // set màu sắc của chữ bên trong nút
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),),
+                  child: Text(
+                    "Next",
+                    style: TextStyle(
+                      color: Colors.white, // set màu sắc của chữ bên trong nút
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
                   onPressed: (() async {
                     try {
                       // var request = http.MultipartRequest('POST',
@@ -260,7 +267,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         }
                         if (medicines.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("The image is not in the correct format!"),
+                            content:
+                                Text("The image is not in the correct format!"),
                           ));
 
                           return;
@@ -298,10 +306,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       print(err);
                     }
                   }),
-                )
-              ),
-
-                
+                )),
             ],
           ),
         ));
