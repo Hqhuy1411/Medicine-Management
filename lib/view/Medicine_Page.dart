@@ -12,7 +12,15 @@ class MedicinePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Medicine'),
+        backgroundColor: Color(0xff64abbf),
+          title: Center(
+            child: Text('MEDICINE DETAILS',
+            textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15.0,
+              ),
+            ),) ,
       ),
       body: ListView(
         padding: const EdgeInsets.all(8),
@@ -30,13 +38,61 @@ class MedicinePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Container(
+                  width: 250,
+                  height: 50,
+                  margin: EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  decoration: BoxDecoration(
+                    color: Color(0xff64abbf),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Text('Medicine Name: ' + info.name,
+                                style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20.0,
+                                            ),),
+                              Text('Medicine Description: ' + info.description,
+                                  style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              ),),
+                              Text(info.Tousage(),
+                                  style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              ),)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                         // ignore: prefer_interpolation_to_compose_strings
-                        Text('Medicine Name:' + info.name,
-                            style: Theme.of(context).textTheme.headline6),
-                        Text('Medicine Description ' + info.description,
-                            style: Theme.of(context).textTheme.subtitle1),
-                        Text(info.Tousage(),
-                            style: Theme.of(context).textTheme.subtitle1)
+                        // Text('Medicine Name: ' + info.name,
+                        //     style: TextStyle(
+                        //                 color: Colors.white,
+                        //                 fontSize: 20.0,
+                        //                 ),),
+                        // Text('Medicine Description: ' + info.description,
+                        //     style: TextStyle(
+                        //                 color: Colors.white,
+                        //                 fontSize: 15.0,
+                        //                 ),),
+                        // Text(info.Tousage(),
+                        //     style: TextStyle(
+                        //                 color: Colors.white,
+                        //                 fontSize: 15.0,
+                        //                 ),)
                       ],
                     ),
                   ),

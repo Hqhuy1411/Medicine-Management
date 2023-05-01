@@ -27,7 +27,15 @@ class _MyListPageState extends State<MyListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My List Page'),
+        backgroundColor: Color(0xff64abbf),
+          title: Center(
+            child: Text('SMART MEDICINE BOX',
+            textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+              ),
+            ),) ,
       ),
       body: Container(
           decoration: BoxDecoration(

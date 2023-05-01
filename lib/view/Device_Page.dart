@@ -46,12 +46,14 @@ class _DevicePageState extends State<DevicePage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff64abbf),
-          title: const Text('SMART MEDICINE BOX',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.0,
-            ),
-            textAlign: TextAlign.center,),
+          title: Center(
+            child: Text('DEVICE DETAILS',
+            textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+              ),
+            ),) ,
           actions: [
             PopupMenuButton(
               // add icon, by default "3 dot" icon
@@ -202,8 +204,7 @@ class _DevicePageState extends State<DevicePage> {
             // ),
             Container(
                   width: 250,
-                  height: 60,
-
+                  height: 50,
                   margin: EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                     color: Color(0xff64abbf),
@@ -212,13 +213,17 @@ class _DevicePageState extends State<DevicePage> {
                   child: Stack(
                     children: [
                       Positioned(
-                        top: 8, // set vị trí đứng từ trên xuống, dựa vào giá trị y
-                        left: 50, // set vị trí đứng từ trái qua, dựa vào giá trị x
+                        // top: 8, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+                        // left: 50, // set vị trí đứng từ trái qua, dựa vào giá trị x
                         // right: 0,
                         child: Center(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              SizedBox(
+                                height: 3,
+                                // left: 100,
+                              ),
                               Text('DEVICE ' + info.id.toString(),
                                   style: TextStyle(
                                       color: Colors.white,
@@ -309,7 +314,8 @@ class _DevicePageState extends State<DevicePage> {
                                 child: Row(
                                   children: [
                                     Icon(
-                                        Boxicons.bx_archive,
+                                        // Boxicons.bx_archive,
+                                        Icons.medical_services_outlined, 
                                         size: 50,
                                         color: Colors.white,
                                       ),
