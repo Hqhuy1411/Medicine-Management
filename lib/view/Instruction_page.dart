@@ -28,24 +28,26 @@ class _MyListPageState extends State<MyListPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff64abbf),
-          title: Center(
-            child: Text('SMART MEDICINE BOX',
+        title: Center(
+          child: Text(
+            'SMART MEDICINE BOX',
             textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-              ),
-            ),) ,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+            ),
+          ),
+        ),
       ),
       body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(4.0),
                 child: Card(
                   color: Color(0xff64abbf),
                   elevation: 4.0,
@@ -54,9 +56,10 @@ class _MyListPageState extends State<MyListPage> {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.abc_rounded,
-                            size: 130,
+                          Image.asset(
+                            'images/device.png', // Replace with the actual image path
+                            width: 180,
+                            height: 130,
                           ),
                           Expanded(
                               child: Column(
@@ -92,7 +95,7 @@ class _MyListPageState extends State<MyListPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
-                      Icon(Boxicons.bx_box, size: 70),
+                      Icon(Boxicons.bx_box, size: 70, color: Colors.white),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,7 +105,12 @@ class _MyListPageState extends State<MyListPage> {
                               child: Text(
                                 "BOX" +
                                     widget.boxs[_currentIndex].id.toString(),
-                                style: TextStyle(fontSize: 24),
+                                style: TextStyle(
+                                  color: Colors
+                                      .white, // set màu sắc của chữ bên trong nút
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
                             for (var medicine
@@ -111,7 +119,11 @@ class _MyListPageState extends State<MyListPage> {
                                 padding: const EdgeInsets.only(bottom: 7.0),
                                 child: Text(
                                   "Medince :" + medicine.name,
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(
+                                    color: Colors
+                                        .white, // set màu sắc của chữ bên trong nút
+                                    fontSize: 15,
+                                  ),
                                 ),
                               ),
                           ],

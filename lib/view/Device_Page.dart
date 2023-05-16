@@ -47,13 +47,15 @@ class _DevicePageState extends State<DevicePage> {
         appBar: AppBar(
           backgroundColor: Color(0xff64abbf),
           title: Center(
-            child: Text('DEVICE DETAILS',
-            textAlign: TextAlign.center,
+            child: Text(
+              'DEVICE DETAILS',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,
               ),
-            ),) ,
+            ),
+          ),
           actions: [
             PopupMenuButton(
               // add icon, by default "3 dot" icon
@@ -63,8 +65,10 @@ class _DevicePageState extends State<DevicePage> {
                   PopupMenuItem<int>(
                       value: 0,
                       child: ListTile(
-                        leading: Icon(Icons.camera_alt_outlined,
-                        color: Color(0xff64abbf),),
+                        leading: Icon(
+                          Icons.camera_alt_outlined,
+                          color: Color(0xff64abbf),
+                        ),
                         title: Text('Camera'),
                         onTap: () async {
                           // Handle save action
@@ -123,8 +127,10 @@ class _DevicePageState extends State<DevicePage> {
                   PopupMenuItem<int>(
                       value: 1,
                       child: ListTile(
-                        leading: Icon(Icons.refresh_outlined,
-                        color: Color(0xff64abbf),),
+                        leading: Icon(
+                          Icons.refresh_outlined,
+                          color: Color(0xff64abbf),
+                        ),
                         title: Text('Reset'),
                         onTap: () {
                           // Handle save action
@@ -161,94 +167,78 @@ class _DevicePageState extends State<DevicePage> {
                 image: DecorationImage(
                     image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
             padding: const EdgeInsets.all(10),
-            
             child: Column(
               children: [
-            //     Container(
-            //       width: 340,
-            //       height: 50,
-            //       color: Color(0xff64abbf),
-            //       margin: EdgeInsets.only(top: 30, bottom: 40, left: 10, right: 10),
-            //       child: Stack(
-            //         children: [
-            //           Positioned(
-            //             top:
-            //                 5, // set vị trí đứng từ trên xuống, dựa vào giá trị y
-            //             left:
-            //                 5, // set vị trí đứng từ phải qua, dựa vào giá trị x
-            //             child: IconButton(
-            //               icon: Icon(
-            //                 Icons.arrow_back_outlined,
-            //                 color: Color(0xFFFFFFFF),
-            //               ),
-            //               onPressed: () {
-            //                 // Navigator.popUntil(context, ModalRoute.withName('/'));
-            //                 Navigator.pop(context);
-            //               },
-            //             ),
-            //           ),
+                //     Container(
+                //       width: 340,
+                //       height: 50,
+                //       color: Color(0xff64abbf),
+                //       margin: EdgeInsets.only(top: 30, bottom: 40, left: 10, right: 10),
+                //       child: Stack(
+                //         children: [
+                //           Positioned(
+                //             top:
+                //                 5, // set vị trí đứng từ trên xuống, dựa vào giá trị y
+                //             left:
+                //                 5, // set vị trí đứng từ phải qua, dựa vào giá trị x
+                //             child: IconButton(
+                //               icon: Icon(
+                //                 Icons.arrow_back_outlined,
+                //                 color: Color(0xFFFFFFFF),
+                //               ),
+                //               onPressed: () {
+                //                 // Navigator.popUntil(context, ModalRoute.withName('/'));
+                //                 Navigator.pop(context);
+                //               },
+                //             ),
+                //           ),
 
-            //           Positioned(
-            //             child: Center(
-            //               child: Text(
-            //                 'SMART MEDICINE BOX',
-            //                 style: TextStyle(
-            //                   color: Colors.white,
-            //                   fontSize: 15.0,
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            // ),
-            Container(
-                  width: 250,
-                  height: 50,
-                  margin: EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  decoration: BoxDecoration(
+                //           Positioned(
+                //             child: Center(
+                //               child: Text(
+                //                 'SMART MEDICINE BOX',
+                //                 style: TextStyle(
+                //                   color: Colors.white,
+                //                   fontSize: 15.0,
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                // ),
+                Card(
                     color: Color(0xff64abbf),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        // top: 8, // set vị trí đứng từ trên xuống, dựa vào giá trị y
-                        // left: 50, // set vị trí đứng từ trái qua, dựa vào giá trị x
-                        // right: 0,
-                        child: Center(
-                          child: Column(
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 3,
-                                // left: 100,
-                              ),
-                              Text('DEVICE ' + info.id.toString(),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0,
-                                      ),),
-                              Text('Description: ' + info.description,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15.0,
-                                      ),),
-                            ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
+                        children: [
+                          Icon(Boxicons.bx_archive,
+                              size: 70, color: Colors.white),
+                          SizedBox(width: 16.0),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text('DEVICE ' + info.id.toString(),
+                                    style: TextStyle(
+                                        fontSize: 30, color: Colors.white)),
+                                Text(
+                                    'Patient:       ' +
+                                        info.patient.fullname
+                                            .toUpperCase()
+                                            .toString(),
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white)),
+                                Text('Info:       ' + info.description,
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.white)),
+                              ],
+                            ),
                           ),
-                          // child: Text(
-                          //           textAlign: TextAlign.center,
-                          //           'Hi ' + info.name + '!',
-                          //           style: TextStyle(
-                          //             color: Colors.white,
-                          //             fontSize: 20.0,
-                          //             ),
-                          // ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    )),
                 // Card(
                 //   child: Padding(
                 //     padding: const EdgeInsets.all(16.0),
@@ -310,55 +300,69 @@ class _DevicePageState extends State<DevicePage> {
                               margin: EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 8.0),
                               child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                        // Boxicons.bx_archive,
-                                        Icons.medical_services_outlined, 
-                                        size: 50,
-                                        color: Colors.white,
-                                      ),
-                                    SizedBox(width: 16.0),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('Box: ' + item.id.toString(),
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20.0,
-                                              ),),
-                                          if (item.medicines.length > 0)
-                                            Column(children: [
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          // Boxicons.bx_archive,
+                                          Icons.medical_services_outlined,
+                                          size: 80,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(width: 16.0),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
                                               Text(
-                                                  'Total Medicines : ' +
-                                                      item.medicines.length
-                                                          .toString(),
-                                                  style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15.0,
-                                              ),),
-                                              Text(
-                                                'Sang : ${item.medicines[0].usage.mor.getTime()}' +
-                                                    ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
-                                                    ' Toi : ${item.medicines[0].usage.even.getTime()}',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15.0,
+                                                'Box: ' + item.id.toString(),
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 30.0,
+                                                ),
                                               ),
-                                              ),
-                                              // for (var medicine
-                                              //     in item.medicines)
-                                              //   Text(medicine.Info())
-                                            ])
-                                        ],
-                                      ),
+                                              if (item.medicines.length > 0)
+                                                Column(children: [
+                                                  Text(
+                                                    'Total Medicines : ' +
+                                                        item.medicines.length
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15.0,
+                                                    ),
+                                                  ),
+
+                                                  // for (var medicine
+                                                  //     in item.medicines)
+                                                  //   Text(medicine.Info())
+                                                ])
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),
+                                    if (item.medicines.length > 0)
+                                      Text(
+                                        'Morning   Afternoon   Evening\n' +
+                                            '${item.medicines[0].usage.mor.getTime()}    ' +
+                                            '${item.medicines[0].usage.noon.getTime()}     ' +
+                                            '${item.medicines[0].usage.even.getTime()} ',
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.white),
+                                      )
+                                    // Text(
+                                    //   'Sang : ${item.medicines[0].usage.mor.getTime()}' +
+                                    //       ' Chieu : ${item.medicines[0].usage.noon.getTime()}' +
+                                    //       ' Toi : ${item.medicines[0].usage.even.getTime()}',
+                                    //   style: TextStyle(
+                                    //     color: Colors.white,
+                                    //     fontSize: 15.0,
+                                    //   ),
+                                    // ),
+                                  ])),
                             )));
                   },
                 )),

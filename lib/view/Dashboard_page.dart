@@ -265,40 +265,55 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     TextFormField(
                       controller: nameMedicine,
                       decoration: InputDecoration(
                         labelText: "Device's Name",
-                        icon: const Icon(Icons.people,
-                        color: Color(0xff64abbf),),
+                        icon: const Icon(
+                          Icons.people,
+                          color: Color(0xff64abbf),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(
+                      height: 15,
+                    ),
                     TextFormField(
                       controller: descripMedicine,
                       decoration: InputDecoration(
                         labelText: 'Description',
-                        icon: const Icon(Icons.email,
-                        color: Color(0xff64abbf),),
+                        icon: const Icon(
+                          Icons.email,
+                          color: Color(0xff64abbf),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(
+                      height: 15,
+                    ),
                     TextFormField(
                       controller: quantityMedicine,
                       decoration: const InputDecoration(
                         labelText: "Patient's Name",
-                        icon: Icon(Icons.message,
-                        color: Color(0xff64abbf),),
+                        icon: Icon(
+                          Icons.message,
+                          color: Color(0xff64abbf),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(
+                      height: 40,
+                    ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xff64abbf),
                         shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
-                                  ),
+                          borderRadius: BorderRadius.circular(
+                              20.0), // set độ bo góc của nút
+                        ),
                       ),
                       onPressed: () {
                         setState(() {
@@ -308,15 +323,17 @@ class _DashBoardPageState extends State<DashBoardPage> {
                         Navigator.pop(context);
                         _firAuth.UpdateDevice(device, user, 0);
                       },
-                      child: const Text('Submit',
+                      child: const Text(
+                        'Submit',
                         style: TextStyle(
-                            color: Colors.white, // set màu sắc của chữ bên trong nút
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
+                          color:
+                              Colors.white, // set màu sắc của chữ bên trong nút
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
 
                       // child: const Text('Close BottomSheet'),
-                      
                     ),
                   ],
                 ),
@@ -329,70 +346,79 @@ class _DashBoardPageState extends State<DashBoardPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('WARNING!',
-            style: TextStyle(
-                            color: Color.fromARGB(255, 220, 200, 13), // set màu sắc của chữ bên trong nút
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                          ),),
+            title: const Text(
+              'WARNING!',
+              style: TextStyle(
+                color: Color.fromARGB(
+                    255, 220, 200, 13), // set màu sắc của chữ bên trong nút
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            ),
             content: const Text('Are you sure you want to delete this DEVICE?'),
             actions: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff64abbf),
-                        shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
-                                  ),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('NO',
-                        style: TextStyle(
-                            color: Colors.white, // set màu sắc của chữ bên trong nút
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
+                  backgroundColor: Color(0xff64abbf),
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(20.0), // set độ bo góc của nút
                   ),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'NO',
+                  style: TextStyle(
+                    color: Colors.white, // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.0), // set độ bo góc của nút
-                                  ),
-                      ),
-                      onPressed: () {
-                        var _firAuth = FirAuth();
-                        _firAuth.UpdateDevice(device, user, 1);
-
-                        // Write code to delete item
-                        setState(() {
-                          user.devices.remove(device);
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: const Text('YES',
-                        style: TextStyle(
-                            color: Colors.white, // set màu sắc của chữ bên trong nút
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),),
-
-                  // style: ElevatedButton.styleFrom(primary: Colors.red),
-                  // onPressed: () {
-                  //   var _firAuth = FirAuth();
-                  //   _firAuth.UpdateDevice(device, user, 1);
-
-                  //   // Write code to delete item
-                  //   setState(() {
-                  //     user.devices.remove(device);
-                  //   });
-                  //   Navigator.pop(context);
-                  // },
-                  // child: const Text(
-                  //   'Delete',
-                  // )
+                  backgroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(20.0), // set độ bo góc của nút
                   ),
+                ),
+                onPressed: () {
+                  var _firAuth = FirAuth();
+                  _firAuth.UpdateDevice(device, user, 1);
+
+                  // Write code to delete item
+                  setState(() {
+                    user.devices.remove(device);
+                  });
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'YES',
+                  style: TextStyle(
+                    color: Colors.white, // set màu sắc của chữ bên trong nút
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+
+                // style: ElevatedButton.styleFrom(primary: Colors.red),
+                // onPressed: () {
+                //   var _firAuth = FirAuth();
+                //   _firAuth.UpdateDevice(device, user, 1);
+
+                //   // Write code to delete item
+                //   setState(() {
+                //     user.devices.remove(device);
+                //   });
+                //   Navigator.pop(context);
+                // },
+                // child: const Text(
+                //   'Delete',
+                // )
+              ),
             ],
           );
         });

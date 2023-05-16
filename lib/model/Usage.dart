@@ -29,19 +29,19 @@ class Usage {
     // });
     return Usage(
       mor: TimeSlot.fromJson(
-          Map<String, dynamic>.from(parsedJson['Sang'] as Map)),
+          Map<String, dynamic>.from(parsedJson['Morning'] as Map)),
       noon: TimeSlot.fromJson(
-          Map<String, dynamic>.from(parsedJson['Trua'] as Map)),
+          Map<String, dynamic>.from(parsedJson['Afternoon'] as Map)),
       even: TimeSlot.fromJson(
-          Map<String, dynamic>.from(parsedJson['Toi'] as Map)),
+          Map<String, dynamic>.from(parsedJson['Evening'] as Map)),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Sang': mor.toJson(),
-      'Trua': noon.toJson(),
-      'Toi': even.toJson(),
+      'Morning': mor.toJson(),
+      'Afternoon': noon.toJson(),
+      'Evening': even.toJson(),
     };
   }
 

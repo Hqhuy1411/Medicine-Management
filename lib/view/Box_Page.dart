@@ -1,6 +1,7 @@
 import 'package:app/model/Box.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/view/Medicine_Page.dart';
+import 'package:boxicons/boxicons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -113,25 +114,36 @@ class _BoxPageState extends State<BoxPage> {
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.alarm,
-                              size: 50,
-                            ),
-                            SizedBox(width: 32.0),
+                            SizedBox(width: 15.0),
                             Expanded(
-                              child: Column(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // ignore: prefer_interpolation_to_compose_strings
-                                  const Text('MORNING'),
-                                  Text(
-                                      DateFormat.jm()
-                                          .format(
-                                              info.getMedicine().usage.mor.time)
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6),
+                                  Container(
+                                      padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                                      child: const Text(
+                                        'Morning  ',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 32),
+                                      )),
+                                  Container(
+                                    padding: const EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.grey[200],
+                                    ),
+                                    child: Text(
+                                        DateFormat.jm()
+                                            .format(info
+                                                .getMedicine()
+                                                .usage
+                                                .mor
+                                                .time)
+                                            .toString(),
+                                        style: TextStyle(fontSize: 32)),
+                                  )
                                 ],
                               ),
                             ),
@@ -164,28 +176,36 @@ class _BoxPageState extends State<BoxPage> {
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.alarm,
-                              size: 50,
-                            ),
-                            SizedBox(width: 32.0),
+                            SizedBox(width: 10.0),
                             Expanded(
-                              child: Column(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // ignore: prefer_interpolation_to_compose_strings
-                                  const Text('AFTERNOON'),
-                                  Text(
-                                      DateFormat.jm()
-                                          .format(info
-                                              .getMedicine()
-                                              .usage
-                                              .noon
-                                              .time)
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6),
+                                  Container(
+                                      padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                                      child: const Text(
+                                        'Afternoon',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 32),
+                                      )),
+                                  Container(
+                                    padding: const EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.grey[200],
+                                    ),
+                                    child: Text(
+                                        DateFormat.jm()
+                                            .format(info
+                                                .getMedicine()
+                                                .usage
+                                                .noon
+                                                .time)
+                                            .toString(),
+                                        style: TextStyle(fontSize: 32)),
+                                  )
                                 ],
                               ),
                             ),
@@ -218,28 +238,36 @@ class _BoxPageState extends State<BoxPage> {
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.alarm,
-                              size: 50,
-                            ),
-                            SizedBox(width: 32.0),
+                            SizedBox(width: 15.0),
                             Expanded(
-                              child: Column(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // ignore: prefer_interpolation_to_compose_strings
-                                  const Text('EVENING'),
-                                  Text(
-                                      DateFormat.jm()
-                                          .format(info
-                                              .getMedicine()
-                                              .usage
-                                              .even
-                                              .time)
-                                          .toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6),
+                                  Container(
+                                      padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                                      child: const Text(
+                                        'Evening  ',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 32),
+                                      )),
+                                  Container(
+                                    padding: const EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.grey[200],
+                                    ),
+                                    child: Text(
+                                        DateFormat.jm()
+                                            .format(info
+                                                .getMedicine()
+                                                .usage
+                                                .even
+                                                .time)
+                                            .toString(),
+                                        style: TextStyle(fontSize: 32)),
+                                  )
                                 ],
                               ),
                             ),
@@ -298,10 +326,8 @@ class _BoxPageState extends State<BoxPage> {
                                     padding: const EdgeInsets.all(16.0),
                                     child: Row(
                                       children: [
-                                        Icon(
-                                          Icons.medical_information,
-                                          size: 50,
-                                        ),
+                                        Icon(Boxicons.bx_capsule,
+                                            size: 70, color: Colors.white),
                                         SizedBox(width: 16.0),
                                         Expanded(
                                           child: Column(
@@ -310,20 +336,27 @@ class _BoxPageState extends State<BoxPage> {
                                             children: [
                                               // ignore: prefer_interpolation_to_compose_strings
                                               Text('Medicine Name:' + item.name,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline6),
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .white, // set màu sắc của chữ bên trong nút
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                  )),
                                               Text(
                                                   'Medicine Description ' +
                                                       item.description,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .subtitle1),
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .white, // set màu sắc của chữ bên trong nút
+                                                    fontSize: 15,
+                                                  )),
                                               Text(
-                                                  'S ${item.usage.mor.quantity} C ${item.usage.noon.quantity} T ${item.usage.even.quantity}',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .subtitle1),
+                                                  'Mor ${item.usage.mor.quantity} After ${item.usage.noon.quantity} Even ${item.usage.even.quantity}',
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .white, // set màu sắc của chữ bên trong nút
+                                                    fontSize: 15,
+                                                  )),
                                             ],
                                           ),
                                         ),
