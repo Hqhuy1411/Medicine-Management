@@ -108,7 +108,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               height: 50,
               color: Color(0xff64abbf),
               // margin: EdgeInsets.symmetric(vertical: 100, horizontal: 50),
-              margin: EdgeInsets.only(top: 70, bottom: 20, left: 20, right: 20),
+              margin: EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
               // alignment: Alignment.center,
               // decoration: BoxDecoration(
               //   color: Color(0xff64abbf),
@@ -156,11 +156,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
 
             Container(
-              width: 70,
+              width: 150,
               height: 70,
               // padding: EdgeInsets.only(right: 5.0),
               // margin: EdgeInsets.symmetric(horizontal: 40),
-              margin: EdgeInsets.only(top: 20, bottom: 0, left: 40, right: 40),
+              margin: EdgeInsets.only(top: 20, bottom: 0, left: 20, right: 20),
               decoration: BoxDecoration(
                 color: Color(0xff64abbf),
               ),
@@ -224,7 +224,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               width: 70,
               height: 70,
               // padding: EdgeInsets.only(right: 5.0),
-              margin: EdgeInsets.symmetric(horizontal: 40),
+              margin: EdgeInsets.only(top: 0, bottom: 0, left: 20, right: 20),
               decoration: BoxDecoration(
                 color: Color(0xff64abbf),
               ),
@@ -298,7 +298,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             // ),
             // SizedBox(width: 20),
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(top: 10, right: 20),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(

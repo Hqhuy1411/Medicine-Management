@@ -8,7 +8,7 @@ class TimeSlot {
   var time;
   String quantity;
 
-  TimeSlot({this.time = DateTime.now, this.quantity = ""});
+  TimeSlot({this.time = DateTime.now, this.quantity = "0"});
 
   String Info() {
     return 'Quantity : $quantity'
@@ -38,7 +38,7 @@ class TimeSlot {
     }
     return TimeSlot(
       time: data,
-      quantity: parsedJson['quantity'] ?? '',
+      quantity: parsedJson['quantity'] ?? '0',
     );
   }
 

@@ -140,6 +140,10 @@ class _MyListPageState extends State<MyListPage> {
                   ElevatedButton(
                     onPressed: _currentIndex > 0 ? _handlePrev : null,
                     child: Text('PREV'),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Color(0xff64abbf)),
+                    ),
                   ),
                   SizedBox(width: 16),
                   ElevatedButton(
@@ -148,6 +152,10 @@ class _MyListPageState extends State<MyListPage> {
                         : _handleOk,
                     child: Text(
                         _currentIndex < widget.boxs.length - 1 ? 'NEXT' : 'OK'),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Color(0xff64abbf)),
+                    ),
                   ),
                 ],
               ),

@@ -49,93 +49,119 @@ class _MyHomePageState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        SizedBox(
-          height: 100,
-        ),
-        Row(
-          children: [
-            Text('Sang'),
+      body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
+          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          // child:
+          child: Column(children: [
             SizedBox(
-              width: 10,
+              height: 60,
             ),
-            Expanded(
-              child: ElevatedButton(
-                  child: dateS.hour == 0
-                      ? Text("Select Time")
-                      : Text('${dateS.hour}' ': ${dateS.minute}'),
-                  onPressed: () async {
-                    final time = await pickTime(0);
-                    if (time == null) return;
-                    final newtime = DateTime(dateS.year, dateS.month, dateS.day,
-                        time.hour, time.minute);
-                    setState(() {
-                      dateS = newtime;
-                      widget.list.forEach((element) {
-                        element.usage.mor.time = dateS;
-                      });
-                    });
-                    print('Sang');
-                  }),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Text('Chieu'),
-            SizedBox(
-              width: 10,
+            Row(
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Text('MORNING'),
+                SizedBox(
+                  width: 30,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                      child: dateS.hour == 0
+                          ? Text("Select Time")
+                          : Text('${dateS.hour}' ': ${dateS.minute}'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xff64abbf))),
+                      onPressed: () async {
+                        final time = await pickTime(0);
+                        if (time == null) return;
+                        final newtime = DateTime(dateS.year, dateS.month,
+                            dateS.day, time.hour, time.minute);
+                        setState(() {
+                          dateS = newtime;
+                          widget.list.forEach((element) {
+                            element.usage.mor.time = dateS;
+                          });
+                        });
+                        print('Sang');
+                      }),
+                )
+              ],
             ),
-            Expanded(
-              child: ElevatedButton(
-                  child: dateC.hour == 0
-                      ? Text("Select Time")
-                      : Text('${dateC.hour}' ': ${dateC.minute}'),
-                  onPressed: () async {
-                    final time = await pickTime(1);
-                    if (time == null) return;
-                    final newtime = DateTime(dateC.year, dateC.month, dateC.day,
-                        time.hour, time.minute);
-                    setState(() {
-                      dateC = newtime;
-                      widget.list.forEach((element) {
-                        element.usage.noon.time = dateC;
-                      });
-                    });
-                    print('Trua');
-                  }),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Text('Toi'),
-            SizedBox(
-              width: 10,
+            Row(
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Text('AFTERNOON'),
+                SizedBox(
+                  width: 13,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                      child: dateC.hour == 0
+                          ? Text("Select Time")
+                          : Text('${dateC.hour}' ': ${dateC.minute}'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xff64abbf))),
+                      onPressed: () async {
+                        final time = await pickTime(1);
+                        if (time == null) return;
+                        final newtime = DateTime(dateC.year, dateC.month,
+                            dateC.day, time.hour, time.minute);
+                        setState(() {
+                          dateC = newtime;
+                          widget.list.forEach((element) {
+                            element.usage.noon.time = dateC;
+                          });
+                        });
+                        print('Trua');
+                      }),
+                )
+              ],
             ),
-            Expanded(
-              child: ElevatedButton(
-                  child: dateT.hour == 0
-                      ? Text("Select Time")
-                      : Text('${dateT.hour}' ': ${dateT.minute}'),
-                  onPressed: () async {
-                    final time = await pickTime(2);
-                    if (time == null) return;
-                    final newtime = DateTime(dateT.year, dateT.month, dateT.day,
-                        time.hour, time.minute);
-                    setState(() {
-                      dateT = newtime;
-                      widget.list.forEach((element) {
-                        element.usage.even.time = dateT;
-                      });
-                    });
-                    print('Toi');
-                  }),
-            )
-          ],
-        ),
-        ScrollableWidget(child: buildDataTable(widget.list))
-      ]),
+            Row(
+              children: [
+                SizedBox(
+                  width: 36,
+                ),
+                Text('EVENING'),
+                SizedBox(
+                  width: 30,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                      child: dateT.hour == 0
+                          ? Text("Select Time")
+                          : Text('${dateT.hour}' ': ${dateT.minute}'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xff64abbf)),
+                          fixedSize:
+                              MaterialStateProperty.all<Size>(Size(100, 30))),
+                      onPressed: () async {
+                        final time = await pickTime(2);
+                        if (time == null) return;
+                        final newtime = DateTime(dateT.year, dateT.month,
+                            dateT.day, time.hour, time.minute);
+                        setState(() {
+                          dateT = newtime;
+                          widget.list.forEach((element) {
+                            element.usage.even.time = dateT;
+                          });
+                        });
+                        print('Toi');
+                      }),
+                )
+              ],
+            ),
+            ScrollableWidget(child: buildDataTable(widget.list))
+          ])),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pop(context, widget.list);
@@ -186,7 +212,7 @@ class _MyHomePageState extends State<App> {
   List<DataColumn> getColumns(List<String> columns) {
     return columns.map((String column) {
       return DataColumn(
-        label: RotatedBox(quarterTurns: -1, child: Text(column)),
+        label: Text(column),
       );
     }).toList();
   }
@@ -204,6 +230,33 @@ class _MyHomePageState extends State<App> {
         return DataRow(
           cells: Utils.modelBuilder(cells, (index, cell) {
             return DataCell(Text('$cell'), showEditIcon: true, onTap: () async {
+              final edit = await openDialog(medicine, index);
+              print(edit);
+              switch (index) {
+                case 0:
+                  medicine.name = edit.toString();
+                  break;
+                case 1:
+                  medicine.description = edit.toString();
+                  break;
+                case 2:
+                  medicine.quantity = int.parse(edit.toString());
+                  break;
+                case 3:
+                  medicine.usage.mor.quantity = edit.toString();
+                  break;
+                case 4:
+                  medicine.usage.noon.quantity = edit.toString();
+                  break;
+                case 5:
+                  medicine.usage.even.quantity = edit.toString();
+                  break;
+                default:
+              }
+              print(medicine.name);
+              setState(() {
+                for (var e in medicines) {}
+              });
               // DateTime dateS = DateTime(2023, 1, 1);
               // final time = await pickTime();
               // if (time == null) return;
@@ -241,5 +294,49 @@ class _MyHomePageState extends State<App> {
                 : TimeOfDay(hour: 18, minute: 30),
         selectableTimePredicate: (time) =>
             time!.minute % 15 == 0 && time.hour >= min && time.hour <= max);
+  }
+
+  Future openDialog(Medicine medicine, int index) {
+    var controller2;
+    switch (index) {
+      case 0:
+        controller2 = TextEditingController(text: medicine.name);
+        break;
+      case 1:
+        controller2 = TextEditingController(text: medicine.description);
+        break;
+      case 2:
+        controller2 = TextEditingController(text: medicine.quantity.toString());
+        break;
+      case 3:
+        controller2 =
+            TextEditingController(text: medicine.usage.mor.quantity.toString());
+        break;
+      case 4:
+        controller2 = TextEditingController(
+            text: medicine.usage.noon.quantity.toString());
+        break;
+      case 5:
+        controller2 = TextEditingController(
+            text: medicine.usage.even.quantity.toString());
+        break;
+      default:
+    }
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text('Edit'),
+              content: TextField(
+                controller: controller2,
+                decoration: const InputDecoration(
+                    hintText: 'You Edit', border: OutlineInputBorder()),
+              ),
+              actions: [
+                ElevatedButton(
+                  child: const Text('Done'),
+                  onPressed: () => Navigator.of(context).pop(controller2.text),
+                )
+              ],
+            ));
   }
 }

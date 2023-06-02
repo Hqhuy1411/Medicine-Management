@@ -16,11 +16,23 @@ class Usage {
   }
 
   int checkEmpty() {
-    if (this.mor.quantity == "0") return 1;
-    if (this.noon.quantity == "0") return 2;
-    if (this.even.quantity == "0") return 3;
-
-    return 0;
+    if (mor.quantity != "0" && noon.quantity != "0" && even.quantity != "0") {
+      return 1;
+    } else if (mor.quantity != "0" &&
+        noon.quantity != "0" &&
+        even.quantity == "0") {
+      return 2;
+    } else if (mor.quantity != "0" &&
+        noon.quantity == "0" &&
+        even.quantity != "0") {
+      return 3;
+    } else if (mor.quantity == "0" &&
+        noon.quantity != "0" &&
+        even.quantity != "0") {
+      return 4;
+    } else {
+      return 0;
+    }
   }
 
   factory Usage.fromJson(Map<String, dynamic> parsedJson) {
@@ -52,9 +64,9 @@ class Usage {
       );
 
   bool ss(Usage usage) {
-    return this.mor.time == usage.mor.time &&
-        this.noon.time == usage.noon.time &&
-        this.even.time == usage.even.time;
+    return mor.time == usage.mor.time &&
+        noon.time == usage.noon.time &&
+        even.time == usage.even.time;
   }
 
   @override

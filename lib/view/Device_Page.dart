@@ -75,7 +75,6 @@ class _DevicePageState extends State<DevicePage> {
                           print("camera");
                           var _firAuth = FirAuth();
 
-                          List<Box> boxs = [];
                           int i = 0;
                           final list = await Navigator.push(
                               context,
@@ -93,21 +92,33 @@ class _DevicePageState extends State<DevicePage> {
                             if (list == null) {
                               return;
                             } else {
-                              list.forEach((element) {
-                                for (var box in info.boxs) {
-                                  if (box.medicines.length == 0 ||
-                                      element.usage.checkEmpty() == 0 ||
-                                      (box.medicines.length >= 0 &&
-                                          element.usage.checkEmpty() ==
-                                              box
-                                                  .getMedicine()
-                                                  .usage
-                                                  .checkEmpty())) {
-                                    box.medicines.add(element);
-                                    break;
+                              if (list.length <= 5) {
+                                list.forEach((element) {
+                                  for (var box in info.boxs) {
+                                    if (box.medicines.length == 0) {
+                                      box.medicines.add(element);
+                                      break;
+                                    }
                                   }
-                                }
-                              });
+                                });
+                              } else {
+                                list.forEach((element) {
+                                  for (var box in info.boxs) {
+                                    if (box.medicines.length == 0 ||
+                                        // element.usage.checkEmpty() == 0 ||
+                                        (box.medicines.length >= 0 &&
+                                            element.usage.checkEmpty() ==
+                                                box
+                                                    .getMedicine()
+                                                    .usage
+                                                    .checkEmpty())) {
+                                      //print(element.usage.Info());
+                                      box.medicines.add(element);
+                                      break;
+                                    }
+                                  }
+                                });
+                              }
                             }
                           });
                           // setState(() {
@@ -317,10 +328,10 @@ class _DevicePageState extends State<DevicePage> {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                'Box: ' + item.id.toString(),
+                                                'Box ' + item.id.toString(),
                                                 style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 30.0,
+                                                  fontSize: 40.0,
                                                 ),
                                               ),
                                               if (item.medicines.length > 0)
@@ -331,7 +342,7 @@ class _DevicePageState extends State<DevicePage> {
                                                             .toString(),
                                                     style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 15.0,
+                                                      fontSize: 20.0,
                                                     ),
                                                   ),
 
@@ -344,9 +355,12 @@ class _DevicePageState extends State<DevicePage> {
                                         ),
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
                                     if (item.medicines.length > 0)
                                       Text(
-                                        'Morning   Afternoon   Evening\n' +
+                                        'Morning    Afternoon     Evening\n' +
                                             '${item.medicines[0].usage.mor.getTime()}    ' +
                                             '${item.medicines[0].usage.noon.getTime()}     ' +
                                             '${item.medicines[0].usage.even.getTime()} ',

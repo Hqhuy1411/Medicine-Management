@@ -49,43 +49,37 @@ class _BoxPageState extends State<BoxPage> {
                   image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
           padding: const EdgeInsets.all(10),
           child: Column(children: [
-            Container(
-                width: 250,
-                height: 60,
-                margin:
-                    EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                decoration: BoxDecoration(
-                  color: Color(0xff64abbf),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                        top:
-                            8, // set vị trí đứng từ trên xuống, dựa vào giá trị y
-                        left:
-                            50, // set vị trí đứng từ trái qua, dựa vào giá trị x
-                        // right: 0,
-                        child: Center(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                              Text(
-                                'Box ' + info.id.toString(),
+            Card(
+                color: Color(0xff64abbf),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Icon(Icons.medical_services_outlined,
+                          size: 70, color: Colors.white),
+                      SizedBox(width: 16.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text('BOX ' + info.id.toString(),
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                              Text(
-                                'Description: ',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15.0,
-                                ),
-                              ),
-                            ])))
-                  ],
+                                    fontSize: 50, color: Colors.white)),
+                            // Text(
+                            //     'Patient:       ' +
+                            //         info.patient.fullname
+                            //             .toUpperCase()
+                            //             .toString(),
+                            //     style: TextStyle(
+                            //         fontSize: 20, color: Colors.white)),
+                            // Text('Info:       ' + info.description,
+                            //     style: TextStyle(
+                            //         fontSize: 20, color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 )),
             if (info.medicines.length > 0)
               Column(children: [
@@ -123,27 +117,40 @@ class _BoxPageState extends State<BoxPage> {
                                   Container(
                                       padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                                       child: const Text(
-                                        'Morning  ',
+                                        'Morning',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 32),
+                                            color: Colors.white, fontSize: 30),
                                       )),
-                                  Container(
-                                    padding: const EdgeInsets.all(8.0),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey[200],
-                                    ),
-                                    child: Text(
-                                        DateFormat.jm()
-                                            .format(info
-                                                .getMedicine()
-                                                .usage
-                                                .mor
-                                                .time)
-                                            .toString(),
-                                        style: TextStyle(fontSize: 32)),
-                                  )
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                      child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Container(
+                                            width: 150,
+                                            padding: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Colors.grey[200],
+                                            ),
+                                            child: Align(
+                                                alignment: Alignment
+                                                    .centerRight, // Align the text to the right
+                                                child: Text(
+                                                    DateFormat.jm()
+                                                        .format(info
+                                                            .getMedicine()
+                                                            .usage
+                                                            .mor
+                                                            .time)
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 30))),
+                                          )))
                                 ],
                               ),
                             ),
@@ -187,25 +194,39 @@ class _BoxPageState extends State<BoxPage> {
                                       child: const Text(
                                         'Afternoon',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 32),
+                                            color: Colors.white, fontSize: 30),
                                       )),
-                                  Container(
-                                    padding: const EdgeInsets.all(8.0),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey[200],
-                                    ),
-                                    child: Text(
-                                        DateFormat.jm()
-                                            .format(info
-                                                .getMedicine()
-                                                .usage
-                                                .noon
-                                                .time)
-                                            .toString(),
-                                        style: TextStyle(fontSize: 32)),
-                                  )
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                      child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Container(
+                                            width: 150,
+                                            padding: const EdgeInsets.all(8.0),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Colors.grey[200],
+                                            ),
+                                            child: Align(
+                                                alignment: Alignment
+                                                    .centerRight, // Align the text to the right
+                                                child: Text(
+                                                    DateFormat.jm()
+                                                        .format(info
+                                                            .getMedicine()
+                                                            .usage
+                                                            .noon
+                                                            .time)
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 30,
+                                                    ))),
+                                          )))
                                 ],
                               ),
                             ),
@@ -220,7 +241,7 @@ class _BoxPageState extends State<BoxPage> {
                         onPressed: (context) {
                           print("edit");
                           // _EditdisplayTextInputDialog(context, item, info, device, uid);
-                          showEditTime(info, device, uid, 3);
+                          showEditTime(info, device, uid, 1);
                         },
                         icon: Icons.edit,
                         backgroundColor: Colors.blue,
@@ -247,27 +268,40 @@ class _BoxPageState extends State<BoxPage> {
                                   Container(
                                       padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                                       child: const Text(
-                                        'Evening  ',
+                                        'Evening',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 32),
+                                            color: Colors.white, fontSize: 30),
                                       )),
-                                  Container(
-                                    padding: const EdgeInsets.all(8.0),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey[200],
-                                    ),
-                                    child: Text(
-                                        DateFormat.jm()
-                                            .format(info
-                                                .getMedicine()
-                                                .usage
-                                                .even
-                                                .time)
-                                            .toString(),
-                                        style: TextStyle(fontSize: 32)),
-                                  )
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                      child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Container(
+                                            width: 150,
+                                            padding: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Colors.grey[200],
+                                            ),
+                                            child: Align(
+                                                alignment: Alignment
+                                                    .centerRight, // Align the text to the right
+                                                child: Text(
+                                                    DateFormat.jm()
+                                                        .format(info
+                                                            .getMedicine()
+                                                            .usage
+                                                            .even
+                                                            .time)
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 30))),
+                                          )))
                                 ],
                               ),
                             ),
@@ -326,7 +360,7 @@ class _BoxPageState extends State<BoxPage> {
                                     padding: const EdgeInsets.all(16.0),
                                     child: Row(
                                       children: [
-                                        Icon(Boxicons.bx_capsule,
+                                        Icon(Boxicons.bxs_capsule,
                                             size: 70, color: Colors.white),
                                         SizedBox(width: 16.0),
                                         Expanded(
@@ -335,27 +369,33 @@ class _BoxPageState extends State<BoxPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               // ignore: prefer_interpolation_to_compose_strings
-                                              Text('Medicine Name:' + item.name,
+                                              Text('' + item.name,
                                                   style: TextStyle(
                                                     color: Colors
                                                         .white, // set màu sắc của chữ bên trong nút
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 15,
+                                                    fontSize: 25,
                                                   )),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
                                               Text(
-                                                  'Medicine Description ' +
+                                                  'Description ' +
                                                       item.description,
                                                   style: TextStyle(
                                                     color: Colors
                                                         .white, // set màu sắc của chữ bên trong nút
-                                                    fontSize: 15,
+                                                    fontSize: 20,
                                                   )),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
                                               Text(
-                                                  'Mor ${item.usage.mor.quantity} After ${item.usage.noon.quantity} Even ${item.usage.even.quantity}',
+                                                  'M : ${item.usage.mor.quantity} A : ${item.usage.noon.quantity} E :${item.usage.even.quantity}',
                                                   style: TextStyle(
                                                     color: Colors
                                                         .white, // set màu sắc của chữ bên trong nút
-                                                    fontSize: 15,
+                                                    fontSize: 20,
                                                   )),
                                             ],
                                           ),

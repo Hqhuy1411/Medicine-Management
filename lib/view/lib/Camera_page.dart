@@ -68,20 +68,19 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
-          padding: EdgeInsets.fromLTRB(70, 0, 70, 0),
+          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
           // child:
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 320,
-                height: 200,
+                width: 520,
+                height: 180,
                 decoration: BoxDecoration(
                   color: Color(0xff64abbf),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                margin:
-                    EdgeInsets.only(top: 30, bottom: 40, left: 10, right: 10),
+                margin: EdgeInsets.only(top: 30, bottom: 40, left: 0, right: 0),
                 child: Stack(
                   children: [
                     // Positioned(
@@ -91,14 +90,14 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 5,
+                            height: 25,
                             // left: 100,
                           ),
                           Text(
                             'Select an Image from?',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 17.0,
+                              fontSize: 25.0,
                             ),
                           ),
                           SizedBox(
@@ -107,9 +106,9 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                           ),
                           MaterialButton(
                               color: Colors.white,
-                              child: const Text("Gallery",
+                              child: const Text("    Gallery    ",
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 20,
                                       color: Color(0xff64abbf),
                                       fontWeight: FontWeight.bold)),
                               shape: RoundedRectangleBorder(
@@ -120,14 +119,14 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                                 pickImage();
                               }),
                           SizedBox(
-                            height: 5,
+                            height: 15,
                             // left: 100,
                           ),
                           MaterialButton(
                               color: Colors.white,
-                              child: const Text("Camera",
+                              child: const Text("    Camera    ",
                                   style: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 20,
                                       color: Color(0xff64abbf),
                                       fontWeight: FontWeight.bold)),
                               shape: RoundedRectangleBorder(
@@ -197,9 +196,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
+
               image != null
                   ? ClipRect(
                       child: Align(
@@ -221,15 +218,11 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                 Center(
                     child: ElevatedButton(
                   // width: 10,
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.only(bottom: 50),
-                    fixedSize: Size(90, 40),
-                    primary: Color(0xff64abbf),
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(20.0), // set độ bo góc của nút
-                    ),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xff64abbf)),
                   ),
+
                   child: Text(
                     "Next",
                     style: TextStyle(
@@ -238,6 +231,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       fontSize: 20,
                     ),
                   ),
+
                   onPressed: (() async {
                     try {
                       // var request = http.MultipartRequest('POST',
@@ -245,21 +239,22 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       // request.files.add(await http.MultipartFile.fromPath(
                       //     'image', image!.path));
 
-                      // final bytes = await image!.readAsBytes();
-                      // final _imageBytes = bytes.buffer.asUint8List();
-                      // final url = 'http://172.20.10.3:5000//upload-image';
+                      final bytes = await image!.readAsBytes();
+                      final _imageBytes = bytes.buffer.asUint8List();
+                      final url = 'http://172.20.10.3:5000//upload-image';
 
-                      // final response = await http.post(Uri.parse(url), body: {
-                      //   'image': base64Encode(_imageBytes),
-                      // });
+                      final response = await http.post(Uri.parse(url), body: {
+                        'image': base64Encode(_imageBytes),
+                      });
 
-                      final url = 'http://192.168.1.18:8000/auth';
+                      // final url = 'http://192.168.1.102:8000/auth';
 
-                      final response = await http.post(Uri.parse(url));
+                      // final response = await http.post(Uri.parse(url));
 
                       if (response.statusCode == 200) {
                         print('Upload success!');
                         var list = json.decode(response.body);
+                        print(list);
                         List<Medicine> medicines = [];
                         for (var i in list) {
                           var data = i as Map<String, dynamic>;
