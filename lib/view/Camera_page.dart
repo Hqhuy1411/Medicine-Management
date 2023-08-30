@@ -138,61 +138,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                               }),
                         ],
                       ),
-                      // child: Text(
-                      //   'Select an Image from?',
-                      //   style: TextStyle(
-                      //     color: Colors.white,
-                      //     fontSize: 17.0,
-                      //   ),
-                      // ),
                     ),
-                    // ),
-                    // SizedBox(
-                    //   height: 15,
-                    //   // left: 100,
-                    // ),
-                    // Positioned(
-                    //   // top: 35,
-                    //   // left: 100,
-                    //   child: Center(
-                    //     child: MaterialButton(
-                    //     color: Colors.white,
-                    //     child: const Text("Gallery",
-                    //         style: TextStyle(
-                    //             fontSize: 15,
-                    //             color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(20.0),
-                    //     ),
-                    //     // padding: EdgeInsets.symmetric(horizontal: 120.0),
-                    //     onPressed: () {
-                    //       pickImage();
-                    //     }),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    //   // left: 100,
-                    // ),
-                    // Positioned(
-                    //   top: 70,
-                    //   left: 100,
-                    //   child: Center(
-                    //     child: MaterialButton(
-                    //     color: Colors.white,
-                    //     child: const Text("Camera",
-                    //         style: TextStyle(
-                    //             fontSize: 15,
-                    //             color: Color(0xff64abbf), fontWeight: FontWeight.bold)),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(20.0),
-                    //     ),
-                    //     // padding: EdgeInsets.symmetric(horizontal: 120.0),
-                    //     onPressed: () {
-                    //       pickImageC();
-                    //     }),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -241,7 +187,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
                       final bytes = await image!.readAsBytes();
                       final _imageBytes = bytes.buffer.asUint8List();
-                      final url = 'http://172.20.10.3:5000//upload-image';
+                      final url = 'http://172.20.21.238:5000//upload-image';
 
                       final response = await http.post(Uri.parse(url), body: {
                         'image': base64Encode(_imageBytes),

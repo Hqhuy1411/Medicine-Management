@@ -30,7 +30,6 @@ class _BoxPageState extends State<BoxPage> {
     final info = obRecei['item'];
     final uid = obRecei['uid'];
     final device = obRecei['device'];
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff64abbf),

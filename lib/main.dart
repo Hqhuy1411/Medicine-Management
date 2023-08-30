@@ -1,18 +1,9 @@
 // import 'package:firebase_auth/firebase_auth.dart';
-import 'package:app/model/Box.dart';
-import 'package:app/model/Device.dart';
-import 'package:app/model/Medicine.dart';
-import 'package:app/model/Patient.dart';
-import 'package:app/model/TimeSlot.dart';
-import 'package:app/model/Usage.dart';
+
 import 'package:app/model/Users.dart';
-import 'package:app/utils/Notification.dart';
 import 'package:app/view/Box_Page.dart';
-import 'package:app/view/Dashboard_page.dart';
 import 'package:app/view/Device_Page.dart';
-import 'package:app/view/Home_Page.dart';
 import 'package:app/view/Medicine_Page.dart';
-import 'package:app/view/Register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -38,11 +29,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        DashBoardPage.routeName: (context) => const DashBoardPage(),
         DevicePage.routeName: ((context) => const DevicePage()),
         BoxPage.routeName: ((context) => const BoxPage()),
         MedicinePage.routeName: ((context) => const MedicinePage()),
-        HomePage.routeName: (context) => const HomePage()
       },
       title: _title,
       home: Scaffold(
@@ -61,26 +50,14 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  NotificationsService notificationsService = NotificationsService();
   var _firAuth = FirAuth();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  // List<Medicine> list = [
-  //   Medicine(
-  //       name: "Thuoc sot",
-  //       description: "Dau dau",
-  //       quantity: 56,
-  //       usage: Usage(mor: 2, noon: 2, even: 2)),
-  //   Medicine(
-  //       name: "Thuoc xo", description: "Dau bung", quantity: 21, usage: Usage())
-  // ];
+  TextEditingController emailController =
+      TextEditingController(text: "hung@gmail.com");
+  TextEditingController passwordController = TextEditingController(text: 'abc');
 
   @override
   void initState() {
     super.initState();
-    notificationsService.initializeNotification();
   }
 
   bool _isObscured = true;
@@ -138,23 +115,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              // child: Stack(
-              //   children: <Widget>[
-              //     Positioned(
-              //       top: 0,
-              //       left: 0,
-              //       right: 0,
-              //       bottom: 0,
-              //       child: Image.asset('images/icon_app.png', fit: BoxFit.cover),
-              //       icon: Icon(
-              //                   Icons.email_outlined,
-              //                   color: Color(0xFFFFFFFF),
-              //                 ),
-              //     ),
-              //   ],
-              // ),
             ),
-
             Container(
               width: 150,
               height: 70,
@@ -205,21 +166,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ],
               ),
             ),
-            // Container(
-            //   padding: const EdgeInsets.all(10),
-            //   child: Row(children: [
-            //     Icon(Icons.account_circle_sharp),
-            //     SizedBox(width: 10),
-            //     Expanded(
-            //         child: TextField(
-            //       controller: emailController,
-            //       decoration: const InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         labelText: 'Email',
-            //       ),
-            //     ))
-            //   ]),
-            // ),
             Container(
               width: 70,
               height: 70,
@@ -280,59 +226,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ],
               ),
             ),
-            // Container(
-            //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            //   child: Row(children: [
-            //     Icon(Icons.lock),
-            //     SizedBox(width: 10),
-            //     Expanded(
-            //         child: TextField(
-            //       obscureText: true,
-            //       controller: passwordController,
-            //       decoration: const InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         labelText: 'Password',
-            //       ),
-            //     ))
-            //   ]),
-            // ),
-            // SizedBox(width: 20),
-            Container(
-              margin: EdgeInsets.only(top: 10, right: 20),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () async {
-                    //forgot password screen
-                    // var order =
-                    //     await _firAuth.getInfoUser("cCfa3TzR9NfQfWwsuLX1NBligBo2");
-                    // print(order.Info());
-                    // order.medicines.add(Medicine(
-                    //     name: "Thuoc lac", description: "phe", quantity: 41));
-                    // print(order.Info());
-
-                    // _firAuth.deleteData();
-
-                    // var millis = 1677690817000;
-                    // var dt = DateTime.fromMillisecondsSinceEpoch(millis);
-                    // print(DateFormat.jm().format(dt));
-                    // var od =
-                    //     await _firAuth.getInfoUser("8IXddhgOE7PVc96mE7Q1jMkVqqA3");
-                    // print(od.name);
-                    //notificationsService.sendNotification();
-                    // notificationsService.sendNotification(
-                    //     // e.getMedicine().usage.even.time.hour,
-                    //     // e.getMedicine().usage.even.time.minute);
-                    //     1,
-                    //     8);
-                  },
-                  child: const Text(
-                    'Forgot Password',
-                  ),
-                ),
-              ),
-            ),
-
             // SizedBox(width: 30),
             Container(
                 margin:
@@ -350,7 +243,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     ),
                   ),
                   child: const Text(
-                    'Login',
+                    'GO',
                     style: TextStyle(
                       color: Colors.white, // set màu sắc của chữ bên trong nút
                       fontWeight: FontWeight.bold,
@@ -358,110 +251,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     ),
                   ),
                   onPressed: () async {
-                    if (nameController.text.isNotEmpty ||
-                        passwordController.text.isNotEmpty ||
+                    if (passwordController.text.isNotEmpty ||
                         emailController.text.isNotEmpty) {
                       print(passwordController.text);
                       Users? user =
                           await _firAuth.singIn("hung@gmail.com", "Huy1234");
                       print(user!.Info());
-                      if (user != null) {
-                        print(user.uid);
-                        user.devices.forEach((element) {
-                          element.boxs.forEach((e) {
-                            if (e.getMedicine() != null) {
-                              notificationsService.sendNotification(
-                                  element.id!,
-                                  e.id,
-                                  e.getMedicine().usage.mor.time.hour,
-                                  e.getMedicine().usage.mor.time.minute);
-                              notificationsService.sendNotification(
-                                  element.id!,
-                                  e.id,
-                                  e.getMedicine().usage.noon.time.hour,
-                                  e.getMedicine().usage.noon.time.minute);
-                              notificationsService.sendNotification(
-                                  element.id!,
-                                  e.id,
-                                  e.getMedicine().usage.even.time.hour,
-                                  e.getMedicine().usage.even.time.minute);
-                              // 1,
-                              // 5);
-                            }
-                          });
-                        });
-                        Navigator.pushNamed(context, HomePage.routeName,
-                            arguments: user);
-                      }
-                      // _firAuth.singIn(
-                      //     emailController.text, passwordController.text);
-                      // Navigator.pushNamed(
-                      //   context,
-                      //   HomePage.routeName,
-                      // );
-                      // _firAuth.signUp(
-                      //     emailController.text,
-                      //     passwordController.text,
-                      //     Users(
-                      //       phone: int.parse(phoneController.text),
-                      //       name: nameController.text,
-                      //     ));
-
-                      // Users user = Users(
-                      //     phone: int.parse(phoneController.text),
-                      //     name: nameController.text,
-                      //     medicines: list);
-
-                      // print(user.toJson());
+                      final item = user.devices[1];
+                      final obSend = {"item": item, "uid": user.uid};
+                      Navigator.pushNamed(context, DevicePage.routeName,
+                          arguments: obSend);
                     }
                   },
                 )),
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: Row(
-                // ignore: sort_child_properties_last
-                children: <Widget>[
-                  const Text('Creating new account'),
-                  TextButton(
-                    child: const Text(
-                      'Here',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    onPressed: () {
-                      //signup screen
-                      // TEST update
-                      // DateTime time = DateTime.now();
-                      // Usage usage = Usage(
-                      //     mor: TimeSlot(time: time, quantity: 1),
-                      //     noon: TimeSlot(time: time, quantity: 1),
-                      //     even: TimeSlot(time: time, quantity: 1));
-                      // Medicine medicine = Medicine(
-                      //     name: "Thuoc ke",
-                      //     description: "phe",
-                      //     quantity: 12,
-                      //     usage: usage);
-                      // List<Medicine> listMe = [medicine, medicine];
-                      // Box box = Box(name: "Box1", medicines: listMe);
-                      // Box box2 = Box(name: "Box2", medicines: listMe);
-                      // List<Box> listBo = [box, box2];
-                      // Device device = Device(
-                      //     name: "Thiet bi so 1",
-                      //     patient: Patient(id: "012dx", fullname: "Nguyen Van B"),
-                      //     boxs: [box]);
-                      // print(device.toJson().toString());
-
-                      // _firAuth.AddMedicine(
-                      //     device, "8IXddhgOE7PVc96mE7Q1jMkVqqA3");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterPage()));
-                    },
-                  )
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-              ),
-            ),
           ],
         ));
   }

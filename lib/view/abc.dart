@@ -30,27 +30,6 @@ class _MyHomePageState extends State<App> {
     });
   }
 
-  // void fetchAlbum() async {
-  //   final response = await http
-  //       .get(Uri.parse('https://api.jsonbin.io/v3/b/64141d94c0e7653a05895f00'));
-
-  //   if (response.statusCode == 200) {
-  //     //return Album.fromJson(jsonDecode(response.body));;
-  //     var list = jsonDecode(response.body);
-
-  //     List<Medicine> medicines = [];
-  //     for (var i in list['record']) {
-  //       var data = i as Map<String, dynamic>;
-  //       medicines.add(Medicine.fromJson(data));
-  //     }
-  //     setState(() {
-  //       _medicines = medicines;
-  //     });
-  //   } else {
-  //     throw Exception('Failed to load album');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
