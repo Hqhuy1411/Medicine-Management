@@ -362,8 +362,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         passwordController.text.isNotEmpty ||
                         emailController.text.isNotEmpty) {
                       print(passwordController.text);
-                      Users? user = await _firAuth.singIn(
-                          emailController.text, passwordController.text);
+                      Users? user =
+                          await _firAuth.singIn("hung@gmail.com", "Huy1234");
                       print(user!.Info());
                       if (user != null) {
                         print(user.uid);

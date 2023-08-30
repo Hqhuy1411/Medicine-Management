@@ -1,15 +1,14 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import '../model/Medicine.dart';
-import 'package:http/http.dart' as http;
 import 'package:time_picker_widget/time_picker_widget.dart' as tpk;
 
 import '../utils/Row.dart';
-import 'lib/view/Scrollable_widget.dart';
+import 'Scrollable_widget.dart';
 
 class App extends StatefulWidget {
   final List<Medicine> list;
+
   const App({Key? key, required this.list}) : super(key: key);
 
   @override
@@ -17,11 +16,19 @@ class App extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<App> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchAlbum();
-  // }
+  DateTime dateS = DateTime(2023, 1, 1, 7, 0);
+  DateTime dateC = DateTime(2023, 1, 1, 11, 30);
+  DateTime dateT = DateTime(2023, 1, 1, 18, 30);
+
+  @override
+  void initState() {
+    super.initState();
+    widget.list.forEach((element) {
+      element.usage.mor.time = dateS;
+      element.usage.even.time = dateT;
+      element.usage.noon.time = dateC;
+    });
+  }
 
   // void fetchAlbum() async {
   //   final response = await http
@@ -43,131 +50,155 @@ class _MyHomePageState extends State<App> {
   //     throw Exception('Failed to load album');
   //   }
   // }
-  DateTime dateS = DateTime(2023, 1, 1);
-  DateTime dateC = DateTime(2023, 1, 1);
-  DateTime dateT = DateTime(2023, 1, 1);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-          // child:
-          child: Column(children: [
-            SizedBox(
-              height: 60,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 30,
-                ),
-                Text('MORNING'),
-                SizedBox(
-                  width: 30,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                      child: dateS.hour == 0
-                          ? Text("Select Time")
-                          : Text('${dateS.hour}' ': ${dateS.minute}'),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xff64abbf))),
-                      onPressed: () async {
-                        final time = await pickTime(0);
-                        if (time == null) return;
-                        final newtime = DateTime(dateS.year, dateS.month,
-                            dateS.day, time.hour, time.minute);
-                        setState(() {
-                          dateS = newtime;
-                          widget.list.forEach((element) {
-                            element.usage.mor.time = dateS;
+        body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/bg.png"), fit: BoxFit.cover)),
+            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+            // child:
+            child: Column(children: [
+              SizedBox(
+                height: 60,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text('MORNING'),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                        child: dateS.hour == 0
+                            ? Text("7: 0")
+                            : Text('${dateS.hour}' ': ${dateS.minute}'),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color(0xff64abbf))),
+                        onPressed: () async {
+                          final time = await pickTime(0);
+                          if (time == null) return;
+                          final newtime = DateTime(dateS.year, dateS.month,
+                              dateS.day, time.hour, time.minute);
+                          setState(() {
+                            dateS = newtime;
+                            widget.list.forEach((element) {
+                              element.usage.mor.time = dateS;
+                            });
                           });
-                        });
-                        print('Sang');
-                      }),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 30,
-                ),
-                Text('AFTERNOON'),
-                SizedBox(
-                  width: 13,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                      child: dateC.hour == 0
-                          ? Text("Select Time")
-                          : Text('${dateC.hour}' ': ${dateC.minute}'),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xff64abbf))),
-                      onPressed: () async {
-                        final time = await pickTime(1);
-                        if (time == null) return;
-                        final newtime = DateTime(dateC.year, dateC.month,
-                            dateC.day, time.hour, time.minute);
-                        setState(() {
-                          dateC = newtime;
-                          widget.list.forEach((element) {
-                            element.usage.noon.time = dateC;
+                          print('Sang');
+                        }),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text('AFTERNOON'),
+                  SizedBox(
+                    width: 13,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                        child: dateC.hour == 0
+                            ? Text("11: 30")
+                            : Text('${dateC.hour}' ': ${dateC.minute}'),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color(0xff64abbf))),
+                        onPressed: () async {
+                          final time = await pickTime(1);
+                          if (time == null) return;
+                          final newtime = DateTime(dateC.year, dateC.month,
+                              dateC.day, time.hour, time.minute);
+                          setState(() {
+                            dateC = newtime;
+                            widget.list.forEach((element) {
+                              element.usage.noon.time = dateC;
+                            });
                           });
-                        });
-                        print('Trua');
-                      }),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 36,
-                ),
-                Text('EVENING'),
-                SizedBox(
-                  width: 30,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                      child: dateT.hour == 0
-                          ? Text("Select Time")
-                          : Text('${dateT.hour}' ': ${dateT.minute}'),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xff64abbf)),
-                          fixedSize:
-                              MaterialStateProperty.all<Size>(Size(100, 30))),
-                      onPressed: () async {
-                        final time = await pickTime(2);
-                        if (time == null) return;
-                        final newtime = DateTime(dateT.year, dateT.month,
-                            dateT.day, time.hour, time.minute);
-                        setState(() {
-                          dateT = newtime;
-                          widget.list.forEach((element) {
-                            element.usage.even.time = dateT;
+                          print('Trua');
+                        }),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 36,
+                  ),
+                  Text('EVENING'),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                        child: dateT.hour == 0
+                            ? Text("18: 30")
+                            : Text('${dateT.hour}' ': ${dateT.minute}'),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color(0xff64abbf)),
+                            fixedSize:
+                                MaterialStateProperty.all<Size>(Size(100, 30))),
+                        onPressed: () async {
+                          final time = await pickTime(2);
+                          if (time == null) return;
+                          final newtime = DateTime(dateT.year, dateT.month,
+                              dateT.day, time.hour, time.minute);
+                          setState(() {
+                            dateT = newtime;
+                            widget.list.forEach((element) {
+                              element.usage.even.time = dateT;
+                            });
                           });
-                        });
-                        print('Toi');
-                      }),
-                )
-              ],
-            ),
-            ScrollableWidget(child: buildDataTable(widget.list))
-          ])),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context, widget.list);
-        },
-      ),
-    );
+                          print('Toi');
+                        }),
+                  )
+                ],
+              ),
+              ScrollableWidget(child: buildDataTable(widget.list))
+            ])),
+        // floatingActionButton: FloatingActionButton(
+        //   backgroundColor: Color(0xff64abbf),
+        //   child: Icon(Icons.check),
+        //   onPressed: () {
+        //     Navigator.pop(context, widget.list);
+        //   },
+        // ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              FloatingActionButton(
+                heroTag: "Tag1",
+                backgroundColor: Color(0xff64abbf),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.navigate_before),
+              ),
+              FloatingActionButton(
+                heroTag: "Tag2",
+                backgroundColor: Color(0xff64abbf),
+                onPressed: () {
+                  Navigator.pop(context, widget.list);
+                },
+                child: Icon(Icons.navigate_next),
+              )
+            ],
+          ),
+        ));
   }
 
   void fillTime(int buoi, List<Medicine> list) {

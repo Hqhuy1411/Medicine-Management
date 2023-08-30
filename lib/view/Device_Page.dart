@@ -8,7 +8,6 @@ import 'package:app/model/Medicine.dart';
 import 'package:app/model/TimeSlot.dart';
 import 'package:app/model/Usage.dart';
 import 'package:app/view/Box_Page.dart';
-import 'package:app/view/Carema.dart';
 import 'package:app/view/abc.dart';
 import 'package:boxicons/boxicons.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../firebase_store/fire_base_auth.dart';
 import 'Instruction_page.dart';
-import 'lib/Camera_page.dart';
+import 'Camera_page.dart';
 
 class DevicePage extends StatefulWidget {
   const DevicePage({super.key});
@@ -45,134 +44,199 @@ class _DevicePageState extends State<DevicePage> {
     final uid = obRecei['uid'];
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xff64abbf),
-          title: Center(
-            child: Text(
-              'DEVICE DETAILS',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
+            backgroundColor: Color(0xff64abbf),
+            title: Center(
+              child: Text(
+                'DEVICE DETAILS',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
               ),
             ),
-          ),
-          actions: [
-            PopupMenuButton(
-              // add icon, by default "3 dot" icon
-              // icon: Icon(Icons.book)
-              itemBuilder: (context) {
-                return [
-                  PopupMenuItem<int>(
-                      value: 0,
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.camera_alt_outlined,
-                          color: Color(0xff64abbf),
-                        ),
-                        title: Text('Camera'),
-                        onTap: () async {
-                          // Handle save action
-                          print("camera");
-                          var _firAuth = FirAuth();
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  print("camera");
+                  var _firAuth = FirAuth();
 
-                          int i = 0;
-                          final list = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ImagePickerWidget()));
-
-                          // if (list != null) {
-                          //   list.forEach((element) {
-                          //     boxs.add(Box(id: ++i, medicines: [element]));
-                          //     print(element.usage.even.time);
-                          //     print(element.toJson());
-                          //   });
-                          // }
-                          setState(() {
-                            if (list == null) {
-                              return;
-                            } else {
-                              if (list.length <= 5) {
-                                list.forEach((element) {
-                                  for (var box in info.boxs) {
-                                    if (box.medicines.length == 0) {
-                                      box.medicines.add(element);
-                                      break;
-                                    }
-                                  }
-                                });
-                              } else {
-                                list.forEach((element) {
-                                  for (var box in info.boxs) {
-                                    if (box.medicines.length == 0 ||
-                                        // element.usage.checkEmpty() == 0 ||
-                                        (box.medicines.length >= 0 &&
-                                            element.usage.checkEmpty() ==
-                                                box
-                                                    .getMedicine()
-                                                    .usage
-                                                    .checkEmpty())) {
-                                      //print(element.usage.Info());
-                                      box.medicines.add(element);
-                                      break;
-                                    }
-                                  }
-                                });
-                              }
+                  int i = 0;
+                  final list = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImagePickerWidget()));
+                  // if (list != null) {
+                  //   list.forEach((element) {
+                  //     boxs.add(Box(id: ++i, medicines: [element]));
+                  //     print(element.usage.even.time);
+                  //     print(element.toJson());
+                  //   });
+                  // }
+                  setState(() {
+                    if (list == null) {
+                      return;
+                    } else {
+                      if (list.length <= 5) {
+                        list.forEach((element) {
+                          for (var box in info.boxs) {
+                            if (box.medicines.length == 0) {
+                              box.medicines.add(element);
+                              break;
                             }
-                          });
-                          // setState(() {
-                          //   info.boxs = boxs;
-                          // });
-                          // for (var box in boxs) {
-                          //   _firAuth.addMultiBox(info, uid);
-                          // }
-                          _firAuth.updateBox(info, uid);
-                          await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      MyListPage(boxs: info.boxs)));
-                        },
-                      )),
-                  PopupMenuItem<int>(
-                      value: 1,
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.refresh_outlined,
-                          color: Color(0xff64abbf),
-                        ),
-                        title: Text('Reset'),
-                        onTap: () {
-                          // Handle save action
+                          }
+                        });
+                      } else {
+                        list.forEach((element) {
+                          for (var box in info.boxs) {
+                            if (box.medicines.length == 0 ||
+                                // element.usage.checkEmpty() == 0 ||
+                                (box.medicines.length >= 0 &&
+                                    element.usage.checkEmpty() ==
+                                        box.getMedicine().usage.checkEmpty())) {
+                              //print(element.usage.Info());
+                              box.medicines.add(element);
+                              break;
+                            }
+                          }
+                        });
+                      }
+                    }
+                  });
+                  // setState(() {
+                  //   info.boxs = boxs;
+                  // });
+                  // for (var box in boxs) {
+                  //   _firAuth.addMultiBox(info, uid);
+                  // }
+                  _firAuth.updateBox(info, uid);
+                  if (list.length >= 1) {
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyListPage(boxs: info.boxs)));
+                  }
+                  //   ;
+                },
+                child: Icon(Icons.camera_alt_outlined, color: Colors.white),
+              )
+            ]
+            // add icon, by default "3 dot" icon
+            // icon: Icon(Icons.book)
+            //     itemBuilder: (context) {
+            //       return [
+            //         PopupMenuItem<int>(
+            //             value: 0,
+            //             child: ListTile(
+            //                 leading: Icon(
+            //                   Icons.camera_alt_outlined,
+            //                   color: Color(0xff64abbf),
+            //                 ),
+            //                 title: Text('Camera'),
+            //                 onTap: () async {
+            //                   // Handle save action
+            //                   print("camera");
+            //                   var _firAuth = FirAuth();
 
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => CameraScreen()));
-                          // print("Reset");
-                          // try {
-                          //   var pickedFile = await imgpicker.pickImage(
-                          //       source: ImageSource.camera);
-                          //   if (pickedFile != null) {
-                          //     setState(() {
-                          //       _imagepath = pickedFile.path;
-                          //     });
-                          //   } else {
-                          //     print("No image is selected.");
-                          //   }
-                          // } catch (e) {
-                          //   print("error while picking image.");
-                          // }
+            //                   int i = 0;
+            //                   final list = await Navigator.push(
+            //                       context,
+            //                       MaterialPageRoute(
+            //                           builder: (context) => ImagePickerWidget()));
+            //                   // if (list != null) {
+            //                   //   list.forEach((element) {
+            //                   //     boxs.add(Box(id: ++i, medicines: [element]));
+            //                   //     print(element.usage.even.time);
+            //                   //     print(element.toJson());
+            //                   //   });
+            //                   // }
+            //                   setState(() {
+            //                     if (list == null) {
+            //                       return;
+            //                     } else {
+            //                       if (list.length <= 5) {
+            //                         list.forEach((element) {
+            //                           for (var box in info.boxs) {
+            //                             if (box.medicines.length == 0) {
+            //                               box.medicines.add(element);
+            //                               break;
+            //                             }
+            //                           }
+            //                         });
+            //                       } else {
+            //                         list.forEach((element) {
+            //                           for (var box in info.boxs) {
+            //                             if (box.medicines.length == 0 ||
+            //                                 // element.usage.checkEmpty() == 0 ||
+            //                                 (box.medicines.length >= 0 &&
+            //                                     element.usage.checkEmpty() ==
+            //                                         box
+            //                                             .getMedicine()
+            //                                             .usage
+            //                                             .checkEmpty())) {
+            //                               //print(element.usage.Info());
+            //                               box.medicines.add(element);
+            //                               break;
+            //                             }
+            //                           }
+            //                         });
+            //                       }
+            //                     }
+            //                   });
+            //                   // setState(() {
+            //                   //   info.boxs = boxs;
+            //                   // });
+            //                   // for (var box in boxs) {
+            //                   //   _firAuth.addMultiBox(info, uid);
+            //                   // }
+            //                   _firAuth.updateBox(info, uid);
+            //                   if (list.length >= 1) {
+            //                     await Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                             builder: (context) =>
+            //                                 MyListPage(boxs: info.boxs)));
+            //                   }
+            //                   //   ;
+            //                 })),
+            //         // PopupMenuItem<int>(
+            //         //     value: 1,
+            //         //     child: ListTile(
+            //         //       leading: Icon(
+            //         //         Icons.refresh_outlined,
+            //         //         color: Color(0xff64abbf),
+            //         //       ),
+            //         //       title: Text('Reset'),
+            //         //       onTap: () {
+            //         //         // Handle save action
 
-                          //instruction(context);
-                        },
-                      )),
-                ];
-              },
+            //         //         // Navigator.push(
+            //         //         //     context,
+            //         //         //     MaterialPageRoute(
+            //         //         //         builder: (context) => CameraScreen()));
+            //         //         // print("Reset");
+            //         //         // try {
+            //         //         //   var pickedFile = await imgpicker.pickImage(
+            //         //         //       source: ImageSource.camera);
+            //         //         //   if (pickedFile != null) {
+            //         //         //     setState(() {
+            //         //         //       _imagepath = pickedFile.path;
+            //         //         //     });
+            //         //         //   } else {
+            //         //         //     print("No image is selected.");
+            //         //         //   }
+            //         //         // } catch (e) {
+            //         //         //   print("error while picking image.");
+            //         //         // }
+
+            //         //         //instruction(context);
+            //         //       },
+            //         //     )),
+            //       ];
+            //     },
+            //   ),
+            // ],
             ),
-          ],
-        ),
         body: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(

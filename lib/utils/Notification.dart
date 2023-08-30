@@ -1,3 +1,4 @@
+import 'package:app/model/Medicine.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -25,7 +26,7 @@ class NotificationsService {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id++,
       "Uong thuoc",
-      "Toi gio uong thuoc cua ${box} trong ${device}",
+      "Toi gio uong thuoc cua Box: ${box} trong Device: ${device}",
       tz.TZDateTime.from(dateTime, tz.local),
       NotificationDetails(
         android: AndroidNotificationDetails(id.toString(), 'Go To Bed',
@@ -39,4 +40,6 @@ class NotificationsService {
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }
+
+  sendNotificaRefil(Medicine medicine) {}
 }

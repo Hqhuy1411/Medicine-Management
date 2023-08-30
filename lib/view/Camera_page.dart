@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../model/Medicine.dart';
+import '../model/Medicine.dart';
 import 'package:http/http.dart' as http;
 
-import '../abc.dart';
+import 'abc.dart';
 
 class ImagePickerWidget extends StatefulWidget {
   const ImagePickerWidget({Key? key}) : super(key: key);
@@ -247,7 +247,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                         'image': base64Encode(_imageBytes),
                       });
 
-                      // final url = 'http://192.168.1.102:8000/auth';
+                      // final url = 'http://192.168.1.131:8000/auth';
 
                       // final response = await http.post(Uri.parse(url));
 
@@ -275,7 +275,11 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                                 builder: (context) => App(
                                       list: medicines,
                                     )));
-                        Navigator.pop(context, listReceive);
+                        if (listReceive != null) {
+                          Navigator.pop(context, listReceive);
+                        } else {
+                          return;
+                        }
                       } else {
                         print(
                             'Upload failed. Error code: ${response.statusCode}');
